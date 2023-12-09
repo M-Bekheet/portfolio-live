@@ -56,15 +56,8 @@
   flex: 1;
   opacity: 0.05;
   position: relative;
-  overflow: visible !important;
-
-  img:not([aria-hidden="true"]) {
-    max-width: 100% !important;
-    max-height: 100% !important;
-    height: auto !important;
-    top: calc(50% - 60px) !important;
-    margin: -50% 0 0 !important;
-  }
+  align-self: center;
+  max-width: min(315px, 50%);
 }
 
 @media all and (max-width: 768px) {
@@ -72,6 +65,6 @@
     top: 205%;
   }
   .avatar {
-    display: none !important;
+    display: none;
   }
 }

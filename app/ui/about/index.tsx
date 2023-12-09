@@ -26,13 +26,14 @@ export const About = ({}) => {
         </Link>
         <blockquote className={styles.quote}>Knowledge is power</blockquote>
       </div>
-      <Image
-        className={styles.avatar}
-        width={315}
-        height={485}
-        src={"/images/avatar2.png"}
-        alt="Developer"
-      />
+      <div className={styles.avatar}>
+        <Image
+          width={315}
+          height={485}
+          src={"/images/avatar2.png"}
+          alt="Developer"
+        />
+      </div>
     </section>
   );
 };

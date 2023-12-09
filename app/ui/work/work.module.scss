@@ -51,17 +51,20 @@
     flex-basis: 100%;
     margin-bottom: 50px;
   }
+  .imgWrapper {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) and (min-width: 500px) {
-  .img {
+  .imgWrapper {
     height: 480px;
   }
 }
 
 @media all and (max-width: 500px) {
   .sample:last-of-type {
-    .img {
+    .imgWrapper {
       height: 200px;
       img {
         object-position: center center !important;
