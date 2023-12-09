@@ -1,0 +1,35 @@
+.layout {
+  position: relative;
+  color: #fff;
+  min-height: 100vh;
+  background-image: url("/images/glassy.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // backdrop-filter: saturate(120%) blur(30px);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.content {
+  position: relative;
+  width: 82%;
+  min-height: 100vh;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 70px;
+  left: 18%;
+  overflow: hidden;
+  background: rgba(11, 17, 36, 0.9);
+}
+
+// Helpful classes
+
+@media all and (max-width: 768px) {
+  .content {
+    width: 100%;
+    left: auto;
+  }
+}

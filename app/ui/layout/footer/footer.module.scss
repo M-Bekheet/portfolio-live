@@ -1,0 +1,19 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 20px 10px;
+  color: #ddd;
+  background: rgba(11, 17, 36, 0.85);
+  a {
+    text-decoration: none;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .footer {
+    left: 0;
+  }
+}
