@@ -15,12 +15,27 @@ section {
   scroll-behavior: smooth;
 }
 
-/* Helpful classes */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 1.45rem;
+}
 
 a {
   text-decoration: none;
   color: #fff;
 }
+
+p {
+  margin: 0 0 0.6rem;
+  line-height: 1.55rem;
+  font-size: 16px;
+  color: #f7f7f7;
+}
+/* Helpful classes */
 
 .hidden {
   visibility: hidden;

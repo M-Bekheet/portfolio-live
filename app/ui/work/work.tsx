@@ -15,33 +15,26 @@ const images = [
   ForecasterImage,
 ];
 
-const samples = {
-  pomodoro: [
+const samples = [
+  [
     "Pomodoro React Web App",
     "https://pomodoro-react-app.netlify.com",
     "https://github.com/Lartwel/pomodoro-app",
   ],
   // '// portfolio': ['Portfolio', 'http://mahmoud-ahmed.eb2a.com/,],
-  restaurant: [
-    "Restaurant Website",
-    "http://mahmoud-ahmed.eb2a.com/Restaurant",
-  ],
-  weather: [
-    "Weather App Landing Page",
-    "http://mahmoud-ahmed.eb2a.com/weather",
-  ],
-  wooder: [
+  ["Restaurant Website", "http://mahmoud-ahmed.eb2a.com/Restaurant"],
+  ["Weather App Landing Page", "http://mahmoud-ahmed.eb2a.com/weather"],
+  [
     "Furniture Agency Website",
     "https://wooder-site.netlify.app",
     "https://github.com/Lartwel/Wooder",
   ],
-  forecaster: [
+  [
     "Weather Forecaster React App",
     "https://weather-forecaster-app.netlify.app/",
-
     "https://github.com/Lartwel/weather-forecaster",
   ],
-};
+];
 
 export const Work = () => {
   return (
@@ -49,25 +42,21 @@ export const Work = () => {
       <h3 className="section-title">Work</h3>
 
       <div className={styles.samples}>
-        {Object.entries(samples).map(([name, sampleInfo], i) => (
+        {samples.map((sample, i) => (
           <div className={styles.sample} key={i}>
             <a
               className={styles.imgWrapper}
-              href={sampleInfo[1]}
+              href={sample[1]}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src={images[i]} alt={name} fill />
+              <Image src={images[i]} alt={sample[0]} fill />
             </a>
-            <div className={styles.sampleName}>{name}</div>
+            <div className={styles.sampleName}>{sample[0]}</div>
 
             <div className={styles.sampleLink}>
               {
-                <a
-                  href={sampleInfo[1]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={sample[1]} target="_blank" rel="noopener noreferrer">
                   <Image
                     src={`/images/social/link.png`}
                     width={20}
@@ -77,10 +66,10 @@ export const Work = () => {
                 </a>
               }
             </div>
-            {sampleInfo?.length === 3 && (
+            {sample?.length === 3 && (
               <div className={styles.sampleLink}>
                 <a
-                  href={`${sampleInfo[2]}`}
+                  href={`${sample[2]}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

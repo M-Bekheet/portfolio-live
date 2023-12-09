@@ -4,7 +4,7 @@ import "@/app/ui/globals.css";
 import styles from "@/app/ui/layout/layout.module.scss";
 import Header from "@/app/ui/layout/header/header";
 import Footer from "@/app/ui/layout/footer/footer";
-const raleway = Raleway({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,8 +28,10 @@ export default function RootLayout({
       > */}
       <body className={styles.layout + " " + raleway.className}>
         <Header siteTitle={"title"} className={styles.header} />
-        <main className={styles.content}>{children}</main>
-        <Footer className={styles.footer} title={title} />
+        <main className={styles.content}>
+          {children}
+          <Footer className={styles.footer} title={title} />
+        </main>
         {/* </BackgroundImage> */}
       </body>
     </html>
