@@ -20,7 +20,7 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const slug = params.slug?.toLocaleLowerCase();
+  const slug = params.slug;
   const title = (await fetchPostTitleBySlug(slug))[0].title || "";
   return {
     title,
