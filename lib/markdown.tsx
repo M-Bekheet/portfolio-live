@@ -2,6 +2,7 @@ import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Link from "next/link";
+import { DOMAIN } from "@/app/utils/paths";
 
 interface Asset {
   sys: {
@@ -66,12 +67,15 @@ export function Markdown({
         return <p>{children}</p>;
       },
       [INLINES.HYPERLINK]: (node, children) => {
-        if (!node?.data?.uri) {
+        const link = node?.data?.uri;
+        if (!link) {
           console.error("Wrong markdown hyperlink structure");
           return null;
         }
+        let rel = `noopener noreferrer`;
+        if (!link?.startsWith(DOMAIN)) rel += " nofollow";
         return (
-          <Link href={node.data.uri} target="_blank" rel="noopener noreferrer">
+          <Link href={link} target="_blank" rel={rel}>
             {children}
           </Link>
         );
