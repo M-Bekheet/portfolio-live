@@ -91,7 +91,7 @@ const Header = ({ siteTitle = "", className = "" }) => {
           <Link href="/#work">Work</Link>
         </li>
         <li className={styles.navItem}>
-          <Link href="#testimonials">Testimonials</Link>
+          <Link href="/#testimonials">Testimonials</Link>
         </li>
         <li className={styles.navItem}>
           <Link href="/blog">Blog</Link>
