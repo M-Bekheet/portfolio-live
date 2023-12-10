@@ -29,11 +29,14 @@
     width: 100%;
   }
 
-  input:not([type="submit"]) {
-    width: 47%;
-
-    &:nth-child(even) {
-      margin-right: 6%;
+  .formGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 20px;
+    .formControl {
+      input {
+        width: 100%;
+      }
     }
   }
 
@@ -66,6 +69,9 @@
   .contact {
     input:not([type="submit"]) {
       width: 100%;
+    }
+    .formGroup {
+      grid-template-columns: 1fr;
     }
   }
 }

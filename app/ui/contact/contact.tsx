@@ -54,42 +54,63 @@ const Contact = () => {
         </p>
         <label htmlFor="about_you">About You</label>
         {/* Name */}
-        <input
-          name="name"
-          type="text"
-          id="about_you"
-          placeholder="Full Name"
-          required
-        />
-        <p
-          className={`${styles.error} ${state?.errors?.name ? "" : " hidden"} `}
-        >
-          {state?.errors?.name || null}
-        </p>
-        {/* Email */}
-        <input name="email" type="email" placeholder="Email Address" required />
-        <p
-          className={`${styles.error} ${
-            state?.errors?.email ? "" : " hidden"
-          } `}
-        >
-          {state?.errors?.email || null}
-        </p>
-        {/* Company */}
-        <input
-          type="text"
-          name="company"
-          placeholder="Company Name (optional)"
-        />
-        {/* Position */}
-        <input type="text" name="position" placeholder="Position (optional)" />
-        <p
-          className={`${styles.error} ${
-            state?.errors?.position ? "" : " hidden"
-          } `}
-        >
-          {state?.errors?.position || null}
-        </p>
+        <div className={styles.formGroup}>
+          <div className={styles.formControl}>
+            <input
+              name="name"
+              type="text"
+              id="about_you"
+              placeholder="Full Name"
+              required
+            />
+            <p
+              className={`${styles.error} ${
+                state?.errors?.name ? "" : " hidden"
+              } `}
+            >
+              {state?.errors?.name || null}
+            </p>
+          </div>
+          <div className={styles.formControl}>
+            {/* Email */}
+            <input
+              name="email"
+              type="email"
+              placeholder="Email Address"
+              required
+            />
+            <p
+              className={`${styles.error} ${
+                state?.errors?.email ? "" : " hidden"
+              } `}
+            >
+              {state?.errors?.email || null}
+            </p>
+          </div>
+          <div className={styles.formControl}>
+            {/* Company */}
+            <input
+              type="text"
+              name="company"
+              placeholder="Company Name (optional)"
+            />
+          </div>
+          <div className={styles.formControl}>
+            {/* Position */}
+            <input
+              type="text"
+              name="position"
+              placeholder="Position (optional)"
+            />
+            <p
+              className={`${styles.error} ${
+                state?.errors?.position ? "" : " hidden"
+              } `}
+            >
+              {state?.errors?.position || null}
+            </p>
+          </div>
+        </div>
         <SubmitButton />
       </form>
       {/* Fallback */}
