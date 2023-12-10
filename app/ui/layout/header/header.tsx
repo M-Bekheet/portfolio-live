@@ -81,6 +81,7 @@ const Header = ({ siteTitle = "", className = "" }) => {
             width={120}
             height={120}
             alt="Developer"
+            priority
           />
         </div>
         <li className={styles.navItem}>

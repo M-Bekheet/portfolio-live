@@ -34,7 +34,7 @@ function RichTextAsset({
   if (asset?.url)
     return (
       <div className={className}>
-        <Image src={asset.url} layout="fill" alt={asset.description} />
+        <Image src={asset.url} layout="fill" alt={asset.description} priority />
       </div>
     );
 
