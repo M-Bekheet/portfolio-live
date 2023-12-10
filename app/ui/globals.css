@@ -38,7 +38,7 @@ p {
 /* Helpful classes */
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .colored {
@@ -67,8 +67,13 @@ p {
     background: var(--main-color);
     border-color: var(--main-color);
 
-    &:hover {
+    &:hover,
+    &:disabled {
       background: transparent;
+    }
+    &:disabled {
+      cursor: not-allowed;
+      color: #dddddd44;
     }
   }
 }
