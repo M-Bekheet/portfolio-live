@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import Link from "next/link";
 
 interface Asset {
   sys: {
@@ -63,6 +64,17 @@ export function Markdown({
         if (isEmptyChildren) return null;
 
         return <p>{children}</p>;
+      },
+      [INLINES.HYPERLINK]: (node, children) => {
+        if (!node?.data?.uri) {
+          console.error("Wrong markdown hyperlink structure");
+          return null;
+        }
+        return (
+          <Link href={node.data.uri} target="_blank" rel="noopener noreferrer">
+            {children}
+          </Link>
+        );
       },
     },
   });

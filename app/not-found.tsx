@@ -1,9 +1,11 @@
 import styles from "@/app/ui/not-found.module.scss";
+import { Metadata } from "next";
 import Link from "next/link";
 
-{
-  /* <SEO title="404: Not found" /> */
-}
+export const metadata: Metadata = {
+  title: "404: Not found",
+};
+
 const NotFoundPage = () => (
   <section className={styles.notFound}>
     <h1>NOT FOUND</h1>

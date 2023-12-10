@@ -70,6 +70,22 @@ export async function getPostBySlug(slug: string): Promise<Post[]> {
   return extractPostEntries(entries);
 }
 
+export async function fetchPostTitleBySlug(
+  slug: string
+): Promise<{ title: string }[]> {
+  const entries = await fetchGraphQL(
+    `query {
+      blogPostCollection(where: { slug: "${slug}" }, limit: 1) {
+        items {
+          title
+        }
+      }
+    }`,
+    false
+  );
+  return extractPostEntries(entries);
+}
+
 function extractPostEntries(fetchResponse: any): any[] {
   return fetchResponse?.data?.blogPostCollection?.items;
 }
