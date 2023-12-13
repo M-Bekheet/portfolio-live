@@ -27,12 +27,7 @@ export const About = ({}) => {
         <blockquote className={styles.quote}>Knowledge is power</blockquote>
       </div>
       <div className={styles.avatar}>
-        <Image
-          width={315}
-          height={485}
-          src={"/images/avatar2.png"}
-          alt="Developer"
-        />
+        <Image fill src={"/images/avatar2.png"} alt="Developer" />
       </div>
     </section>
   );

@@ -54,11 +54,12 @@
 }
 
 .avatar {
-  flex: 1;
+  flex: 1.2;
   opacity: 0.05;
   position: relative;
   align-self: center;
-  max-width: min(315px, 50%);
+  width: min(315px, 50%);
+  aspect-ratio: 0.7;
 }
 
 @media all and (max-width: 768px) {
