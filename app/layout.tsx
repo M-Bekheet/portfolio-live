@@ -6,7 +6,7 @@ import Header from "@/app/ui/layout/header/header";
 import Footer from "@/app/ui/layout/footer/footer";
 import { profile } from "./utils/profile";
 import { DOMAIN } from "./utils/paths";
-const raleway = Raleway({ subsets: ["latin"], weight: ["400", "700"] });
+const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -31,21 +31,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // MOCK
-  const title = "";
   return (
     <html lang="en">
-      {/* <BackgroundImage
-       Tag="div"
-       className={styles.bg}
-       fluid={data.bg.childImageSharp.fluid}
-       backgroundColor={`#19182F`}
-      > */}
       <body className={styles.layout + " " + raleway.className}>
         <Header siteTitle={"title"} className={styles.header} />
         <main className={styles.content}>
           {children}
-          <Footer className={styles.footer} title={title} />
+          <Footer className={styles.footer} title={profile.title} />
         </main>
         {/* </BackgroundImage> */}
       </body>

@@ -65,16 +65,17 @@ p {
 
   &.colored {
     background: var(--main-color);
+    border-color: transparent;
+  }
+  &.colored:hover {
+    background: transparent;
     border-color: var(--main-color);
-
-    &:hover,
-    &:disabled {
-      background: transparent;
-    }
-    &:disabled {
-      cursor: not-allowed;
-      color: #dddddd44;
-    }
+  }
+  &.colored:disabled {
+    background: transparent;
+    border-color: var(--main-color);
+    cursor: not-allowed;
+    color: #dddddd44;
   }
 }
 
