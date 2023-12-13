@@ -52,7 +52,6 @@ p {
   margin-left: 0;
   transition: all 0.5s ease-in-out;
   background: rgba(11, 17, 36, 0.3);
-  color: #fff;
   border: 1px solid rgba(11, 17, 36, 0.3);
   display: inline-block;
   white-space: nowrap;
@@ -64,16 +63,18 @@ p {
   &.colored {
     background: var(--main-color);
     border-color: transparent;
+    color: #000;
   }
   &.colored:hover {
     background: transparent;
     border-color: var(--main-color);
+    color: #fff;
   }
   &.colored:disabled {
     background: transparent;
     border-color: var(--main-color);
     cursor: not-allowed;
-    color: #dddddd44;
+    color: #fff;
   }
 }
 
