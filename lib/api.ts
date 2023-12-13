@@ -29,9 +29,9 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
 export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
   const entries = await fetchGraphQL(
     `query {
-        blogPostCollection(preview: false){
-    items{
-      title, slug
+        blogPostCollection(preview: false, order: [publishDate_DESC]){
+    items {
+      title, slug, publishDate
     }
   }
       }`,

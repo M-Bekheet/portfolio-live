@@ -28,7 +28,7 @@ const BlogPage = async () => {
     <section className={styles.blog}>
       <h1 className="section-title">Blog</h1>
       <ul className={styles.posts}>
-        {posts.map((post, index) => (
+        {posts.reverse().map((post, index) => (
           <li key={`edge_${index}`} className={styles.post}>
             <Link href={`/blog/${post.slug}`} title={post.title}>
               <h2 className={styles.postTitle}>{post.title}</h2>
