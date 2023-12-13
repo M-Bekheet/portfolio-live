@@ -29,31 +29,33 @@ const Header = ({ className = "" }) => {
             priority
           />
         </div>
-        <li className={styles.navItem}>
-          <Link onClick={closeMenu} href="/#about">
-            About
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link onClick={closeMenu} href="/#work">
-            Work
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link onClick={closeMenu} href="/#testimonials">
-            Testimonials
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link onClick={closeMenu} href="/blog">
-            Blog
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link onClick={closeMenu} href="/contact">
-            Contact
-          </Link>
-        </li>
+        <ul>
+          <li className={styles.navItem}>
+            <Link onClick={closeMenu} href="/#about">
+              About
+            </Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link onClick={closeMenu} href="/#work">
+              Work
+            </Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link onClick={closeMenu} href="/#testimonials">
+              Testimonials
+            </Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link onClick={closeMenu} href="/blog">
+              Blog
+            </Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link onClick={closeMenu} href="/contact">
+              Contact
+            </Link>
+          </li>
+        </ul>
       </nav>
     </header>
   );
