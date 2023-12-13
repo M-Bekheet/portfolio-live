@@ -32,14 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={styles.html}>
       <body className={styles.layout + " " + raleway.className}>
-        <Header siteTitle={"title"} className={styles.header} />
+        <Header className={styles.header} />
         <main className={styles.content}>
           {children}
           <Footer className={styles.footer} title={profile.title} />
         </main>
-        {/* </BackgroundImage> */}
       </body>
     </html>
   );

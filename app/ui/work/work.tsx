@@ -1,39 +1,39 @@
-import React from "react";
+import Image from "next/image";
 import styles from "./work.module.scss";
-import Image, { StaticImageData } from "next/image";
-import ForecasterImage from "@/app/ui/assets/samples/forecaster.png";
+// import ForecasterImage from "@/app/ui/assets/samples/forecaster.png";
 import PomodoroImage from "@/app/ui/assets/samples/pomodoro.png";
 import RestaurantImage from "@/app/ui/assets/samples/restaurant.png";
 import WeatherImage from "@/app/ui/assets/samples/weather.png";
 import WooderImage from "@/app/ui/assets/samples/wooder.png";
 
 const images = [
-  PomodoroImage,
-  RestaurantImage,
-  WeatherImage,
   WooderImage,
-  ForecasterImage,
+  RestaurantImage,
+  PomodoroImage,
+  // ForecasterImage,
+  WeatherImage,
 ];
 
 const samples = [
-  [
-    "Pomodoro React Web App",
-    "https://pomodoro-react-app.netlify.com",
-    "https://github.com/Lartwel/pomodoro-app",
-  ],
-  // '// portfolio': ['Portfolio', 'http://mahmoud-ahmed.eb2a.com/,],
-  ["Restaurant Website", "http://mahmoud-ahmed.eb2a.com/Restaurant"],
-  ["Weather App Landing Page", "http://mahmoud-ahmed.eb2a.com/weather"],
   [
     "Furniture Agency Website",
     "https://wooder-site.netlify.app",
     "https://github.com/Lartwel/Wooder",
   ],
+  ["Restaurant Website", "http://mahmoud-ahmed.eb2a.com/Restaurant"],
   [
-    "Weather Forecaster React App",
-    "https://weather-forecaster-app.netlify.app/",
-    "https://github.com/Lartwel/weather-forecaster",
+    "Pomodoro React Web App",
+    "https://pomodoro-react-app.netlify.com",
+    "https://github.com/Lartwel/pomodoro-app",
   ],
+  // [
+  //   "Weather Forecaster React App",
+  //   "https://weather-forecaster-app.netlify.app/",
+  //   "https://github.com/Lartwel/weather-forecaster",
+  // ],
+
+  // '// portfolio': ['Portfolio', 'http://mahmoud-ahmed.eb2a.com/,],
+  ["Weather App Landing Page", "http://mahmoud-ahmed.eb2a.com/weather"],
 ];
 
 export const Work = () => {
@@ -55,16 +55,14 @@ export const Work = () => {
             <div className={styles.sampleName}>{sample[0]}</div>
 
             <div className={styles.sampleLink}>
-              {
-                <a href={sample[1]} target="_blank" rel="noopener noreferrer">
-                  <Image
-                    src={`/images/social/link.png`}
-                    width={20}
-                    height={20}
-                    alt="link"
-                  />
-                </a>
-              }
+              <a href={sample[1]} target="_blank" rel="noopener noreferrer">
+                <Image
+                  src={`/images/social/link.png`}
+                  width={20}
+                  height={20}
+                  alt="link"
+                />
+              </a>
             </div>
             {sample?.length === 3 && (
               <div className={styles.sampleLink}>
@@ -73,14 +71,12 @@ export const Work = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {
-                    <Image
-                      src={"/images/social/github.png"}
-                      width={20}
-                      height={20}
-                      alt="github"
-                    />
-                  }
+                  <Image
+                    src={"/images/social/github.png"}
+                    width={20}
+                    height={20}
+                    alt="github"
+                  />
                 </a>
               </div>
             )}

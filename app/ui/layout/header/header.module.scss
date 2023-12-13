@@ -24,13 +24,10 @@
 .imgWrapper {
   margin: 100px auto 10px;
   text-align: center;
-
-  .img,
-  img {
-    text-align: center;
-    margin: auto;
-    max-width: 120px;
-  }
+  width: 120px;
+  max-width: 80%;
+  aspect-ratio: 1;
+  position: relative;
 }
 
 .nav > ul {
@@ -80,14 +77,8 @@
 
     .imgWrapper {
       margin: 8px auto 0;
+      text-align: center;
       width: 57px;
-
-      .img,
-      img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        margin: 0;
-      }
     }
 
     .navItem {

@@ -15,8 +15,8 @@
 
 .imgWrapper {
   overflow: hidden;
-  height: 280px;
-  width: 380px;
+  height: 350px;
+  width: 100%;
   margin-bottom: 8px;
   display: inline-block;
   position: relative;
@@ -52,23 +52,20 @@
     margin-bottom: 50px;
   }
   .imgWrapper {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) and (min-width: 500px) {
-  .imgWrapper {
-    height: 480px;
+    height: 500px;
   }
 }
 
 @media all and (max-width: 500px) {
-  .sample:last-of-type {
-    .imgWrapper {
-      height: 200px;
-      img {
-        object-position: center center !important;
-      }
+  .sample {
+    margin-block: 0;
+  }
+  .imgWrapper {
+    height: 450px;
+    align-items: center;
+    img {
+      object-fit: contain;
+      object-position: center center;
     }
   }
 }

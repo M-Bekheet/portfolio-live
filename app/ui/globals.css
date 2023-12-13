@@ -11,8 +11,7 @@
 }
 
 section {
-  padding-top: 50px;
-  scroll-behavior: smooth;
+  scroll-margin-top: 50px;
 }
 
 h1,
@@ -52,7 +51,6 @@ p {
   margin: 10px;
   margin-left: 0;
   transition: all 0.5s ease-in-out;
-  outline: none;
   background: rgba(11, 17, 36, 0.3);
   color: #fff;
   border: 1px solid rgba(11, 17, 36, 0.3);
@@ -112,7 +110,7 @@ section {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 10px;
+    width: 7px;
     background: #ff4ba8;
   }
 
