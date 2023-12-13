@@ -11,7 +11,7 @@ export const Testimonials = () => {
     <section id="testimonials" className={styles.testimonials}>
       <h3 className="section-title">Testimonials</h3>
 
-      <Carousel showStatus={false} showThumbs={false}>
+      <Carousel showStatus={false} showThumbs={false} swipeable>
         <div>
           <Image
             alt="client"
