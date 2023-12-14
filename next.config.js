@@ -5,6 +5,7 @@ const nextConfig = {
       { hostname: "images.pexels.com" },
       { hostname: "images.ctfassets.net" },
     ],
+    minimumCacheTTL: 36000,
   },
 };
 
