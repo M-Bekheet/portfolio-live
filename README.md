@@ -10,57 +10,56 @@
 > Personal Portfolio built-in Next.js/React/TypeScript. <br/>This project was earlier developed in GatsbyJS 2.0 and published [here](https://github.com/M-Bekheet/Portfolio)).
 
 ## 🔥 Features
- 
-  * Blazing fast. Check its performance score on [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-bekheet-vercel-app/nr30jsmr7t?form_factor=desktop).
-  * Images caching. 
-  * The Blog is integrated with Contentful API.
-  * Styles made in Flexbox, made it easier to be styled for different devices' screens.
-  * The contact form works with SendGrid service.
- 
+
+- Blazing fast. Check its performance score on [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-bekheet-vercel-app/nr30jsmr7t?form_factor=desktop).
+- Images caching.
+- The Blog is integrated with Contentful API.
+- Styles made in Flexbox, made it easier to be styled for different devices' screens.
+- The contact form works with SendGrid service.
 
 ## 🚀 Quick start
 
 1. **Clone Project.**
 
-    ```shell
-    git clone https://github.com/M-Bekheet/portfolio-live.git
-    ```
-  
+   ```shell
+   git clone https://github.com/M-Bekheet/portfolio-live.git
+   ```
+
 1. **Navigate into your new site’s directory.**
 
-    ```shell
-    cd Portfolio/
-    ``` 
+   ```shell
+   cd Portfolio/
+   ```
 
-1.  **Start developing.**
+1. **Start developing.**
 
-    Add your .env.local file to the Portfolio/ directory.
-    Add your Contentful & SendGrid API keys to .env.local file.
-    
-    ```shell
-    CONTENTFUL_ACCESS_TOKEN=VALUE_HERE
-    CONTENTFUL_SPACE_ID=VALUE_HERE
-    SENDGRID_API_KEY=VALUE_HERE
-    MY_EMAIL=VALUE_HERE
-    MY_SENDGRID_EMAIL=VALUE_HERE
-    MY_PUBLIC_EMAIL=VALUE_HERE
-    ```
+   Add your .env.local file to the Portfolio/ directory.
+   Add your Contentful & SendGrid API keys to .env.local file.
+
+   ```shell
+   CONTENTFUL_ACCESS_TOKEN=VALUE_HERE
+   CONTENTFUL_SPACE_ID=VALUE_HERE
+   SENDGRID_API_KEY=VALUE_HERE
+   NEXT_PUBLIC_MY_EMAIL=VALUE_HERE
+   NEXT_PUBLIC_MY_SENDGRID_EMAIL=VALUE_HERE
+   NEXT_PUBLIC_MY_PUBLIC_EMAIL=VALUE_HERE
+   ```
+
 1. Run the development server:
 
-    ```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
-    ```
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
 
-1.  **Open the source code and start editing!**
+1. **Open the source code and start editing!**
 
-    Your site is now running at `http://localhost:3000`!
-
+   Your site is now running at `http://localhost:3000`!
 
 ## 🧐 What's inside?
 
@@ -86,7 +85,7 @@ A quick look at the top-level files and directories.
     ├── package-lock.json
     ├── package.json
     ├── node_modules
-    └── README.md 
+    └── README.md
 
 1. **`/app`**: This directory will contain all of the code related to what you will see on the front end of your site (what you see in the browser) such as your site header or a page template.
 
@@ -104,7 +103,6 @@ A quick look at the top-level files and directories.
 
 8. **`node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) that are automatically installed.
 
-
 ## 💫 Deploy
- 
-As with any Next.js project, it can be simply deployed on Vercel with no hustle required. Just create a project on Vercel, add the project files/repo, and set env variables on the project dashboard  
+
+As with any Next.js project, it can be simply deployed on Vercel with no hustle required. Just create a project on Vercel, add the project files/repo, and set env variables on the project dashboard
