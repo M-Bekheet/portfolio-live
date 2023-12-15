@@ -35,7 +35,7 @@
 1.  **Start developing.**
 
     Add your .env.local file to the Portfolio/ directory.
-    Add your Contentful & SendGrid API keys to .env file.
+    Add your Contentful & SendGrid API keys to .env.local file.
     
     ```shell
     CONTENTFUL_ACCESS_TOKEN=VALUE_HERE
