@@ -1,7 +1,7 @@
 import styles from "@/app/ui/blog/blog-post.module.scss";
-import { DOMAIN, PATHS } from "@/app/utils/paths";
-import { fetchPostTitleBySlug, getPostBySlug } from "@/lib/api";
-import { Markdown } from "@/lib/markdown";
+import { DOMAIN, PATHS } from "@/app/utils/constants/paths";
+import { fetchPostTitleBySlug, getPostBySlug } from "@/app/utils/api";
+import { Markdown } from "@/app/utils/lib/markdown";
 
 import { Metadata, ResolvingMetadata } from "next";
 import { Roboto } from "next/font/google";

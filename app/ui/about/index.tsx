@@ -1,7 +1,7 @@
 import styles from "./about.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import { profile } from "@/app/utils/profile";
+import { profile } from "@/app/utils/constants/profile";
 
 const { title, description, jobInfo, positionPreference, experience } = profile;
 

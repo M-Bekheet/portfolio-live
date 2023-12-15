@@ -4,8 +4,8 @@ import "@/app/ui/globals.css";
 import styles from "@/app/ui/layout/layout.module.scss";
 import Header from "@/app/ui/layout/header/header";
 import Footer from "@/app/ui/layout/footer/footer";
-import { profile } from "./utils/profile";
-import { DOMAIN } from "./utils/paths";
+import { profile } from "./utils/constants/profile";
+import { DOMAIN } from "./utils/constants/paths";
 const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

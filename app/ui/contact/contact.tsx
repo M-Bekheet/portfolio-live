@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react";
 
 import SubmitButton from "@/app/ui/contact/SubmitButton";
 import styles from "@/app/ui/contact/contact.module.scss";
-import { sendEmailAction } from "@/lib/actions";
-import type { SendEmailState } from "@/lib/types";
+import { sendEmailAction } from "@/app/utils/actions";
+import type { SendEmailState } from "@/app/utils/lib/types";
 import { useFormState } from "react-dom";
 
 const successMsg =
@@ -29,8 +29,8 @@ const Contact = () => {
       <h1 className="section-title">Contact</h1>
       <address className={styles.note}>
         *Send me a direct email:{" "}
-        <a href="mailto:mahmoud.a.bekheet@gmail.com" rel="noopener">
-          Mahmoud.A.Bekheet@gmail.com
+        <a href={`mailto:${process.env.MY_PUBLIC_EMAIL}`} rel="noopener">
+          {process.env.MY_PUBLIC_EMAIL}
         </a>{" "}
         or fill the form.
       </address>

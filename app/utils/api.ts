@@ -1,4 +1,4 @@
-import { Content } from "./markdown";
+import { Content } from "./lib/markdown";
 
 interface Post {
   slug: string;

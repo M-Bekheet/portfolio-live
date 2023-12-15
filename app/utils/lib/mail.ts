@@ -16,8 +16,8 @@ export async function sendMail({
   position,
 }: Props) {
   const msg = {
-    to: "mlartwel@gmail.com",
-    from: "chidos993@gmail.com",
+    to: process.env.MY_EMAIL,
+    from: process.env.MY_SENDGRID_EMAIL,
     subject: `${name} submitted the portfolio contact form`,
     text: `
     Someone has submitted the contact form on your portfolio.

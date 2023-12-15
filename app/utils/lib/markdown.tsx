@@ -2,7 +2,7 @@ import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Link from "next/link";
-import { DOMAIN } from "@/app/utils/paths";
+import { DOMAIN } from "@/app/utils/constants/paths";
 
 interface Asset {
   sys: {

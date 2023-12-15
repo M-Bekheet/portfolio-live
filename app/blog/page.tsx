@@ -1,8 +1,8 @@
 import styles from "@/app/ui/blog/blog.module.scss";
-import { getAllPosts } from "@/lib/api";
+import { getAllPosts } from "@/app/utils/api";
 import { Metadata } from "next";
 import Link from "next/link";
-import { DOMAIN, PATHS } from "../utils/paths";
+import { DOMAIN, PATHS } from "../utils/constants/paths";
 
 export const metadata: Metadata = {
   title: "Blog",

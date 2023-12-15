@@ -1,6 +1,6 @@
 "use server";
-import { sendMail } from "./mail";
-import { SendEmailState } from "./types";
+import { sendMail } from "./lib/mail";
+import { SendEmailState } from "./lib/types";
 import { ContactFormSchema } from "./validations";
 
 export async function sendEmailAction(
