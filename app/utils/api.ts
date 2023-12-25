@@ -21,7 +21,7 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
         }`,
       },
       body: JSON.stringify({ query }),
-      next: { tags: ["posts"], revalidate: 3600 },
+      next: { tags: ["posts"], revalidate: 120 },
     }
   ).then((response) => response.json());
 }
