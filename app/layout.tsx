@@ -7,6 +7,7 @@ import Footer from "@/app/ui/layout/footer/footer";
 import { profile } from "./utils/constants/profile";
 import { DOMAIN } from "./utils/constants/paths";
 const raleway = Raleway({ subsets: ["latin"] });
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: {
@@ -40,6 +41,7 @@ export default function RootLayout({
           <Footer className={styles.footer} title={profile.title} />
         </main>
       </body>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM || ""} />
     </html>
   );
 }
