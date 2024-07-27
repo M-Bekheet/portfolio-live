@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { profile } from "@/app/utils/constants/profile";
 
-const { title, description, jobInfo, positionPreference, experience } = profile;
+const { title, description, jobInfo, positionPreference, } = profile;
 
-export const About = ({}) => {
+export const About = ({ }) => {
   return (
     <section id="about" className={styles.about}>
       <div className={styles.info}>
@@ -17,7 +17,6 @@ export const About = ({}) => {
         <h1 className={styles.description + " colored"}>{description}</h1>
         <p className={styles.jobDescription}>{jobInfo}</p>
         <p className={styles.jobDescription}>{positionPreference}</p>
-        <p className={styles.jobDescription}>{experience}</p>
         <Link href="/contact" className={"button colored"}>
           Hire me
         </Link>
