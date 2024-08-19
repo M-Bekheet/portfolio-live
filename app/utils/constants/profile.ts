@@ -1,6 +1,6 @@
 export const profile = {
   title: `Mahmoud Bekheet`,
-  description: `Full-stack Developer Specializing in React, Node.js, Express, MongoDB, and TypeScript`,
+  description: `Front-end Developer Specializing in React, Node.js, Express, MongoDB, and TypeScript`,
   jobInfo: `Currently leading the web engineering team at Cura, working remotely to develop top-tier telemedicine web applications for a company in Saudi Arabia.`,
   positionPreference:
     "Core Skills: React | Node.js | Express | MongoDB | TypeScript",
