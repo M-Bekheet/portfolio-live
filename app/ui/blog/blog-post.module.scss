@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .post {
   margin-top: 90px;
   margin-bottom: 50px;
@@ -10,7 +12,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: lighten($color: #ff5722, $amount: 10%);
+      color: color.adjust(#ff5722, $lightness: 10%);
     }
   }
 }
