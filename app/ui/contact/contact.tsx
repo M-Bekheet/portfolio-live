@@ -1,11 +1,10 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useActionState } from "react";
 
 import SubmitButton from "@/app/ui/contact/SubmitButton";
 import styles from "@/app/ui/contact/contact.module.scss";
 import { sendEmailAction } from "@/app/utils/actions";
 import type { SendEmailState } from "@/app/utils/lib/types";
-import { useFormState } from "react-dom";
 
 const successMsg =
   "Thank you. Quote has been sent successfully. I will get in touch soon.";
@@ -17,7 +16,7 @@ const initialState = {
 } satisfies SendEmailState;
 
 const Contact = () => {
-  const [state, dispatch] = useFormState(sendEmailAction, initialState);
+  const [state, dispatch] = useActionState(sendEmailAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {

@@ -120,7 +120,7 @@
       }
     }
 
-    :global .open {
+    :global(.open) {
       max-height: 600px;
     }
   }

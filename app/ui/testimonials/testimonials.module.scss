@@ -1,14 +1,13 @@
 .testimonials {
   // min-height: calc(100vh - 200px);
-  :global {
-    .carousel.carousel-slider {
-      padding-bottom: 55px;
-    }
-    .carousel .slide {
-      background: transparent;
-      img {
-        width: auto;
-      }
+
+  :global(.carousel.carousel-slider) {
+    padding-bottom: 55px;
+  }
+  :global(.carousel .slide) {
+    background: transparent;
+    img {
+      width: auto;
     }
   }
 }

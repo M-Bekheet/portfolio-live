@@ -12,14 +12,12 @@ const roboto = Roboto({
 });
 
 type Props = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
   const slug = params.slug;
   const title = (await fetchPostTitleBySlug(slug))[0].title || "";
   return {
@@ -31,7 +29,8 @@ export async function generateMetadata(
   };
 }
 
-const PostPage = async ({ params }: Props) => {
+const PostPage = async (props: Props) => {
+  const params = await props.params;
   const post = (await getPostBySlug(params?.slug))[0];
   return (
     <div className={styles.post + " " + roboto.className}>
