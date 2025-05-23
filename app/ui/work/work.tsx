@@ -18,22 +18,22 @@ const samples = [
   [
     "Furniture Agency Website",
     "https://wooder-site.netlify.app",
-    "https://github.com/Lartwel/Wooder",
+    "https://github.com/M-Bekheet/Wooder",
   ],
-  ["Restaurant Website", "http://mahmoud-ahmed.eb2a.com/Restaurant"],
+  ["Restaurant Website", "https://restaurant-landing-sample.netlify.app/"],
   [
     "Pomodoro React Web App",
-    "https://pomodoro-react-app.netlify.com",
-    "https://github.com/Lartwel/pomodoro-app",
+    "https://pomodoro-react-app.netlify.app/",
+    "https://github.com/M-Bekheet/pomodoro-app",
   ],
   // [
   //   "Weather Forecaster React App",
   //   "https://weather-forecaster-app.netlify.app/",
-  //   "https://github.com/Lartwel/weather-forecaster",
+  //   "https://github.com/M-Bekheet/weather-forecaster",
   // ],
 
   // '// portfolio': ['Portfolio', 'http://mahmoud-ahmed.eb2a.com/,],
-  ["Weather App Landing Page", "http://mahmoud-ahmed.eb2a.com/weather"],
+  ["Weather App Landing Page", "https://weather-landing-page.netlify.app/"],
 ];
 
 export const Work = () => {
