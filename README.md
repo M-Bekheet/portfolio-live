@@ -15,7 +15,7 @@
 - Images caching.
 - The Blog is integrated with Contentful API.
 - Styles made in Flexbox, made it easier to be styled for different devices' screens.
-- The contact form works with SendGrid service.
+- The contact form works with Nodemailer using Gmail.
 
 ## 🚀 Quick start
 
@@ -25,7 +25,7 @@
    git clone https://github.com/M-Bekheet/portfolio-live.git
    ```
 
-1. **Navigate into your new site’s directory.**
+1. **Navigate into your new site's directory.**
 
    ```shell
    cd Portfolio/
@@ -34,15 +34,15 @@
 1. **Start developing.**
 
    Add your .env.local file to the Portfolio/ directory.
-   Add your Contentful & SendGrid API keys to .env.local file.
+   Add your Contentful, Gmail user, and Gmail App Password to .env.local file.
 
    ```shell
    CONTENTFUL_ACCESS_TOKEN=VALUE_HERE
    CONTENTFUL_SPACE_ID=VALUE_HERE
-   SENDGRID_API_KEY=VALUE_HERE
-   NEXT_PUBLIC_MY_EMAIL=VALUE_HERE
-   NEXT_PUBLIC_MY_SENDGRID_EMAIL=VALUE_HERE
-   NEXT_PUBLIC_MY_PUBLIC_EMAIL=VALUE_HERE
+   GMAIL_USER=your_gmail_address@gmail.com
+   GMAIL_APP_PASSWORD=your_gmail_app_password # https://support.google.com/accounts/answer/185833
+   NEXT_PUBLIC_MY_EMAIL=your_recipient_email@example.com
+   NEXT_PUBLIC_MY_PUBLIC_EMAIL=your_public_contact_email@example.com
    ```
 
 1. Run the development server:
@@ -95,9 +95,9 @@ A quick look at the top-level files and directories.
 
 4. **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
 
-5. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+5. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project's name, author, etc). This manifest is how npm knows which packages to install for your project.
 
-6. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies installed for your project. **(You won’t change this file directly).**
+6. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies installed for your project. **(You won't change this file directly).**
 
 7. **`README.md`**: A text file containing useful reference information about your project.
 

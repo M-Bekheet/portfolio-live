@@ -45,9 +45,8 @@ const Contact = () => {
           required
         />
         <p
-          className={`${styles.error} ${
-            state?.errors?.description ? "" : " hidden"
-          } `}
+          className={`${styles.error} ${state?.errors?.description ? "" : " hidden"
+            } `}
         >
           {state?.errors?.description || null}
         </p>
@@ -63,9 +62,8 @@ const Contact = () => {
               required
             />
             <p
-              className={`${styles.error} ${
-                state?.errors?.name ? "" : " hidden"
-              } `}
+              className={`${styles.error} ${state?.errors?.name ? "" : " hidden"
+                } `}
             >
               {state?.errors?.name || null}
             </p>
@@ -79,9 +77,8 @@ const Contact = () => {
               required
             />
             <p
-              className={`${styles.error} ${
-                state?.errors?.email ? "" : " hidden"
-              } `}
+              className={`${styles.error} ${state?.errors?.email ? "" : " hidden"
+                } `}
             >
               {state?.errors?.email || null}
             </p>
@@ -102,9 +99,8 @@ const Contact = () => {
               placeholder="Position (optional)"
             />
             <p
-              className={`${styles.error} ${
-                state?.errors?.position ? "" : " hidden"
-              } `}
+              className={`${styles.error} ${state?.errors?.position ? "" : " hidden"
+                } `}
             >
               {state?.errors?.position || null}
             </p>
@@ -117,9 +113,8 @@ const Contact = () => {
         <p className={`${styles.success}`}>{successMsg}</p>
       ) : state?.errorMessage ? (
         <p
-          className={`${styles.error} ${
-            state?.errorMessage && !state?.success ? "" : " hidden"
-          } `}
+          className={`${styles.error} ${state?.errorMessage && !state?.success ? "" : " hidden"
+            } `}
         >
           {state?.errorMessage || null}
         </p>

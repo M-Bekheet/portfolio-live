@@ -1,5 +1,14 @@
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import nodemailer from "nodemailer";
+
+// Configure Nodemailer transporter using Gmail
+// Ensure you have GMAIL_USER and GMAIL_APP_PASSWORD in your .env.local
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD, // Use an App Password for Gmail
+  },
+});
 
 type Props = {
   name: string;
@@ -15,15 +24,15 @@ export async function sendMail({
   company,
   position,
 }: Props) {
-  const msg = {
+  const mailOptions = {
     to: process.env.NEXT_PUBLIC_MY_EMAIL,
-    from: process.env.NEXT_PUBLIC_MY_SENDGRID_EMAIL,
+    from: process.env.GMAIL_USER, // Sender address (must be the same as GMAIL_USER)
     subject: `${name} submitted the portfolio contact form`,
     text: `
     Someone has submitted the contact form on your portfolio.
     ${name} ${company ? "from " + company + " " : ""}${
       position ? " with position: " + position : ""
-    } says:<br/>
+    } says:
     ${description}.
     Contact Email: ${email}
     `,
@@ -44,6 +53,15 @@ export async function sendMail({
     ${position ? `<div>Position: ${position}</div>` : ""}
     `,
   };
-  const send = await sgMail.send(msg);
-  return { success: true };
+  // const send = await sgMail.send(msg);
+  // return { success: true };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return { success: true };
+  } catch (error) {
+    console.error("Error sending email:", error);
+    // It's good practice to return a more specific error or handle it appropriately
+    return { success: false, error: "Failed to send email" };
+  }
 }
