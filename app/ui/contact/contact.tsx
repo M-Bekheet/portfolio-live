@@ -20,7 +20,7 @@ const Contact = () => {
       <h1 className="section-title">Contact</h1>
       <address className={styles.note}>
         *Send me a direct email:{" "}
-        <a href={`mailto:${process.env.MY_PUBLIC_EMAIL}`} rel="noopener">
+        <a href={`mailto:${process.env.NEXT_PUBLIC_MY_PUBLIC_EMAIL}`} rel="noopener">
           {process.env.NEXT_PUBLIC_MY_PUBLIC_EMAIL}
         </a>{" "}
         or fill the form.
