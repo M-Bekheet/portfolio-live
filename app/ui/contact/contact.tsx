@@ -1,27 +1,19 @@
 "use client";
-import { useEffect, useRef, useActionState } from "react";
+import { useActionState, useRef } from "react";
 
 import SubmitButton from "@/app/ui/contact/SubmitButton";
 import styles from "@/app/ui/contact/contact.module.scss";
 import { sendEmailAction } from "@/app/utils/actions";
-import type { SendEmailState } from "@/app/utils/lib/types";
+import { initialState } from "./utils";
 
 const successMsg =
   "Thank you. Quote has been sent successfully. I will get in touch soon.";
 
-const initialState = {
-  errorMessage: "",
-  errors: {},
-  success: false,
-} satisfies SendEmailState;
 
 const Contact = () => {
-  const [state, dispatch] = useActionState(sendEmailAction, initialState);
+  const [state, dispatch, isPending] = useActionState(sendEmailAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    if (state?.success) formRef?.current?.reset();
-  }, [state?.success]);
 
   return (
     <section className={styles.contact}>
@@ -43,6 +35,7 @@ const Contact = () => {
           rows={6}
           placeholder="Project Type, Target customer, timeline, estimate etc"
           required
+          defaultValue={state?.data?.description}
         />
         <p
           className={`${styles.error} ${state?.errors?.description ? "" : " hidden"
@@ -60,6 +53,7 @@ const Contact = () => {
               id="about_you"
               placeholder="Full Name"
               required
+              defaultValue={state?.data?.name}
             />
             <p
               className={`${styles.error} ${state?.errors?.name ? "" : " hidden"
@@ -75,6 +69,7 @@ const Contact = () => {
               type="email"
               placeholder="Email Address"
               required
+              defaultValue={state?.data?.email}
             />
             <p
               className={`${styles.error} ${state?.errors?.email ? "" : " hidden"
@@ -89,6 +84,7 @@ const Contact = () => {
               type="text"
               name="company"
               placeholder="Company Name (optional)"
+              defaultValue={state?.data?.company}
             />
           </div>
           <div className={styles.formControl}>
@@ -97,6 +93,7 @@ const Contact = () => {
               type="text"
               name="position"
               placeholder="Position (optional)"
+              defaultValue={state?.data?.position}
             />
             <p
               className={`${styles.error} ${state?.errors?.position ? "" : " hidden"

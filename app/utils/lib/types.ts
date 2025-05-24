@@ -10,4 +10,11 @@ export interface SendEmailState {
         company?: string[] | undefined;
       }
     | {};
+  data: {
+    name: string;
+    email: string;
+    description: string;
+    position: string;
+    company: string;
+  };
 }
