@@ -57,8 +57,18 @@ export async function sendMail({
   // return { success: true };
 
   try {
-    await transporter.sendMail(mailOptions);
-    return { success: true };
+    await new Promise((resolve, reject) => {
+      // send mail
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          console.log(info);
+          resolve(info);
+        }
+      });
+    });
   } catch (error) {
     console.error("Error sending email:", error);
     // It's good practice to return a more specific error or handle it appropriately
