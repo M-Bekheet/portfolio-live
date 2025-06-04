@@ -24,7 +24,7 @@ const samples = [
   ],
   // ["Restaurant Website", "https://restaurant-landing-sample.netlify.app/"],
   [
-    "SEO Checker",
+    "Website Analyzer & SEO Checker",
     "https://rankmint.vercel.app/",
   ],
   [
@@ -56,7 +56,9 @@ export const Work = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src={images[i]} alt={sample[0]} fill />
+              <Image src={images[i]} alt={sample[0]} fill style={{
+                borderRadius: "4px",
+              }} />
             </a>
             <div className={styles.sampleName}>{sample[0]}</div>
 
