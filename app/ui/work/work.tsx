@@ -8,7 +8,7 @@ import WooderImage from "@/app/ui/assets/samples/wooder.png";
 
 const images = [
   WooderImage,
-  RestaurantImage,
+  // RestaurantImage,
   PomodoroImage,
   // ForecasterImage,
   WeatherImage,
@@ -20,7 +20,7 @@ const samples = [
     "https://wooder-site.netlify.app",
     "https://github.com/M-Bekheet/Wooder",
   ],
-  ["Restaurant Website", "https://restaurant-landing-sample.netlify.app/"],
+  // ["Restaurant Website", "https://restaurant-landing-sample.netlify.app/"],
   [
     "Pomodoro React Web App",
     "https://pomodoro-react-app.netlify.app/",
