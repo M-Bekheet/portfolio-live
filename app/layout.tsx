@@ -34,6 +34,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={styles.html}>
+      <head>
+        <link rel="preload" href="/images/glassy.jpg" as="image" />
+      </head>
       <body className={styles.layout + " " + raleway.className}>
         <Header className={styles.header} />
         <main className={styles.content}>
