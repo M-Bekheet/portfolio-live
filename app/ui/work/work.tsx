@@ -5,10 +5,12 @@ import PomodoroImage from "@/app/ui/assets/samples/pomodoro.png";
 import RestaurantImage from "@/app/ui/assets/samples/restaurant.png";
 import WeatherImage from "@/app/ui/assets/samples/weather.png";
 import WooderImage from "@/app/ui/assets/samples/wooder.png";
+import RankmintImage from "@/app/ui/assets/samples/rankmint.png";
 
 const images = [
   WooderImage,
   // RestaurantImage,
+  RankmintImage,
   PomodoroImage,
   // ForecasterImage,
   WeatherImage,
@@ -21,6 +23,10 @@ const samples = [
     "https://github.com/M-Bekheet/Wooder",
   ],
   // ["Restaurant Website", "https://restaurant-landing-sample.netlify.app/"],
+  [
+    "SEO Checker",
+    "https://rankmint.vercel.app/",
+  ],
   [
     "Pomodoro React Web App",
     "https://pomodoro-react-app.netlify.app/",
