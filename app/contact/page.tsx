@@ -4,7 +4,7 @@ import Contact from "../ui/contact/contact";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Are you looking for an experienced Full-stack web developer proficient in React, TypeScript, or Node.js? contact me anytime.",
+    "Are you looking for an experienced Front-end web developer proficient in React, TypeScript, or Node.js? contact me anytime.",
 };
 
 const ContactPage = () => {
