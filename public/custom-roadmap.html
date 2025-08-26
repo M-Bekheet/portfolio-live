@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Engineer Learning Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a top navigation bar for jumping between thematic sections (Summary, Phase I, II, III). This non-linear navigation is more user-friendly for a reference document than a simple long scroll. Interactivity is centered on a progress tracking system (checkboxes updating a main donut chart) to engage the user and visualize their journey through the roadmap. This turns a static document into a personal tool. -->
+    <!-- Visualization & Content Choices: Report Info: Roadmap progress -> Goal: Inform/Engage -> Viz: Donut Chart -> Interaction: Updates on checkbox click -> Justification: Provides immediate visual feedback on user's progress, increasing motivation. | Report Info: Time commitment per phase -> Goal: Compare -> Viz: Horizontal Bar Chart -> Interaction: Static view -> Justification: Offers a quick, scannable overview of the effort distribution across the roadmap. All charts use Chart.js on Canvas, no SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .step-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+        }
+        .progress-checkbox:checked + label div {
+            background-color: #A8D5BA;
+            border-color: #78B48F;
+        }
+        .progress-checkbox:checked + label span {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Senior Engineer Roadmap</h1>
+            <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#summary" class="text-gray-600 hover:text-gray-900 transition-colors">Summary</a>
+                <a href="#phase1" class="text-gray-600 hover:text-gray-900 transition-colors">Phase I: Core</a>
+                <a href="#phase2" class="text-gray-600 hover:text-gray-900 transition-colors">Phase II: Architecture</a>
+                <a href="#phase3" class="text-gray-600 hover:text-gray-900 transition-colors">Phase III: Growth</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="summary" class="mb-20">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-4">Your Full-Stack Transition Roadmap</h2>
+            <p class="text-center max-w-3xl mx-auto text-lg text-gray-600 mb-12">This interactive roadmap translates your learning plan into a dynamic tool. Track your progress, visualize your journey, and stay focused on your goal of achieving FAANG-level engineering excellence.</p>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Overall Progress</h3>
+                     <div class="chart-container h-64 md:h-80">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Time Commitment Overview</h3>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="timeCommitmentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="roadmap-content">
+        </div>
+
+    </main>
+
+    <footer class="bg-white mt-20 border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>&copy; 2024 Your Learning Journey. All rights reserved.</p>
+            <p class="text-sm mt-2">Designed to help you achieve your full potential as a senior software engineer.</p>
+        </div>
+    </footer>
+
+    <script>
+        const roadmapData = {
+            phases: [
+                {
+                    id: "phase1",
+                    title: "Phase I: Building the Foundational Core",
+                    subtitle: "Data Structures & Algorithms",
+                    description: "This initial phase is the critical foundation for the entire roadmap. A solid grasp of DSA provides the core principles that enable the efficient, scalable systems a senior engineer is expected to build and maintain.",
+                    steps: [
+                        {
+                            title: "Build a Solid Foundation with a Book",
+                            resource: { name: "Data Structures and Algorithms Made Easy", url: "https://www.amazon.com/Data-Structures-Algorithms-Made-Easy/dp/819324527X" },
+                            time: "4-6 weeks",
+                            concern: "The primary challenge is avoiding getting bogged down in details. Focus on building a high-level mental model of what data structures exist and what problems they solve."
+                        },
+                        {
+                            title: "Translate Theory to Practice",
+                            resource: { name: "NeetCode (Blind 75)", url: "https://neetcode.io/" },
+                            time: "Ongoing (4-5 hrs/week)",
+                            concern: "The risk of being overwhelmed by the sheer number of problems is high. Stick to a structured approach, focusing on common patterns first."
+                        },
+                        {
+                            title: "Deepen Understanding with a Course",
+                            resource: { name: "Stanford's Algorithms Specialization", url: "https://www.coursera.org/specializations/algorithms" },
+                            time: "3-6 months",
+                            concern: "This is a significant time commitment. Consistency is key to completing it successfully, even though it's self-paced."
+                        }
+                    ]
+                },
+                {
+                    id: "phase2",
+                    title: "Phase II: Architecting for Impact",
+                    subtitle: "System Design & Distributed Systems",
+                    description: "This phase transforms your mindset from a feature implementer to a system architect. System design is the single most important differentiating factor for a senior-level engineer.",
+                    steps: [
+                        {
+                            title: "Master the Interview Framework",
+                            resource: { name: "System Design Interview - An Insider's Guide", url: "https://www.amazon.com/System-Design-Interview-Insiders-Guide/dp/B08CMF2CQF" },
+                            time: "4-6 weeks",
+                            concern: "This book is an interview guide, not a comprehensive textbook. It provides an excellent framework but needs to be supplemented with deeper knowledge."
+                        },
+                        {
+                            title: "Deepen Knowledge with a Foundational Text",
+                            resource: { name: "Designing Data-Intensive Applications", url: "https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321" },
+                            time: "2-4 months",
+                            concern: "This is a dense, academic book. It requires a significant time commitment and is best approached after understanding the basic interview framework."
+                        },
+                        {
+                            title: "Practical Application: The 'System Re-Design' Project",
+                            resource: { name: "Conceptual Design Project", url: "#" },
+                            time: "Ongoing",
+                            concern: "The goal is not to build a fully functional app, but to create a detailed conceptual design document that showcases architectural thinking and trade-off analysis."
+                        }
+                    ]
+                },
+                {
+                    id: "phase3",
+                    title: "Phase III: Synthesizing Skills & Strategic Growth",
+                    subtitle: "Synthesis & Behavioral",
+                    description: "The final phase focuses on synthesizing technical knowledge and mastering the qualitative aspects of a senior-level role, including leadership, mentorship, and communication.",
+                    steps: [
+                        {
+                            title: "Advanced System Design: Case Studies",
+                            resource: { name: "Practice with common problems (e.g., Twitter, Uber)", url: "#" },
+                            time: "Ongoing",
+                            concern: "Focus on rehearsing the narrative and clearly articulating the design process and trade-offs for each case study."
+                        },
+                        {
+                            title: "Master the Behavioral & Leadership Component",
+                            resource: { name: "Prepare career anecdotes (STAR method)", url: "#" },
+                            time: "Ongoing",
+                            concern: "Failure in this section can lead to failure in the entire interview. Practice articulating your experiences and demonstrating leadership qualities."
+                        },
+                        {
+                            title: "Engage in Mock Interviews",
+                            resource: { name: "Platforms like Pramp or interviewing.io", url: "https://www.pramp.com/" },
+                            time: "Ongoing",
+                            concern: "Mock interviews are invaluable for gaining confidence and receiving feedback on both technical and behavioral performance."
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let progressChart, timeCommitmentChart;
+        let progressState = {};
+        const totalSteps = roadmapData.phases.reduce((acc, phase) => acc + phase.steps.length, 0);
+
+        function initializeState() {
+            const savedState = localStorage.getItem('roadmapProgress');
+            if (savedState) {
+                progressState = JSON.parse(savedState);
+            } else {
+                roadmapData.phases.forEach((phase, phaseIndex) => {
+                    phase.steps.forEach((step, stepIndex) => {
+                        const key = `p${phaseIndex}s${stepIndex}`;
+                        progressState[key] = false;
+                    });
+                });
+            }
+            renderRoadmap();
+            updateCharts();
+        }
+
+        function renderRoadmap() {
+            const contentDiv = document.getElementById('roadmap-content');
+            let html = '';
+
+            roadmapData.phases.forEach((phase, phaseIndex) => {
+                html += `
+                    <section id="${phase.id}" class="mb-16">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">${phase.title}</h2>
+                            <p class="text-xl text-gray-500 mt-2">${phase.subtitle}</p>
+                            <p class="max-w-3xl mx-auto mt-4 text-gray-600">${phase.description}</p>
+                        </div>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${phase.steps.map((step, stepIndex) => {
+                                const key = `p${phaseIndex}s${stepIndex}`;
+                                const isChecked = progressState[key] ? 'checked' : '';
+                                const lineThrough = progressState[key] ? 'text-decoration: line-through;' : '';
+                                const checkedBg = progressState[key] ? 'background-color: #A8D5BA; border-color: #78B48F;' : '';
+                                return `
+                                <div class="step-card bg-white p-6 rounded-xl border border-gray-200 flex flex-col">
+                                    <input type="checkbox" id="${key}" class="progress-checkbox hidden" onchange="updateProgress('${key}')" ${isChecked}>
+                                    <label for="${key}" class="flex items-start cursor-pointer mb-4">
+                                        <div class="flex-shrink-0 w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex items-center justify-center transition-colors" style="${checkedBg}">
+                                           <svg class="w-4 h-4 text-white fill-current" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
+                                        </div>
+                                        <span class="font-semibold text-lg text-gray-800 transition-colors" style="${lineThrough}">${step.title}</span>
+                                    </label>
+                                    
+                                    <div class="flex-grow space-y-4 text-sm">
+                                        <p><strong>Resource:</strong> <a href="${step.resource.url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${step.resource.name}</a></p>
+                                        <p><strong>Time:</strong> <span class="font-medium text-gray-700">${step.time}</span></p>
+                                        <details class="group">
+                                            <summary class="cursor-pointer font-medium text-gray-700 list-none flex items-center">
+                                                Key Concern
+                                                <svg class="w-4 h-4 ml-1 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                            </summary>
+                                            <p class="mt-2 text-gray-600 border-l-2 border-amber-300 pl-3">${step.concern}</p>
+                                        </details>
+                                    </div>
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </section>
+                `;
+            });
+            contentDiv.innerHTML = html;
+        }
+
+        function updateProgress(key) {
+            progressState[key] = document.getElementById(key).checked;
+            localStorage.setItem('roadmapProgress', JSON.stringify(progressState));
+            updateCharts();
+        }
+
+        function createCharts() {
+            const progressCtx = document.getElementById('progressChart').getContext('2d');
+            progressChart = new Chart(progressCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Remaining'],
+                    datasets: [{
+                        data: [0, totalSteps],
+                        backgroundColor: ['#A8D5BA', '#E5E7EB'],
+                        borderColor: ['#F8F7F4'],
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
+                }
+            });
+
+            const timeCtx = document.getElementById('timeCommitmentChart').getContext('2d');
+            timeCommitmentChart = new Chart(timeCtx, {
+                type: 'bar',
+                data: {
+                    labels: roadmapData.phases.map(p => p.subtitle),
+                    datasets: [{
+                        label: 'Estimated Months (Avg)',
+                        data: [5, 5, 3],
+                        backgroundColor: ['#F4B67A', '#A8D5BA', '#8DBCE5'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Average Time Commitment per Phase (Months)'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                             grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            const completedSteps = Object.values(progressState).filter(Boolean).length;
+            const remainingSteps = totalSteps - completedSteps;
+            
+            progressChart.data.datasets[0].data = [completedSteps, remainingSteps];
+            progressChart.update();
+        }
+
+        window.onload = () => {
+            createCharts();
+            initializeState();
+        };
+    </script>
+</body>
+</html>
