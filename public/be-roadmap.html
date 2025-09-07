@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Backend Mastery Quest - Level Up Your Career!</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a35;
+            --bg-card: #242450;
+            --bg-surface: #2a2a5a;
+            --bg-glass: rgba(255, 255, 255, 0.1);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8ff;
+            --text-muted: #8a8ab8;
+            
+            --accent-blue: #64ffda;
+            --accent-purple: #bb86fc;
+            --accent-pink: #ff6b9d;
+            --accent-green: #39ff9c;
+            --accent-gold: #ffd700;
+            
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
+            --glow: 0 0 20px rgba(100, 255, 218, 0.3);
+            
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 255, 198, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: bgShift 20s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Header */
+        .hero-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(187, 134, 252, 0.8)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Level & XP System */
+        .level-system {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .level-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .level-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Progress Ring */
+        .progress-ring {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+        }
+
+        .progress-ring svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke-width: 8;
+        }
+
+        .progress-ring .bg {
+            stroke: var(--bg-surface);
+        }
+
+        .progress-ring .progress {
+            stroke: url(#gradient);
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+            stroke-dasharray: 0;
+            stroke-dashoffset: 0;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-surface);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--success);
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Roadmap Section */
+        .roadmap-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Phase Cards */
+        .phase {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase:hover {
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow);
+        }
+
+        .phase-header {
+            background: var(--primary);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .phase-header:hover::before {
+            opacity: 1;
+        }
+
+        .phase-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .phase-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .phase-icon {
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .phase-progress {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .phase-content {
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .phase.collapsed .phase-content {
+            display: none;
+        }
+
+        /* Week Cards */
+        .week {
+            background: var(--bg-surface);
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .week:hover {
+            border-color: var(--accent-purple);
+            transform: translateX(8px);
+        }
+
+        .week-header {
+            background: linear-gradient(135deg, rgba(187, 134, 252, 0.2), rgba(100, 255, 218, 0.2));
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .week-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .week-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .week-progress {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .week-content {
+            padding: 1.5rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .week-content.open {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Topic Cards */
+        .topic {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .topic:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .topic:hover::before {
+            width: 8px;
+        }
+
+        .topic.completed {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(57, 255, 156, 0.1), rgba(100, 255, 218, 0.1));
+        }
+
+        .topic.completed::before {
+            background: var(--warning);
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox:checked {
+            filter: drop-shadow(0 0 5px var(--accent-blue));
+        }
+
+        .topic-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .topic-title:hover {
+            color: var(--accent-blue);
+        }
+
+        .priority-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .priority-high {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 0 15px rgba(250, 112, 154, 0.4);
+        }
+
+        .priority-medium {
+            background: var(--warning);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px rgba(67, 233, 123, 0.4);
+        }
+
+        .priority-low {
+            background: var(--success);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .topic-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Time Tracker */
+        .time-tracker {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .time-item {
+            text-align: center;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .time-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .time-input {
+            width: 80px;
+            padding: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .time-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+
+        .progress-input-container {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .progress-unit {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Notes */
+        .notes-container {
+            margin-top: 1rem;
+        }
+
+        .notes-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .notes-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+        }
+
+        .notes-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Resources */
+        .resources {
+            margin-top: 1rem;
+        }
+
+        .resources-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .resource-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(187, 134, 252, 0.2), rgba(100, 255, 218, 0.2));
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .resource-link:hover {
+            background: linear-gradient(135deg, rgba(187, 134, 252, 0.4), rgba(100, 255, 218, 0.4));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
+        }
+
+        .resource-link::before {
+            content: '🔗';
+            font-size: 0.8rem;
+        }
+
+        /* Advanced Topics */
+        .advanced-section {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .advanced-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--danger);
+        }
+
+        .advanced-topic {
+            background: var(--bg-surface);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .advanced-topic:hover {
+            border-color: var(--accent-pink);
+            transform: scale(1.02);
+        }
+
+        .advanced-topic-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-pink);
+            margin-bottom: 0.5rem;
+        }
+
+        .advanced-topic-desc {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .advanced-topic-importance {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .modal-text {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-input:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-glass);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .time-tracker {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .chart-wrapper {
+                height: 250px;
+            }
+
+            .phase-header {
+                padding: 1rem;
+            }
+
+            .week-content {
+                padding: 1rem;
+            }
+        }
+
+        /* Expand/Collapse Icons */
+        .expand-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+        }
+
+        .collapsed .expand-icon {
+            transform: rotate(-90deg);
+        }
+
+        /* Achievement Styles */
+        .achievement {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.5s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .achievement.show {
+            transform: translateX(0);
+        }
+
+        .achievement::before {
+            content: '🎉';
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Header -->
+        <div class="hero-header">
+            <h1 class="hero-title">🚀 Backend Mastery Quest</h1>
+            <p class="hero-subtitle">Level up your career with this epic 17-week journey to Senior Backend Engineer!</p>
+        </div>
+
+        <!-- Level System -->
+        <div class="level-system">
+            <div class="level-card">
+                <div class="progress-ring">
+                    <svg>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#64ffda;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#bb86fc;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="bg" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress" cx="60" cy="60" r="50" id="progressCircle"></circle>
+                    </svg>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                        <div class="stat-value" id="overallProgress">0%</div>
+                    </div>
+                </div>
+                <div class="stat-label">Quest Progress</div>
+            </div>
+            
+            <div class="level-card">
+                <span class="stat-icon">⚡</span>
+                <div class="stat-value" id="completedTasks">0</div>
+                <div class="stat-label">Challenges Completed</div>
+            </div>
+            
+            <div class="level-card">
+                <span class="stat-icon">⏱️</span>
+                <div class="stat-value" id="totalTime">0h</div>
+                <div class="stat-label">Time Invested</div>
+            </div>
+            
+            <div class="level-card">
+                <span class="stat-icon">🎯</span>
+                <div class="stat-value" id="estimatedTime">180h</div>
+                <div class="stat-label">Target Hours</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn btn-primary" onclick="exportProgress()">💾 Export Progress</button>
+            <button class="btn btn-secondary" onclick="importProgress()">📥 Import Progress</button>
+            <button class="btn btn-secondary" onclick="resetProgress()">🔄 Reset Quest</button>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">🌟 Phase Progress</div>
+                <div class="chart-wrapper">
+                    <canvas id="phaseChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">⏰ Time: Estimated vs Actual</div>
+                <div class="chart-wrapper">
+                    <canvas id="timeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="roadmap-section">
+            <h2 class="section-title">🗺️ Your Learning Adventure</h2>
+            <div id="roadmapContent"></div>
+        </div>
+
+        <!-- Advanced Topics -->
+        <div class="advanced-section">
+            <h2 class="section-title">🚀 Next Level Challenges</h2>
+            <div id="advancedTopics"></div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">📥 Import Progress</h3>
+            <p class="modal-text">You already have existing progress. How would you like to handle the import?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="handleImport('merge')">🔄 Merge</button>
+                <button class="btn btn-primary" onclick="handleImport('overwrite')">♻️ Overwrite</button>
+                <button class="btn btn-secondary" onclick="closeModal()">❌ Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Import Modal -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">📂 Import Progress File</h3>
+            <input type="file" id="fileInput" class="file-input" accept=".json" placeholder="Choose your progress file...">
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="processFileImport()">📥 Import</button>
+                <button class="btn btn-secondary" onclick="closeModal()">❌ Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced roadmap data with resources and URLs
+        const roadmapData = {
+            phases: [
+                {
+                    id: 'phase1',
+                    title: 'Phase I: Foundational Mastery',
+                    icon: '🏗️',
+                    weekRange: '1-6',
+                    estimatedTime: 60,
+                    weeks: [
+                        {
+                            id: 'week1-2',
+                            title: 'Weeks 1-2: Core Node.js & Express Refresher',
+                            estimatedTime: 20,
+                            topics: [
+                                {
+                                    id: 'nodejs-fundamentals',
+                                    title: 'Core Node.js Concepts',
+                                    description: 'Master the event loop, streams, and buffer. Deep dive into asynchronous programming patterns.',
+                                    priority: 'medium',
+                                    estimatedTime: 8,
+                                    resources: [
+                                        { name: 'Node.js Official Documentation', url: 'https://nodejs.org/docs/' },
+                                        { name: 'Event Loop Deep Dive', url: 'https://nodejs.org/en/guides/event-loop-timers-and-nexttick/' }
+                                    ]
+                                },
+                                {
+                                    id: 'express-api',
+                                    title: 'RESTful API with Express',
+                                    description: 'Build a production-ready RESTful API with Express and PostgreSQL integration.',
+                                    priority: 'medium',
+                                    estimatedTime: 12,
+                                    resources: [
+                                        { name: 'Express.js Guide', url: 'https://expressjs.com/en/guide/routing.html' },
+                                        { name: 'REST API Best Practices', url: 'https://restfulapi.net/' }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 'week3-4',
+                            title: 'Weeks 3-4: Introduction to NestJS',
+                            estimatedTime: 20,
+                            topics: [
+                                {
+                                    id: 'nestjs-fundamentals',
+                                    title: 'NestJS Architecture Mastery',
+                                    description: 'Master modular architecture, Dependency Injection, decorators, and enterprise patterns. Focus on: First steps, Controllers, Providers and Services. Understand Modules and Dependency Injection and how they enforce a clean architecture.',
+                                    priority: 'high',
+                                    estimatedTime: 12,
+                                    resources: [
+                                        { name: 'NestJS Official Documentation', url: 'https://docs.nestjs.com/' }
+                                    ]
+                                },
+                                {
+                                    id: 'nestjs-crud',
+                                    title: 'Enterprise CRUD with NestJS',
+                                    description: 'Build scalable CRUD APIs with proper validation, error handling, and documentation.',
+                                    priority: 'high',
+                                    estimatedTime: 8,
+                                    resources: [
+                                        { name: 'NestJS CRUD Tutorial', url: 'https://docs.nestjs.com/techniques/database' },
+                                        { name: 'Providers and Services', url: 'https://docs.nestjs.com/providers' }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 'week5-6',
+                            title: 'Weeks 5-6: Advanced PostgreSQL & Modern ORMs',
+                            estimatedTime: 20,
+                            topics: [
+                                {
+                                    id: 'advanced-sql',
+                                    title: 'Advanced PostgreSQL Mastery',
+                                    description: 'Master complex joins, indexing strategies, window functions, and query optimization. Focus on: SQL queries and filtering techniques like SELECT, WHERE, JOIN, and GROUP BY. Study indexing strategies to optimize query performance and understand transactions and constraints.',
+                                    priority: 'high',
+                                    estimatedTime: 12,
+                                    resources: [
+                                        { name: 'The PostgreSQL Official Documentation & Tutorials', url: 'https://www.postgresql.org/docs/online-resources/' }
+                                    ]
+                                },
+                                {
+                                    id: 'orm-implementation',
+                                    title: 'Modern ORM Implementation',
+                                    description: 'Learn Drizzle ORM for type-safe, high-performance database operations. Focus on: Installation and setup. Master the Drizzle query builder and its SQL-like syntax. Learn how to perform CRUD operations, implement migrations, and use the schema-first approach with auto-generated types.',
+                                    priority: 'high',
+                                    estimatedTime: 8,
+                                    resources: [
+                                        { name: 'Drizzle ORM Official Documentation', url: 'https://orm.drizzle.team/docs/guides' }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'phase2',
+                    title: 'Phase II: Production & Advanced Concepts',
+                    icon: '⚙️',
+                    weekRange: '7-12',
+                    estimatedTime: 60,
+                    weeks: [
+                        {
+                            id: 'week7-9',
+                            title: 'Weeks 7-9: Project 1 - Event-Driven Microservice',
+                            estimatedTime: 30,
+                            topics: [
+                                {
+                                    id: 'microservices-architecture',
+                                    title: 'Microservices & Event-Driven Architecture',
+                                    description: 'Design and implement loosely coupled, independently deployable services with event-driven communication. Focus on: Microservices basics, Transporters, and communication patterns. Learn to build event handlers using the @EventPattern() decorator and publish events with ClientProxy.emit().',
+                                    priority: 'high',
+                                    estimatedTime: 30,
+                                    resources: [
+                                        { name: 'NestJS Microservices Documentation', url: 'https://docs.nestjs.com/microservices/basics' }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 'week10-12',
+                            title: 'Weeks 10-12: Project 2 - Real-Time Multi-Service App',
+                            estimatedTime: 30,
+                            topics: [
+                                {
+                                    id: 'websockets-implementation',
+                                    title: 'Real-Time Applications with WebSockets',
+                                    description: 'Build collaborative real-time features with NestJS WebSockets. Focus on: Gateway setup with @WebSocketGateway(), and handling events and messages with @SubscribeMessage(). Learn connection/disconnection handling and event broadcasting.',
+                                    priority: 'high',
+                                    estimatedTime: 30,
+                                    resources: [
+                                        { name: 'NestJS WebSockets Documentation', url: 'https://docs.nestjs.com/websockets/gateways' }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'phase3',
+                    title: 'Phase III: DevOps, Deployment & Observability',
+                    icon: '🚀',
+                    weekRange: '13-17',
+                    estimatedTime: 60,
+                    weeks: [
+                        {
+                            id: 'week13',
+                            title: 'Week 13: Containerization Mastery',
+                            estimatedTime: 12,
+                            topics: [
+                                {
+                                    id: 'docker-containerization',
+                                    title: 'Production Docker & Orchestration',
+                                    description: 'Master multi-stage builds, docker-compose, and container orchestration for production.',
+                                    priority: 'high',
+                                    estimatedTime: 12,
+                                    resources: [
+                                        { name: 'Docker Best Practices', url: 'https://docs.docker.com/develop/dev-best-practices/' },
+                                        { name: 'Multi-Container Apps', url: 'https://docs.docker.com/compose/' }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 'week14-15',
+                            title: 'Weeks 14-15: CI/CD Pipeline Mastery',
+                            estimatedTime: 24,
+                            topics: [
+                                {
+                                    id: 'cicd-pipeline',
+                                    title: 'CI/CD with GitHub Actions',
+                                    description: 'Build enterprise CI/CD with automated testing, security scanning, and deployment. Focus on: CI/CD pipeline concepts and workflow syntax. Study building and testing code for Node.js, and how to define parallel jobs for linting, security scanning, and testing.',
+                                    priority: 'high',
+                                    estimatedTime: 24,
+                                    resources: [
+                                        { name: 'GitHub Actions Documentation', url: 'https://docs.github.com/en/actions' }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: 'week16-17',
+                            title: 'Weeks 16-17: Production Deployment & Monitoring',
+                            estimatedTime: 24,
+                            topics: [
+                                {
+                                    id: 'production-deployment',
+                                    title: 'Deployment with Railway',
+                                    description: 'Deploy to Railway with enterprise security and best practices. Focus on: Deployment from a GitHub repository and using the CLI. Learn how to add and configure databases and set environment variables for a multi-service application.',
+                                    priority: 'high',
+                                    estimatedTime: 12,
+                                    resources: [
+                                        { name: 'Railway Official Docs & Guides', url: 'https://docs.railway.app/deploy/guides/nodejs' }
+                                    ]
+                                },
+                                {
+                                    id: 'security-observability',
+                                    title: 'Security & Observability',
+                                    description: 'Implement comprehensive security, logging, and monitoring for production systems. Focus on: Input sanitization and validation, authentication and authorization, and rate limiting. Study how to implement these measures using libraries like Helmet and rate-limiter-flexible. Learn to add structured logging with Winston or Pino.',
+                                    priority: 'high',
+                                    estimatedTime: 12,
+                                    resources: [
+                                        { name: 'Node.js Security Best Practices Guides', url: 'https://www.indusface.com/blog/how-to-secure-nodejs-api/' }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            advancedTopics: [
+                {
+                    id: 'kubernetes',
+                    title: 'Container Orchestration with Kubernetes',
+                    description: 'After mastering Docker, the next logical step is to learn Kubernetes. It is mentioned in job postings for infrastructure-heavy roles and is the industry standard for managing and scaling containerized applications in production environments. Understanding Kubernetes demonstrates an ability to manage large-scale, enterprise-level deployments.',
+                    importance: 'Essential for infrastructure-heavy roles and enterprise-level deployments.',
+                    resources: [
+                        { name: 'Kubernetes Official Documentation', url: 'https://kubernetes.io/docs/' },
+                        { name: 'Kubernetes Learning Path', url: 'https://kubernetes.io/docs/tutorials/' }
+                    ]
+                },
+                {
+                    id: 'cloud-native',
+                    title: 'Cloud-Native & Serverless Architectures',
+                    description: 'While the roadmap includes Railway, a practical next step is to dive deep into a major cloud provider like AWS. Study services like AWS Lambda for serverless computing, Amazon ECS for container orchestration, and AWS RDS for managed databases. This knowledge is essential for architecting and deploying solutions on the most widely used cloud platform.',
+                    importance: 'Critical for modern cloud architecture and cost-effective scaling.',
+                    resources: [
+                        { name: 'AWS Documentation', url: 'https://docs.aws.amazon.com/' },
+                        { name: 'AWS Lambda Guide', url: 'https://docs.aws.amazon.com/lambda/' },
+                        { name: 'AWS ECS Documentation', url: 'https://docs.aws.amazon.com/ecs/' }
+                    ]
+                },
+                {
+                    id: 'system-design',
+                    title: 'Advanced System Design',
+                    description: 'The final stage of a senior career is the ability to design complex systems from scratch. Continue to study advanced topics like distributed tracing, fault tolerance, and message bus design. The portfolio projects you built are a great starting point; the next step is to be able to articulate the design decisions behind them and justify architectural trade-offs in an interview setting.',
+                    importance: 'Core competency for senior+ roles and technical leadership positions.',
+                    resources: [
+                        { name: 'Building Scalable Microservices', url: 'https://dev.to/dhrumitdk/building-scalable-microservices-with-nodejs-and-event-driven-architecture-4ckc' },
+                        { name: 'System Design Primer', url: 'https://github.com/donnemartin/system-design-primer' }
+                    ]
+                },
+                {
+                    id: 'leadership',
+                    title: 'Technical Leadership & Mentorship',
+                    description: 'As a senior engineer, your role extends beyond writing code. Many senior job descriptions mention responsibilities like "mentoring team members," "conducting code reviews," and "contributing to project planning". Actively seek opportunities to teach and guide others, as this skill is a key differentiator for leadership roles.',
+                    importance: 'Key differentiator for progression to staff, principal, and engineering management roles.',
+                    resources: [
+                        { name: 'Engineering Leadership Guide', url: 'https://github.com/charlax/engineering-management' },
+                        { name: 'Code Review Best Practices', url: 'https://google.github.io/eng-practices/review/' }
+                    ]
+                }
+            ]
+        };
+
+        // State management
+        let progressData = {
+            tasks: {},
+            notes: {},
+            timeSpent: {},
+            progress: {}, // Learning progress percentage (0-100)
+            lastUpdated: null
+        };
+
+        // Chart instances
+        let phaseChart = null;
+        let timeChart = null;
+        let importData = null;
+
+        // Initialize the application
+        function init() {
+            loadProgressFromStorage();
+            renderRoadmap();
+            renderAdvancedTopics();
+            updateStats();
+            initCharts();
+        }
+
+        // Render the roadmap structure
+        function renderRoadmap() {
+            const container = document.getElementById('roadmapContent');
+            container.innerHTML = '';
+
+            roadmapData.phases.forEach(phase => {
+                const phaseElement = createPhaseElement(phase);
+                container.appendChild(phaseElement);
+            });
+        }
+
+        // Create phase element
+        function createPhaseElement(phase) {
+            const phaseDiv = document.createElement('div');
+            phaseDiv.className = 'phase';
+            phaseDiv.innerHTML = `
+                <div class="phase-header" onclick="togglePhase('${phase.id}')">
+                    <div class="phase-header-content">
+                        <div class="phase-title">
+                            <span class="phase-icon">${phase.icon}</span>
+                            <span class="expand-icon">▼</span>
+                            ${phase.title} (Weeks ${phase.weekRange})
+                        </div>
+                        <div class="phase-progress" id="progress-${phase.id}">0% Complete</div>
+                    </div>
+                </div>
+                <div class="phase-content" id="content-${phase.id}">
+                    ${phase.weeks.map(week => createWeekElement(week, phase.id)).join('')}
+                </div>
+            `;
+            return phaseDiv;
+        }
+
+        // Create week element
+        function createWeekElement(week, phaseId) {
+            return `
+                <div class="week">
+                    <div class="week-header" onclick="toggleWeek('${week.id}')">
+                        <div class="week-header-content">
+                            <div class="week-title">
+                                <span class="expand-icon">▼</span>
+                                ${week.title} (Est: ${week.estimatedTime}h)
+                            </div>
+                            <div class="week-progress" id="progress-${week.id}">0% Complete</div>
+                        </div>
+                    </div>
+                    <div class="week-content" id="content-${week.id}">
+                        ${week.topics.map(topic => createTopicElement(topic, week.id, phaseId)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Create topic element
+        function createTopicElement(topic, weekId, phaseId) {
+            const isCompleted = progressData.tasks[topic.id] || false;
+            const timeSpent = progressData.timeSpent[topic.id] || 0;
+            const learningProgress = progressData.progress[topic.id] || 0;
+            const notes = progressData.notes[topic.id] || '';
+            const completedClass = isCompleted ? 'completed' : '';
+
+            return `
+                <div class="topic ${completedClass}">
+                    <div class="topic-header">
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox" id="task-${topic.id}" 
+                                   ${isCompleted ? 'checked' : ''} 
+                                   onchange="updateTaskProgress('${topic.id}')">
+                            <label for="task-${topic.id}" class="topic-title">${topic.title}</label>
+                        </div>
+                        <span class="priority-badge priority-${topic.priority}">${topic.priority}</span>
+                    </div>
+                    <div class="topic-description">${topic.description}</div>
+                    <div class="time-tracker">
+                        <div class="time-item">
+                            <div class="time-label">Estimated</div>
+                            <div class="time-value">${topic.estimatedTime}h</div>
+                        </div>
+                        <div class="time-item">
+                            <div class="time-label">Time Spent</div>
+                            <input type="number" id="time-${topic.id}" class="time-input" 
+                                   value="${timeSpent}" min="0" step="0.5" 
+                                   onchange="updateTimeSpent('${topic.id}', this.value)">
+                        </div>
+                        <div class="time-item">
+                            <div class="time-label">Learning Progress</div>
+                            <div class="progress-input-container">
+                                <input type="number" id="progress-${topic.id}" class="time-input" 
+                                       value="${learningProgress}" min="0" max="100" step="5" 
+                                       onchange="updateLearningProgress('${topic.id}', this.value)">
+                                <span class="progress-unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notes-container">
+                        <textarea class="notes-input" id="notes-${topic.id}" 
+                                  placeholder="📝 Add your learning notes, insights, or challenges here..." 
+                                  onchange="updateNotes('${topic.id}', this.value)">${notes}</textarea>
+                    </div>
+                    ${topic.resources ? `
+                        <div class="resources">
+                            <div class="resources-title">📚 Learning Resources</div>
+                            <div class="resource-links">
+                                ${topic.resources.map(resource => `
+                                    <a href="${resource.url}" target="_blank" class="resource-link">${resource.name}</a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Render advanced topics
+        function renderAdvancedTopics() {
+            const container = document.getElementById('advancedTopics');
+            container.innerHTML = roadmapData.advancedTopics.map(topic => `
+                <div class="advanced-topic">
+                    <div class="advanced-topic-title">🌟 ${topic.title}</div>
+                    <div class="advanced-topic-desc">${topic.description}</div>
+                    <div class="advanced-topic-importance"><strong>Why Important:</strong> ${topic.importance}</div>
+                    ${topic.resources ? `
+                        <div class="resources">
+                            <div class="resources-title">📚 Learning Resources</div>
+                            <div class="resource-links">
+                                ${topic.resources.map(resource => `
+                                    <a href="${resource.url}" target="_blank" class="resource-link">${resource.name}</a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Toggle phase visibility
+        function togglePhase(phaseId) {
+            const phaseElement = document.querySelector(`#content-${phaseId}`).parentElement;
+            phaseElement.classList.toggle('collapsed');
+        }
+
+        // Toggle week visibility
+        function toggleWeek(weekId) {
+            const weekContent = document.getElementById(`content-${weekId}`);
+            weekContent.classList.toggle('open');
+        }
+
+        // Update task progress with gamification
+        function updateTaskProgress(taskId) {
+            const checkbox = document.getElementById(`task-${taskId}`);
+            const wasCompleted = progressData.tasks[taskId];
+            
+            progressData.tasks[taskId] = checkbox.checked;
+            progressData.lastUpdated = new Date().toISOString();
+            
+            // Add visual feedback
+            const topicElement = checkbox.closest('.topic');
+            if (checkbox.checked) {
+                topicElement.classList.add('completed');
+                // Auto-set learning progress to 100% when task is completed
+                progressData.progress[taskId] = 100;
+                const progressInput = document.getElementById(`progress-${taskId}`);
+                if (progressInput) {
+                    progressInput.value = 100;
+                }
+                if (!wasCompleted) {
+                    showAchievement('🎉 Challenge Completed!');
+                }
+            } else {
+                topicElement.classList.remove('completed');
+                // Don't auto-reset progress when unchecking - let user decide
+            }
+            
+            saveProgressToStorage();
+            updateStats();
+            updateCharts();
+        }
+
+        // Update time spent
+        function updateTimeSpent(taskId, hours) {
+            progressData.timeSpent[taskId] = parseFloat(hours) || 0;
+            progressData.lastUpdated = new Date().toISOString();
+            saveProgressToStorage();
+            updateStats();
+            updateCharts();
+        }
+
+        // Update learning progress
+        function updateLearningProgress(taskId, progressPercent) {
+            const progress = Math.max(0, Math.min(100, parseFloat(progressPercent) || 0));
+            progressData.progress[taskId] = progress;
+            progressData.lastUpdated = new Date().toISOString();
+            
+            // Auto-check the task if progress reaches 100%
+            if (progress >= 100 && !progressData.tasks[taskId]) {
+                progressData.tasks[taskId] = true;
+                const checkbox = document.getElementById(`task-${taskId}`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    const topicElement = checkbox.closest('.topic');
+                    topicElement.classList.add('completed');
+                    showAchievement('🎉 Challenge Completed!');
+                }
+            }
+            
+            saveProgressToStorage();
+            updateStats();
+            updateCharts();
+        }
+
+        // Update notes
+        function updateNotes(taskId, notes) {
+            progressData.notes[taskId] = notes;
+            progressData.lastUpdated = new Date().toISOString();
+            saveProgressToStorage();
+        }
+
+        // Find topic by ID
+        function findTopicById(topicId) {
+            for (const phase of roadmapData.phases) {
+                for (const week of phase.weeks) {
+                    for (const topic of week.topics) {
+                        if (topic.id === topicId) {
+                            return topic;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        // Show achievement notification
+        function showAchievement(message) {
+            const achievement = document.createElement('div');
+            achievement.className = 'achievement';
+            achievement.textContent = message;
+            document.body.appendChild(achievement);
+            
+            setTimeout(() => achievement.classList.add('show'), 100);
+            setTimeout(() => {
+                achievement.classList.remove('show');
+                setTimeout(() => document.body.removeChild(achievement), 500);
+            }, 3000);
+        }
+
+        // Calculate statistics
+        function calculateStats() {
+            let totalTasks = 0;
+            let completedTasks = 0;
+            let totalTimeSpent = 0;
+            let totalEstimatedTime = 0;
+
+            roadmapData.phases.forEach(phase => {
+                phase.weeks.forEach(week => {
+                    week.topics.forEach(topic => {
+                        totalTasks++;
+                        totalEstimatedTime += topic.estimatedTime;
+                        totalTimeSpent += progressData.timeSpent[topic.id] || 0;
+                        if (progressData.tasks[topic.id]) {
+                            completedTasks++;
+                        }
+                    });
+                });
+            });
+
+            return {
+                overallProgress: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+                completedTasks,
+                totalTasks,
+                totalTimeSpent: Math.round(totalTimeSpent * 10) / 10,
+                totalEstimatedTime
+            };
+        }
+
+        // Update statistics display
+        function updateStats() {
+            const stats = calculateStats();
+            
+            document.getElementById('overallProgress').textContent = stats.overallProgress + '%';
+            document.getElementById('completedTasks').textContent = `${stats.completedTasks}/${stats.totalTasks}`;
+            document.getElementById('totalTime').textContent = stats.totalTimeSpent + 'h';
+            document.getElementById('estimatedTime').textContent = stats.totalEstimatedTime + 'h';
+
+            // Update progress ring
+            const circumference = 2 * Math.PI * 50;
+            const progressCircle = document.getElementById('progressCircle');
+            const offset = circumference - (stats.overallProgress / 100) * circumference;
+            progressCircle.style.strokeDasharray = circumference;
+            progressCircle.style.strokeDashoffset = offset;
+
+            // Update phase and week progress
+            roadmapData.phases.forEach(phase => {
+                const phaseStats = calculatePhaseStats(phase);
+                const progressElement = document.getElementById(`progress-${phase.id}`);
+                if (progressElement) {
+                    progressElement.textContent = `${phaseStats.progress}% Complete`;
+                }
+
+                phase.weeks.forEach(week => {
+                    const weekStats = calculateWeekStats(week);
+                    const weekProgressElement = document.getElementById(`progress-${week.id}`);
+                    if (weekProgressElement) {
+                        weekProgressElement.textContent = `${weekStats.progress}% Complete`;
+                    }
+                });
+            });
+        }
+
+        // Calculate phase statistics
+        function calculatePhaseStats(phase) {
+            let totalTasks = 0;
+            let completedTasks = 0;
+            let totalTimeSpent = 0;
+            let totalEstimated = 0;
+
+            phase.weeks.forEach(week => {
+                week.topics.forEach(topic => {
+                    totalTasks++;
+                    totalEstimated += topic.estimatedTime;
+                    totalTimeSpent += progressData.timeSpent[topic.id] || 0;
+                    if (progressData.tasks[topic.id]) {
+                        completedTasks++;
+                    }
+                });
+            });
+
+            return {
+                progress: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+                completedTasks,
+                totalTasks,
+                totalTimeSpent: Math.round(totalTimeSpent * 10) / 10,
+                totalEstimated
+            };
+        }
+
+        // Calculate week statistics
+        function calculateWeekStats(week) {
+            let totalTasks = 0;
+            let completedTasks = 0;
+
+            week.topics.forEach(topic => {
+                totalTasks++;
+                if (progressData.tasks[topic.id]) {
+                    completedTasks++;
+                }
+            });
+
+            return {
+                progress: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+                completedTasks,
+                totalTasks
+            };
+        }
+
+        // Initialize charts
+        function initCharts() {
+            const phaseCtx = document.getElementById('phaseChart').getContext('2d');
+            const timeCtx = document.getElementById('timeChart').getContext('2d');
+
+            phaseChart = new Chart(phaseCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: roadmapData.phases.map(p => p.title.replace('Phase ', '')),
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: [
+                            'rgba(100, 255, 218, 0.8)',
+                            'rgba(187, 134, 252, 0.8)',
+                            'rgba(255, 107, 157, 0.8)'
+                        ],
+                        borderWidth: 2,
+                        borderColor: 'rgba(255, 255, 255, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.8)',
+                                font: {
+                                    size: 12,
+                                    weight: '500'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            timeChart = new Chart(timeCtx, {
+                type: 'bar',
+                data: {
+                    labels: roadmapData.phases.map(p => p.title.replace('Phase ', '')),
+                    datasets: [
+                        {
+                            label: 'Estimated',
+                            data: roadmapData.phases.map(p => p.estimatedTime),
+                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                            borderColor: 'rgba(255, 255, 255, 0.3)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Actual',
+                            data: [0, 0, 0],
+                            backgroundColor: 'rgba(100, 255, 218, 0.8)',
+                            borderColor: 'rgba(100, 255, 218, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Hours',
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.8)',
+                                font: {
+                                    size: 12,
+                                    weight: '500'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            updateCharts();
+        }
+
+        // Update charts with current data
+        function updateCharts() {
+            if (!phaseChart || !timeChart) return;
+
+            // Update phase chart
+            const phaseProgress = roadmapData.phases.map(phase => calculatePhaseStats(phase).progress);
+            phaseChart.data.datasets[0].data = phaseProgress;
+            phaseChart.update();
+
+            // Update time chart
+            const actualTimes = roadmapData.phases.map(phase => calculatePhaseStats(phase).totalTimeSpent);
+            timeChart.data.datasets[1].data = actualTimes;
+            timeChart.update();
+        }
+
+        // Storage functions
+        function saveProgressToStorage() {
+            localStorage.setItem('roadmapProgress', JSON.stringify(progressData));
+        }
+
+        function loadProgressFromStorage() {
+            const saved = localStorage.getItem('roadmapProgress');
+            if (saved) {
+                progressData = JSON.parse(saved);
+                // Ensure progress field exists for backward compatibility
+                if (!progressData.progress) {
+                    progressData.progress = {};
+                }
+            }
+        }
+
+        // Export progress
+        function exportProgress() {
+            const exportData = {
+                ...progressData,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backend-quest-progress-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showAchievement('💾 Progress Exported Successfully!');
+        }
+
+        // Import progress
+        function importProgress() {
+            document.getElementById('fileModal').classList.add('show');
+        }
+
+        // Process file import
+        function processFileImport() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file to import.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Validate imported data
+                    if (!validateImportData(data)) {
+                        return;
+                    }
+
+                    importData = data;
+                    
+                    // Close file modal but keep importData
+                    document.getElementById('fileModal').classList.remove('show');
+                    document.getElementById('fileInput').value = '';
+
+                    // Check if user has existing progress
+                    const hasExistingProgress = Object.keys(progressData.tasks).length > 0 || 
+                                               Object.keys(progressData.notes).length > 0 || 
+                                               Object.keys(progressData.timeSpent).length > 0 ||
+                                               Object.keys(progressData.progress).length > 0;
+
+                    if (hasExistingProgress) {
+                        document.getElementById('importModal').classList.add('show');
+                    } else {
+                        handleImport('overwrite');
+                    }
+                } catch (error) {
+                    alert('Error reading file. Please ensure it\'s a valid JSON file.\n\nError: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Validate import data
+        function validateImportData(data) {
+            if (!data || typeof data !== 'object') {
+                return false;
+            }
+            
+            const requiredFields = ['tasks', 'notes', 'timeSpent'];
+            const missingFields = requiredFields.filter(field => !data.hasOwnProperty(field));
+            
+            if (missingFields.length > 0) {
+                alert(`Missing required fields: ${missingFields.join(', ')}`);
+                return false;
+            }
+            
+            // Validate that fields are objects
+            if (typeof data.tasks !== 'object' || typeof data.notes !== 'object' || typeof data.timeSpent !== 'object') {
+                alert('Invalid field types - all progress fields must be objects');
+                return false;
+            }
+            
+            // Progress field is optional for backward compatibility
+            if (data.progress && typeof data.progress !== 'object') {
+                alert('Invalid progress field type - must be an object');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Handle import with user preference
+        function handleImport(action) {
+            if (!importData) {
+                alert('Import failed: No data available. Please try importing again.');
+                return;
+            }
+
+            if (action === 'overwrite') {
+                progressData = {
+                    tasks: importData.tasks || {},
+                    notes: importData.notes || {},
+                    timeSpent: importData.timeSpent || {},
+                    progress: importData.progress || {},
+                    lastUpdated: new Date().toISOString()
+                };
+            } else if (action === 'merge') {
+                progressData.tasks = { ...progressData.tasks, ...importData.tasks };
+                progressData.notes = { ...progressData.notes, ...importData.notes };
+                progressData.timeSpent = { ...progressData.timeSpent, ...importData.timeSpent };
+                progressData.progress = { ...progressData.progress, ...(importData.progress || {}) };
+                progressData.lastUpdated = new Date().toISOString();
+            }
+
+            saveProgressToStorage();
+            closeModal();
+            showAchievement('📥 Progress Imported Successfully!');
+            location.reload();
+        }
+
+        // Reset all progress
+        function resetProgress() {
+            if (confirm('🔄 Are you sure you want to reset your entire quest? This will clear all progress and cannot be undone!')) {
+                progressData = {
+                    tasks: {},
+                    notes: {},
+                    timeSpent: {},
+                    progress: {},
+                    lastUpdated: null
+                };
+                saveProgressToStorage();
+                showAchievement('🔄 Quest Reset - Ready for a Fresh Start!');
+                location.reload();
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('show');
+            });
+            document.getElementById('fileInput').value = '';
+            importData = null;
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Add some keyboard shortcuts for power users
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'e':
+                        e.preventDefault();
+                        exportProgress();
+                        break;
+                    case 'i':
+                        e.preventDefault();
+                        importProgress();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
