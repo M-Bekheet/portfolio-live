@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Backend Mastery Quest - Level Up Your Career!</title>
+    <title>Backend-First Senior Developer Roadmap</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -185,6 +185,17 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
+        }
+
+        /* Role Fit rows */
+        .role-row {
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+        .role-hint {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Progress Ring */
@@ -875,7 +886,8 @@
         .modal-actions {
             display: flex;
             gap: 1rem;
-            justify-content: flex-end;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .file-input {
@@ -983,8 +995,8 @@
     <div class="container">
         <!-- Hero Header -->
         <div class="hero-header">
-            <h1 class="hero-title">🚀 Backend Mastery Quest</h1>
-            <p class="hero-subtitle">Level up your career with this epic 17-week journey to Senior Backend Engineer!</p>
+            <h1 class="hero-title">Backend-First Senior Developer Roadmap</h1>
+            <p class="hero-subtitle">48 weeks · 10–12 hours/week · Job readiness by Week 16</p>
         </div>
 
         <!-- Level System -->
@@ -1022,8 +1034,36 @@
             
             <div class="level-card">
                 <span class="stat-icon">🎯</span>
-                <div class="stat-value" id="estimatedTime">467h</div>
+                <div class="stat-value" id="estimatedTime">0h</div>
                 <div class="stat-label">Target Hours</div>
+            </div>
+            <div class="level-card">
+                <div class="progress-ring">
+                    <svg>
+                        <defs>
+                            <linearGradient id="gradientReadiness" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#64ffda;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="bg" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress" cx="60" cy="60" r="50" id="readinessCircle" style="stroke:url(#gradientReadiness)"></circle>
+                    </svg>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                        <div class="stat-value" id="readinessValue">0%</div>
+                    </div>
+                </div>
+                <div class="stat-label">Backend Readiness</div>
+            </div>
+            <div class="level-card">
+                <span class="stat-icon">👔</span>
+                <div class="stat-label">Role Fit</div>
+                <div class="role-row" id="rf-fe-heavy">Full‑stack (FE‑heavy): <span id="rf-fe-heavy-score">0%</span></div>
+                <div class="role-hint">Front‑end senior + back‑end basics; hiring focus on FE.</div>
+                <div class="role-row" id="rf-backend-mid">Backend (Mid‑level): <span id="rf-backend-mid-score">0%</span></div>
+                <div class="role-hint">Independent backend delivery on core APIs and systems.</div>
+                <div class="role-row" id="rf-fs-balanced">Full‑stack (Balanced): <span id="rf-fs-balanced-score">0%</span></div>
+                <div class="role-hint">Senior in both FE and BE; leading across the stack.</div>
             </div>
         </div>
 
@@ -1089,389 +1129,232 @@
     </div>
 
     <script>
-        // Enhanced roadmap data with curated resources and URLs from updated roadmap
+        // Curated roadmap data from public/roadmap.md
         const roadmapData = {
             learningObjectives: [
                 {
-                    id: 'nestjs-mastery',
-                    title: 'NestJS Fundamentals & Framework Mastery',
-                    icon: '🏗️',
-                    description: 'Master the NestJS framework with hands-on tutorials and comprehensive documentation study.',
-                    priority: 'high',
-                    estimatedTime: 63, // 35h + 28h
+                    id: 'phase-1-backend-fundamentals',
+                    title: 'Phase 1: Backend Fundamentals Refresher (Weeks 1–6)',
+                    icon: '⚡',
+                    description: 'Goal: Refresh core Node.js & Express skills efficiently.',
+                    weight: 0.15,
+                    estimatedTime: 50,
                     topics: [
                         {
-                            id: 'nestjs-tutorial',
-                            title: 'Nest.js Tutorial for Beginners (YouTube)',
-                            description: 'Study the entire course to build solid foundation in NestJS development.',
+                            id: 'p1-node-express-refresher',
+                            title: 'Node.js & Express Refresher',
+                            description: '5 hours/week focused practice across 6 weeks.',
                             priority: 'high',
-                            estimatedTime: 35, // 1-2 weeks = 1.5 weeks * 5 days * 7h = 52.5h ≈ 35h
-                            focusAreas: 'Study the entire course.',
+                            estimatedTime: 30,
+                            focusAreas: 'Node modules, event loop, Express middleware/routing/auth',
                             resources: [
-                                { name: 'Nest.js Tutorial for Beginners (CodeWithVlad)', url: 'https://www.youtube.com/watch?v=GHTA143_b-s' }
+                                { name: 'Node.js Crash Course (Traversy Media)', url: 'https://www.youtube.com/watch?v=32M1al-Y6Ag' },
+                                { name: 'Express Essentials (LinkedIn Learning)', url: 'https://www.linkedin.com/learning/express-essentials-build-powerful-web-apps-with-node-js' },
+                                { name: 'Express.js Getting Started', url: 'https://expressjs.com/en/starter/installing.html' }
                             ]
                         },
                         {
-                            id: 'nestjs-docs',
-                            title: 'NestJS Official Documentation',
-                            description: 'Deep dive into Controllers, Providers/Services, Modules, and Dependency Injection patterns.',
+                            id: 'p1-task-management-api',
+                            title: 'Project: Task Management API (Weeks 5–6)',
+                            description: 'Node.js + Express + PostgreSQL (raw SQL). Auth, CRUD, validation. Deploy to Railway/Heroku.',
                             priority: 'high',
-                            estimatedTime: 28, // 3-5 days = 4 days * 7h = 28h
-                            focusAreas: 'Controllers, Providers/Services, Modules, Dependency Injection',
-                            resources: [
-                                { name: 'NestJS Official Documentation', url: 'https://docs.nestjs.com/first-steps' }
-                            ]
+                            estimatedTime: 20,
+                            resources: []
                         }
                     ]
                 },
                 {
-                    id: 'nodejs-refresher',
-                    title: 'Node.js Refresher',
-                    icon: '⚡',
-                    description: 'Refresh and strengthen your Node.js fundamentals with comprehensive video series.',
-                    priority: 'medium',
-                    estimatedTime: 25, // 3-4 days = 3.5 days * 7h = 24.5h ≈ 25h
-                    topics: [
-                        {
-                            id: 'nodejs-fundamentals',
-                            title: 'Node.js Fundamentals (Traversy Media)',
-                            description: 'Complete video series covering essential Node.js concepts and patterns.',
-                            priority: 'medium',
-                            estimatedTime: 25,
-                            focusAreas: 'Study the entire series.',
-                            resources: [
-                                { name: 'Node.js Fundamentals (Traversy Media YouTube)', url: 'https://www.youtube.com/watch?v=U8XF6AFGqlc' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'postgresql-optimization',
-                    title: 'Advanced PostgreSQL & Query Optimization',
+                    id: 'phase-2-postgres-rest',
+                    title: 'Phase 2: PostgreSQL & REST Patterns (Weeks 7–12)',
                     icon: '🗄️',
-                    description: 'Master advanced PostgreSQL features including complex queries, optimization, and performance tuning.',
-                    priority: 'high',
-                    estimatedTime: 50, // 25h + 25h
+                    description: 'Goal: Master SQL fundamentals and robust API design.',
+                    weight: 0.20,
+                    estimatedTime: 30,
                     topics: [
                         {
-                            id: 'postgresql-basics',
-                            title: 'Neon.com PostgreSQL Tutorial',
-                            description: 'Focus on fundamental querying, filtering, joins, and grouping operations.',
+                            id: 'p2-sql-postgres-mastery',
+                            title: 'SQL & PostgreSQL Mastery',
+                            description: '3 hours/week for 6 weeks covering schema design, queries, indexes, perf.',
                             priority: 'high',
-                            estimatedTime: 25, // 3-4 days = 3.5 days * 7h = 24.5h ≈ 25h
-                            focusAreas: 'Study Sections 1–4 (Querying, Filtering, Joins, Grouping)',
+                            estimatedTime: 18,
+                            focusAreas: 'Database design, complex queries, indexes, performance',
                             resources: [
-                                { name: 'Neon.com PostgreSQL Tutorial', url: 'https://neon.com/postgresql/tutorial' }
+                                { name: 'PostgreSQL Complete Bootcamp (Udemy)', url: 'https://www.udemy.com/course/the-complete-sql-bootcamp/' },
+                                { name: 'Neon PostgreSQL Tutorial (Reference)', url: 'https://neon.com/postgresql/tutorial' }
                             ]
                         },
                         {
-                            id: 'postgresql-advanced',
-                            title: 'PGTutorial.com Advanced Features',
-                            description: 'Advanced PostgreSQL concepts including CTEs, window functions, and PL/pgSQL.',
-                            priority: 'high',
-                            estimatedTime: 25, // 3-4 days = 3.5 days * 7h = 24.5h ≈ 25h
-                            focusAreas: 'Sections 5–12 (Set operations, CTEs, Window Functions, Transactions, PL/pgSQL basics)',
-                            resources: [
-                                { name: 'PGTutorial.com', url: 'https://www.pgtutorial.com/' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'drizzle-orm',
-                    title: 'Drizzle ORM Implementation',
-                    icon: '🔗',
-                    description: 'Learn type-safe, high-performance database operations with Drizzle ORM.',
-                    priority: 'high',
-                    estimatedTime: 35, // 1 week = 5 days * 7h = 35h
-                    topics: [
-                        {
-                            id: 'drizzle-tutorial',
-                            title: 'Drizzle ORM Complete Tutorial',
-                            description: 'Comprehensive study of Drizzle ORM from installation to advanced usage.',
-                            priority: 'high',
-                            estimatedTime: 35,
-                            focusAreas: 'Study the entire tutorials.',
-                            resources: [
-                                { name: 'Drizzle ORM Official Documentation', url: 'https://orm.drizzle.team/docs/tutorials' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'testing-jest',
-                    title: 'Testing with Jest',
-                    icon: '🧪',
-                    description: 'Master unit and integration testing for backend applications using Jest.',
-                    priority: 'medium',
-                    estimatedTime: 35, // 21h + 14h
-                    topics: [
-                        {
-                            id: 'jest-documentation',
-                            title: 'Jest Official Documentation',
-                            description: 'Learn Jest fundamentals including mocking, coverage, and TypeScript integration.',
+                            id: 'p2-rest-patterns',
+                            title: 'REST API Design Patterns',
+                            description: '2 hours/week for 6 weeks. Controllers, versioning, error handling.',
                             priority: 'medium',
-                            estimatedTime: 21, // 3 days * 7h = 21h
-                            focusAreas: 'Getting started, mocking, coverage, TS integration',
+                            estimatedTime: 12,
+                            focusAreas: 'Controllers, versioning, error handling',
                             resources: [
-                                { name: 'Jest Official Documentation', url: 'https://jestjs.io/docs' }
-                            ]
-                        },
-                        {
-                            id: 'testing-best-practices',
-                            title: 'Backend Testing Best Practices',
-                            description: 'Practical examples for backend unit and integration testing strategies.',
-                            priority: 'medium',
-                            estimatedTime: 14, // 2 days * 7h = 14h
-                            focusAreas: 'Examples for backend unit and integration tests',
-                            resources: [
-                                { name: 'Better Stack "Testing in Node"', url: 'https://betterstack.com/community/guides/testing/best-node-testing-libraries/' }
+                                { name: 'Building RESTful APIs with Node.js and Express (LinkedIn Learning)', url: 'https://www.linkedin.com/learning/building-restful-apis-with-node-js-and-express' }
                             ]
                         }
                     ]
                 },
                 {
-                    id: 'redis-caching',
-                    title: 'Caching with Redis',
-                    icon: '⚡',
-                    description: 'Implement high-performance caching solutions using Redis for Node.js applications.',
-                    priority: 'medium',
-                    estimatedTime: 28, // 4 days * 7h = 28h
-                    topics: [
-                        {
-                            id: 'redis-implementation',
-                            title: 'Node.js Caching Layer with Redis',
-                            description: 'Complete guide to implementing Redis caching in Node.js applications.',
-                            priority: 'medium',
-                            estimatedTime: 28,
-                            focusAreas: 'Study the entire guide.',
-                            resources: [
-                                { name: 'Semaphore CI "Node.js Caching Layer with Redis"', url: 'https://semaphore.io/blog/nodejs-caching-layer-redis' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'security-practices',
-                    title: 'Security Best Practices',
-                    icon: '🔒',
-                    description: 'Implement comprehensive security measures for production Node.js applications.',
-                    priority: 'high',
-                    estimatedTime: 35, // 1 week = 5 days * 7h = 35h
-                    topics: [
-                        {
-                            id: 'nodejs-security',
-                            title: 'Node.js Security Implementation',
-                            description: 'Learn input validation, authentication, rate limiting, and security middleware.',
-                            priority: 'high',
-                            estimatedTime: 35,
-                            focusAreas: 'Sections on input validation, auth, rate limiting, Helmet',
-                            resources: [
-                                { name: 'Indusface Blog "Node.js Security Best Practices"', url: 'https://www.indusface.com/blog/how-to-secure-nodejs-api/' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'graphql-nestjs',
-                    title: 'GraphQL with NestJS',
-                    icon: '🔄',
-                    description: 'Build GraphQL APIs with NestJS including resolvers and subscriptions.',
-                    priority: 'medium',
-                    estimatedTime: 28, // 4 days * 7h = 28h
-                    topics: [
-                        {
-                            id: 'graphql-quickstart',
-                            title: 'NestJS GraphQL Quick Start',
-                            description: 'Learn GraphQL implementation with schema-first and code-first approaches.',
-                            priority: 'medium',
-                            estimatedTime: 28,
-                            focusAreas: 'Schema-first vs. Code-first, Resolvers, Subscriptions',
-                            resources: [
-                                { name: 'NestJS GraphQL Quick Start', url: 'https://docs.nestjs.com/graphql/quick-start' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'microservices-architecture',
-                    title: 'Microservices & Event-Driven Architecture',
+                    id: 'phase-3-nestjs-orm',
+                    title: 'Phase 3: NestJS & ORM Integration (Weeks 13–16)',
                     icon: '🏗️',
-                    description: 'Design and implement scalable microservices with event-driven communication patterns.',
-                    priority: 'high',
-                    estimatedTime: 35, // 1 week = 5 days * 7h = 35h
+                    description: 'Goal: Build enterprise-grade backends with NestJS and Prisma.',
+                    weight: 0.30,
+                    estimatedTime: 74,
                     topics: [
                         {
-                            id: 'nestjs-microservices',
-                            title: 'NestJS RabbitMQ Microservices',
-                            description: 'Build microservices with RabbitMQ transport and event patterns.',
+                            id: 'p3-nestjs-deep-dive',
+                            title: 'NestJS Deep Dive',
+                            description: '6 hours/week for 4 weeks. Decorators, DI, guards, testing, deployment.',
                             priority: 'high',
-                            estimatedTime: 35,
-                            focusAreas: 'Transporters, @EventPattern(), @MessagePattern()',
+                            estimatedTime: 24,
+                            focusAreas: 'Modules, providers, guards, testing, deployment',
                             resources: [
-                                { name: 'NestJS RabbitMQ Microservices Tutorial', url: 'https://docs.nestjs.com/microservices/rabbitmq' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'docker-containerization',
-                    title: 'Docker Containerization',
-                    icon: '📦',
-                    description: 'Master containerization with Docker for production-ready deployments.',
-                    priority: 'high',
-                    estimatedTime: 35, // 1 week = 5 days * 7h = 35h
-                    topics: [
-                        {
-                            id: 'docker-nodejs',
-                            title: 'Dockerize Node.js Applications',
-                            description: 'Learn Docker best practices and multi-container application deployment.',
-                            priority: 'high',
-                            estimatedTime: 35,
-                            focusAreas: 'Dockerfile best practices, Docker Compose for multi-container apps',
-                            resources: [
-                                { name: 'DigitalOcean "Dockerize a Node.js Application"', url: 'https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'cicd-github-actions',
-                    title: 'CI/CD with GitHub Actions',
-                    icon: '🔄',
-                    description: 'Build automated CI/CD pipelines with testing, building, and deployment.',
-                    priority: 'high',
-                    estimatedTime: 35, // 21h + 14h
-                    topics: [
-                        {
-                            id: 'github-actions-nodejs',
-                            title: 'GitHub Actions for Node.js',
-                            description: 'Learn workflow syntax and automated testing for Node.js projects.',
-                            priority: 'high',
-                            estimatedTime: 21, // 3 days * 7h = 21h
-                            focusAreas: 'Workflow syntax, test & build jobs',
-                            resources: [
-                                { name: 'GitHub Actions Guides (Node.js)', url: 'https://docs.github.com/actions/guides/building-and-testing-nodejs' }
+                                { name: 'NestJS Zero to Hero (Udemy)', url: 'https://www.udemy.com/course/nestjs-zero-to-hero/' },
+                                { name: 'NestJS Docs', url: 'https://docs.nestjs.com/' },
+                                { name: 'Prisma ORM Docs', url: 'https://www.prisma.io/docs' }
                             ]
                         },
                         {
-                            id: 'cicd-pipeline-tutorial',
-                            title: 'Complete CI/CD Pipeline Tutorial',
-                            description: 'End-to-end CI/CD pipeline implementation with practical examples.',
+                            id: 'p3-ecommerce-api',
+                            title: 'Project: E-commerce API (Weeks 12–14)',
+                            description: 'NestJS + PostgreSQL + Prisma + JWT + Redis. Auth, catalog, orders, Stripe, caching.',
                             priority: 'high',
-                            estimatedTime: 14, // 2 days * 7h = 14h
-                            focusAreas: 'End-to-end CI/CD pipeline example',
-                            resources: [
-                                { name: 'Codecademy "How to Use GitHub Actions"', url: 'https://www.codecademy.com/article/how-to-use-github-actions' }
-                            ]
+                            estimatedTime: 30,
+                            resources: []
+                        },
+                        {
+                            id: 'p3-realtime-chat',
+                            title: 'Project: Real-time Chat System (Weeks 15–16)',
+                            description: 'NestJS + WebSockets + PostgreSQL + Redis + S3. Presence, uploads, admin.',
+                            priority: 'high',
+                            estimatedTime: 20,
+                            resources: []
                         }
                     ]
                 },
                 {
-                    id: 'railway-deployment',
-                    title: 'Deployment on Railway',
-                    icon: '🚀',
-                    description: 'Deploy and manage Node.js applications on Railway platform.',
-                    priority: 'high',
-                    estimatedTime: 28, // 21h + 7h
+                    id: 'phase-4-sysdesign-devops',
+                    title: 'Phase 4: System Design & DevOps (Weeks 17–32)',
+                    icon: '⚙️',
+                    description: 'Goal: Architect scalable systems and master deployment.',
+                    weight: 0.20,
+                    estimatedTime: 142,
                     topics: [
                         {
-                            id: 'railway-nodejs-guide',
-                            title: 'Railway Node.js Deployment Guide',
-                            description: 'Learn Railway deployment with GitHub integration and database setup.',
+                            id: 'p4-system-design-interview',
+                            title: 'System Design Interview Preparation',
+                            description: '4 hours/week for 16 weeks. Frameworks, diagrams, case studies.',
                             priority: 'high',
-                            estimatedTime: 21, // 3 days * 7h = 21h
-                            focusAreas: 'GitHub integration, database provisioning, CLI deploy',
+                            estimatedTime: 64,
                             resources: [
-                                { name: 'Railway Official Guide (Node.js)', url: 'https://docs.railway.app/deploy/guides/nodejs' }
+                                { name: 'System Design Interview – Alex Xu', url: 'https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF' },
+                                { name: 'Designing Data-Intensive Applications', url: 'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/' }
                             ]
                         },
                         {
-                            id: 'railway-comparison',
-                            title: 'Platform Comparison Guide',
-                            description: 'Understand Railway advantages compared to other deployment platforms.',
+                            id: 'p4-cloud-devops-mastery',
+                            title: 'Cloud & DevOps Mastery',
+                            description: '3 hours/week for 16 weeks. Docker, Kubernetes, CI/CD, AWS.',
+                            priority: 'high',
+                            estimatedTime: 48,
+                            resources: [
+                                { name: 'Docker & Kubernetes: The Complete Guide (Udemy)', url: 'https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/' },
+                                { name: 'AWS Certified Developer Associate Prep (LinkedIn Learning)', url: 'https://www.linkedin.com/learning/aws-certified-developer-associate-dva-c02-cert-prep' }
+                            ]
+                        },
+                        {
+                            id: 'p4-distributed-task-system',
+                            title: 'Advanced Project: Distributed Task Processing System (Weeks 30–32)',
+                            description: 'Microservices with message queues. Job scheduling, discovery, logging, fault tolerance.',
+                            priority: 'high',
+                            estimatedTime: 30,
+                            resources: []
+                        }
+                    ]
+                },
+                {
+                    id: 'phase-5-dsa-interview',
+                    title: 'Phase 5: DSA & Interview Projects (Weeks 33–48)',
+                    icon: '🧠',
+                    description: 'Goal: Master algorithms and prepare for leadership roles.',
+                    weight: 0.15,
+                    estimatedTime: 152,
+                    topics: [
+                        {
+                            id: 'p5-dsa',
+                            title: 'Data Structures & Algorithms',
+                            description: '4 hours/week for 16 weeks. Lectures, labs, major projects.',
+                            priority: 'high',
+                            estimatedTime: 64,
+                            resources: [
+                                { name: 'Berkeley CS61B (Spring 2024)', url: 'https://sp24.datastructur.es/' },
+                                { name: 'Elements of Programming Interviews in Java', url: 'https://www.amazon.com/Elements-Programming-Interviews-Java-Insiders/dp/1517435803' }
+                            ]
+                        },
+                        {
+                            id: 'p5-leadership-communication',
+                            title: 'Technical Leadership & Communication',
+                            description: '3 hours/week for 16 weeks. Decision-making, architecture reviews, collaboration.',
                             priority: 'medium',
-                            estimatedTime: 7, // 1 day * 7h = 7h
-                            focusAreas: 'Comparative summary',
+                            estimatedTime: 48,
                             resources: [
-                                { name: 'Dev.to "Railway vs Render vs Heroku"', url: 'https://dev.to/alex_aslam/deploy-nodejs-apps-like-a-boss-railway-vs-render-vs-heroku-zero-server-stress-5p3' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'observability-monitoring',
-                    title: 'Observability & Monitoring',
-                    icon: '📊',
-                    description: 'Implement logging, monitoring, and health checks for production systems.',
-                    priority: 'high',
-                    estimatedTime: 35, // 14h + 21h
-                    topics: [
-                        {
-                            id: 'logging-frameworks',
-                            title: 'Node.js Logging Frameworks',
-                            description: 'Compare and implement Winston vs Pino for structured logging.',
-                            priority: 'high',
-                            estimatedTime: 14, // 2 days * 7h = 14h
-                            focusAreas: 'Winston vs. Pino comparison',
-                            resources: [
-                                { name: 'Dash0 "Top Node.js Logging Frameworks"', url: 'https://www.dash0.com/faq/the-top-5-best-node-js-and-javascript-logging-frameworks-in-2025-a-complete-guide' }
+                                { name: "The Staff Engineer's Path", url: 'https://www.oreilly.com/library/view/the-staff-engineers/9781098118723/' }
                             ]
                         },
                         {
-                            id: 'health-checks-metrics',
-                            title: 'Health Checks & Metrics Implementation',
-                            description: 'Build custom monitoring solutions with health checks and metrics collection.',
+                            id: 'p5-interview-prep-projects',
+                            title: 'Interview Preparation Projects (Weeks 45–48)',
+                            description: 'System design portfolio docs, DSA solutions repo, presentation practice.',
                             priority: 'high',
-                            estimatedTime: 21, // 3 days * 7h = 21h
-                            focusAreas: 'Custom setup',
-                            resources: [
-                                { name: 'Self-implementation of basic health checks & metrics', url: '#custom-implementation' }
-                            ]
+                            estimatedTime: 40,
+                            resources: []
                         }
                     ]
                 }
             ],
             advancedTopics: [
                 {
-                    id: 'kubernetes',
-                    title: 'Container Orchestration with Kubernetes',
-                    description: 'After mastering Docker, the next logical step is to learn Kubernetes. It is mentioned in job postings for infrastructure-heavy roles and is the industry standard for managing and scaling containerized applications in production environments. Understanding Kubernetes demonstrates an ability to manage large-scale, enterprise-level deployments.',
-                    importance: 'Essential for infrastructure-heavy roles and enterprise-level deployments.',
+                    id: 'architecture-design-patterns',
+                    title: 'Architecture & Design Patterns',
+                    description: 'In-depth patterns and principles for scalable, maintainable systems.',
+                    importance: 'Strengthens architecture decisions and code quality.',
                     resources: [
-                        { name: 'Kubernetes Official Documentation', url: 'https://kubernetes.io/docs/' },
-                        { name: 'Kubernetes Learning Path', url: 'https://kubernetes.io/docs/tutorials/' }
+                        { name: 'Node.js Design Patterns (3rd Edition)', url: 'https://www.nodejsdesignpatterns.com/' },
+                        { name: 'Clean Architecture', url: 'https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/' },
+                        { name: 'Microservices Patterns', url: 'https://www.manning.com/books/microservices-patterns' }
                     ]
                 },
                 {
-                    id: 'cloud-native',
-                    title: 'Cloud-Native & Serverless Architectures',
-                    description: 'While the roadmap includes Railway, a practical next step is to dive deep into a major cloud provider like AWS. Study services like AWS Lambda for serverless computing, Amazon ECS for container orchestration, and AWS RDS for managed databases. This knowledge is essential for architecting and deploying solutions on the most widely used cloud platform.',
-                    importance: 'Critical for modern cloud architecture and cost-effective scaling.',
+                    id: 'operations-reliability',
+                    title: 'Operations & Reliability',
+                    description: 'Production-grade resilience and reliability practices.',
+                    importance: 'Crucial for senior roles operating systems at scale.',
                     resources: [
-                        { name: 'AWS Documentation', url: 'https://docs.aws.amazon.com/' },
-                        { name: 'AWS Lambda Guide', url: 'https://docs.aws.amazon.com/lambda/' },
-                        { name: 'AWS ECS Documentation', url: 'https://docs.aws.amazon.com/ecs/' }
+                        { name: 'Release It! (2nd Edition)', url: 'https://pragprog.com/titles/mnee2/release-it-second-edition/' },
+                        { name: 'Site Reliability Engineering (Google)', url: 'https://sre.google/books/' }
                     ]
                 },
                 {
-                    id: 'system-design',
+                    id: 'professional-development',
+                    title: 'Professional Development',
+                    description: 'Core software craftsmanship and high-performance DevOps culture.',
+                    importance: 'Elevates team impact and delivery velocity.',
+                    resources: [
+                        { name: 'The Pragmatic Programmer', url: 'https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/' },
+                        { name: 'Accelerate', url: 'https://itrevolution.com/accelerate-book/' }
+                    ]
+                },
+                {
+                    id: 'advanced-system-design',
                     title: 'Advanced System Design',
-                    description: 'The final stage of a senior career is the ability to design complex systems from scratch. Continue to study advanced topics like distributed tracing, fault tolerance, and message bus design. The portfolio projects you built are a great starting point; the next step is to be able to articulate the design decisions behind them and justify architectural trade-offs in an interview setting.',
-                    importance: 'Core competency for senior+ roles and technical leadership positions.',
+                    description: 'Security and reliability principles for large-scale systems; database internals.',
+                    importance: 'Core competency for senior+ and leadership roles.',
                     resources: [
-                        { name: 'Building Scalable Microservices', url: 'https://dev.to/dhrumitdk/building-scalable-microservices-with-nodejs-and-event-driven-architecture-4ckc' },
-                        { name: 'System Design Primer', url: 'https://github.com/donnemartin/system-design-primer' }
-                    ]
-                },
-                {
-                    id: 'leadership',
-                    title: 'Technical Leadership & Mentorship',
-                    description: 'As a senior engineer, your role extends beyond writing code. Many senior job descriptions mention responsibilities like "mentoring team members," "conducting code reviews," and "contributing to project planning". Actively seek opportunities to teach and guide others, as this skill is a key differentiator for leadership roles.',
-                    importance: 'Key differentiator for progression to staff, principal, and engineering management roles.',
-                    resources: [
-                        { name: 'Engineering Leadership Guide', url: 'https://github.com/charlax/engineering-management' },
-                        { name: 'Code Review Best Practices', url: 'https://google.github.io/eng-practices/review/' }
+                        { name: 'Building Secure & Reliable Systems (Google)', url: 'https://sre.google/resources/practices-and-processes/building-secure-and-reliable-systems/' },
+                        { name: 'Database Internals', url: 'https://www.oreilly.com/library/view/database-internals/9781492040330/' }
                     ]
                 }
             ]
@@ -1494,9 +1377,12 @@
         // Initialize the application
         function init() {
             loadProgressFromStorage();
+            reconcileProgressWithTasks();
             renderRoadmap();
             renderAdvancedTopics();
             updateStats();
+            updateReadinessUI();
+            updateRoleFitUI();
             initCharts();
         }
 
@@ -1650,7 +1536,12 @@
                 }
             } else {
                 topicElement.classList.remove('completed');
-                // Don't auto-reset progress when unchecking - let user decide
+                // Reset learning progress when unchecking to reflect not learned
+                progressData.progress[taskId] = 0;
+                const progressInput = document.getElementById(`progress-${taskId}`);
+                if (progressInput) {
+                    progressInput.value = 0;
+                }
             }
             
             saveProgressToStorage();
@@ -1723,26 +1614,34 @@
             }, 3000);
         }
 
-        // Calculate statistics
+        // Calculate statistics (time-weighted overall progress)
         function calculateStats() {
             let totalTasks = 0;
             let completedTasks = 0;
             let totalTimeSpent = 0;
             let totalEstimatedTime = 0;
+            let weightedProgressSum = 0;
 
             roadmapData.learningObjectives.forEach(objective => {
                 objective.topics.forEach(topic => {
                     totalTasks++;
-                    totalEstimatedTime += topic.estimatedTime;
+                    const estimate = topic.estimatedTime || 0;
+                    totalEstimatedTime += estimate;
                     totalTimeSpent += progressData.timeSpent[topic.id] || 0;
                     if (progressData.tasks[topic.id]) {
                         completedTasks++;
                     }
+                    const topicProgress = typeof progressData.progress[topic.id] === 'number'
+                        ? progressData.progress[topic.id]
+                        : (progressData.tasks[topic.id] ? 100 : 0);
+                    weightedProgressSum += estimate * (Math.max(0, Math.min(100, topicProgress)) / 100);
                 });
             });
 
+            const overallProgress = totalEstimatedTime > 0 ? Math.round((weightedProgressSum / totalEstimatedTime) * 100) : 0;
+
             return {
-                overallProgress: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+                overallProgress,
                 completedTasks,
                 totalTasks,
                 totalTimeSpent: Math.round(totalTimeSpent * 10) / 10,
@@ -1774,31 +1673,129 @@
                     progressElement.textContent = `${objectiveStats.progress}% Complete`;
                 }
             });
+
+            // Update readiness gauge
+            updateReadinessUI();
+            updateRoleFitUI();
         }
 
-        // Calculate learning objective statistics
+        // Calculate learning objective statistics (time-weighted)
         function calculateObjectiveStats(objective) {
             let totalTasks = 0;
             let completedTasks = 0;
             let totalTimeSpent = 0;
             let totalEstimated = 0;
+            let weightedProgressSum = 0;
 
             objective.topics.forEach(topic => {
                 totalTasks++;
-                totalEstimated += topic.estimatedTime;
+                const estimate = topic.estimatedTime || 0;
+                totalEstimated += estimate;
                 totalTimeSpent += progressData.timeSpent[topic.id] || 0;
                 if (progressData.tasks[topic.id]) {
                     completedTasks++;
                 }
+                const topicProgress = typeof progressData.progress[topic.id] === 'number'
+                    ? progressData.progress[topic.id]
+                    : (progressData.tasks[topic.id] ? 100 : 0);
+                weightedProgressSum += estimate * (Math.max(0, Math.min(100, topicProgress)) / 100);
             });
 
+            const weightedProgress = totalEstimated > 0 ? Math.round((weightedProgressSum / totalEstimated) * 100) : 0;
+
             return {
-                progress: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+                progress: weightedProgress,
                 completedTasks,
                 totalTasks,
                 totalTimeSpent: Math.round(totalTimeSpent * 10) / 10,
                 totalEstimated
             };
+        }
+
+        // Compute backend readiness gauge (weighted by phase weights)
+        function calculateReadiness() {
+            if (!roadmapData.learningObjectives || roadmapData.learningObjectives.length === 0) return 0;
+            let readiness = 0;
+            let totalWeight = 0;
+            roadmapData.learningObjectives.forEach(obj => {
+                const w = typeof obj.weight === 'number' ? obj.weight : 1;
+                const stats = calculateObjectiveStats(obj);
+                readiness += w * stats.progress;
+                totalWeight += w;
+            });
+            const score = totalWeight > 0 ? Math.round(readiness / totalWeight) : 0;
+            return Math.max(0, Math.min(100, score));
+        }
+
+        function updateReadinessUI() {
+            const readiness = calculateReadiness();
+            const valueEl = document.getElementById('readinessValue');
+            const circle = document.getElementById('readinessCircle');
+            if (valueEl) valueEl.textContent = readiness + '%';
+            if (circle) {
+                const circumference = 2 * Math.PI * 50;
+                const offset = circumference - (readiness / 100) * circumference;
+                circle.style.strokeDasharray = circumference;
+                circle.style.strokeDashoffset = offset;
+            }
+        }
+
+        // Multi-track readiness based on calibrated baselines and weights
+        function computePhaseProgressMap() {
+            return Object.fromEntries(
+                roadmapData.learningObjectives.map(o => [o.id, calculateObjectiveStats(o).progress])
+            );
+        }
+
+        function calculateReadinessTracks() {
+            const p = computePhaseProgressMap();
+            const p1 = p['phase-1-backend-fundamentals'] || 0;
+            const p2 = p['phase-2-postgres-rest'] || 0;
+            const p3 = p['phase-3-nestjs-orm'] || 0;
+            const p4 = p['phase-4-sysdesign-devops'] || 0;
+            const p5 = p['phase-5-dsa-interview'] || 0;
+
+            // Baselines (from CV)
+            const baselineFEHeavy = 80;  // almost ready for FE-heavy FS
+            const baselineBackendMid = 35; // prior FS year + FE senior
+            const feSeniorBaseline = 90;   // FE seniority anchor for balanced FS
+
+            // Weights
+            const wFEHeavy = { p1: 0.25, p2: 0.25, p3: 0.20, p4: 0.20, p5: 0.10 };
+            const wBackendMid = { p1: 0.10, p2: 0.25, p3: 0.40, p4: 0.20, p5: 0.05 };
+            // Backend seniority estimate (harder than mid-level)
+            const seniorBaseline = 10;
+            const wBackendSenior = { p1: 0.05, p2: 0.25, p3: 0.45, p4: 0.20, p5: 0.05 };
+
+            // Scores (clamped 0..100)
+            const feHeavy = Math.max(0, Math.min(100, Math.round(
+                baselineFEHeavy + (wFEHeavy.p1*p1 + wFEHeavy.p2*p2 + wFEHeavy.p3*p3 + wFEHeavy.p4*p4 + wFEHeavy.p5*p5)
+            )));
+            const backendMid = Math.max(0, Math.min(100, Math.round(
+                baselineBackendMid + (wBackendMid.p1*p1 + wBackendMid.p2*p2 + wBackendMid.p3*p3 + wBackendMid.p4*p4 + wBackendMid.p5*p5)
+            )));
+
+            // Backend senior score emphasizes P3 & P4 and has low baseline
+            const backendSenior = Math.max(0, Math.min(100, Math.round(
+                seniorBaseline + (wBackendSenior.p1*p1 + wBackendSenior.p2*p2 + wBackendSenior.p3*p3 + wBackendSenior.p4*p4 + wBackendSenior.p5*p5)
+            )));
+
+            // Full-stack (balanced) is limited by weaker side: backendSenior vs FE senior anchor
+            const fsBalanced = Math.min(feSeniorBaseline, backendSenior);
+
+            return { feHeavy, backendMid, fsBalanced, p1, p2, p3, p4, p5 };
+        }
+
+        function updateRoleFitUI() {
+            const { feHeavy, backendMid, fsBalanced, p2, p3, p4 } = calculateReadinessTracks();
+
+            const feHeavyScore = document.getElementById('rf-fe-heavy-score');
+            const backendMidScore = document.getElementById('rf-backend-mid-score');
+            const fsBalancedScore = document.getElementById('rf-fs-balanced-score');
+
+            if (feHeavyScore) feHeavyScore.textContent = feHeavy + '%';
+            if (backendMidScore) backendMidScore.textContent = backendMid + '%';
+            if (fsBalancedScore) fsBalancedScore.textContent = fsBalanced + '%';
         }
 
         // Initialize charts
@@ -1941,12 +1938,34 @@
             }
         }
 
+        // Reconcile imported/saved data:
+        // - If a task is unchecked, ensure its progress is 0
+        // - If time spent is undefined, normalize to 0
+        function reconcileProgressWithTasks() {
+            roadmapData.learningObjectives.forEach(objective => {
+                objective.topics.forEach(topic => {
+                    const id = topic.id;
+                    const checked = !!progressData.tasks[id];
+                    if (!checked) {
+                        progressData.progress[id] = 0;
+                    } else if (typeof progressData.progress[id] !== 'number') {
+                        progressData.progress[id] = 100;
+                    }
+                    if (typeof progressData.timeSpent[id] !== 'number') {
+                        progressData.timeSpent[id] = 0;
+                    }
+                });
+            });
+            progressData.lastUpdated = new Date().toISOString();
+            saveProgressToStorage();
+        }
+
         // Export progress
         function exportProgress() {
             const exportData = {
                 ...progressData,
                 exportDate: new Date().toISOString(),
-                version: '1.0'
+                version: '2.0'
             };
 
             const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
