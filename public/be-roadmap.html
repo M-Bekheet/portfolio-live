@@ -693,6 +693,83 @@ Changelog (2025-10-27):
         box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
       }
 
+      /* Pacing & Section Badges */
+      .pacing-badge {
+        padding: 0.25rem 0.6rem;
+        border-radius: 16px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .pacing-accelerate {
+        background: var(--success);
+        color: var(--bg-primary);
+      }
+
+      .pacing-needstime {
+        background: var(--warning);
+        color: var(--bg-primary);
+      }
+
+      .prereq-badge {
+        background: linear-gradient(
+          135deg,
+          rgba(100, 255, 218, 0.25),
+          rgba(187, 134, 252, 0.25)
+        );
+        color: var(--accent-blue);
+        border: 1px solid rgba(100, 255, 218, 0.35);
+      }
+
+      /* Job Coverage */
+      .coverage-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+
+      .coverage-item {
+        background: var(--bg-surface);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+        cursor: pointer;
+      }
+
+      .coverage-item:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent-blue);
+      }
+
+      .coverage-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .coverage-progress {
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .coverage-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--success);
+        box-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
+        transition: width 0.4s ease;
+      }
+
       .topic-description {
         color: var(--text-secondary);
         margin-bottom: 1rem;
@@ -1347,6 +1424,23 @@ Changelog (2025-10-27):
       </div>
     </div>
 
+    <!-- Job Requirement Coverage -->
+    <div class="phase" id="job-coverage">
+      <div class="phase-header" onclick="togglePhase('job-coverage')">
+        <div class="phase-header-content">
+          <div class="phase-title">
+            <span class="phase-icon">📊</span>
+            <span class="expand-icon">▼</span>
+            Job Requirement Coverage
+          </div>
+          <div class="phase-progress">Interactive checklists with links</div>
+        </div>
+      </div>
+      <div class="phase-content" id="content-job-coverage">
+        <div id="jobCoverage"></div>
+      </div>
+    </div>
+
     <!-- Import Modal -->
     <div id="importModal" class="modal">
       <div class="modal-content">
@@ -1404,245 +1498,270 @@ Changelog (2025-10-27):
             estimatedTime: 120,
             topics: [
               {
-                id: "w1-express-prisma-docker",
-                title:
-                  "Week 1: Express + TypeScript + Prisma + PostgreSQL + Docker Compose",
+                id: "w0-foundations",
+                title: "Foundations & Prerequisites (Mark as Complete)",
                 description:
-                  "<div><strong>Skills</strong>: Express TS setup, Prisma schema/migrations, seeds, centralized error util, Zod request validation, pino logging with request IDs.<br/><strong>Deliverables</strong>: CRUD with pagination, migrations + seed, error shape, structured logs.<br/><strong>Acceptance</strong>: docker-compose up works, seed succeeds, error format consistent, logs structured.</div>",
+                  "<div><strong>What</strong>: Baseline familiarity with Node, Express, and SQL to ensure Week 1 speed. Mark items done when you finish.<br/><strong>Note</strong>: <em>Currently studying</em> — complete advanced SQL modules (EXPLAIN ANALYZE, indexing, transactions) by Week 1.</div>",
                 priority: "high",
-                estimatedTime: 10,
-                plannedSessions: 6,
+                isPrerequisites: true,
+                pacing: "needstime",
+                estimatedTime: 6,
+                plannedSessions: 4,
                 resources: [
                   {
-                    name: "Express Crash Course (Traversy Media)",
-                    url: "https://www.youtube.com/watch?v=CnH3kAXSrmU",
-                    hours: 1.8,
-                  },
-                  {
-                    name: "Prisma Quickstart (TS + Postgres)",
-                    url: "https://www.prisma.io/docs/getting-started/quickstart-prismaPostgres",
+                    name: "Node.js Crash Course (Traversy Media)",
+                    url: "https://www.youtube.com/watch?v=fBNz5xF-Kx4",
                     hours: 1.5,
                   },
                   {
-                    name: "Prisma Data Model",
-                    url: "https://www.prisma.io/docs/orm/prisma-schema/data-model",
-                    hours: 1.2,
-                  },
-                  {
-                    name: "Prisma Relations",
-                    url: "https://www.prisma.io/docs/orm/prisma-schema/relations",
+                    name: "Express.js Crash Course (Traversy Media)",
+                    url: "https://www.youtube.com/watch?v=L72fhGm1tfE",
                     hours: 1.0,
                   },
                   {
-                    name: "Prisma Migrations",
-                    url: "https://www.prisma.io/docs/orm/prisma-migrate",
+                    name: "The Complete SQL Bootcamp (Udemy, PostgreSQL)",
+                    url: "https://www.udemy.com/course/the-complete-sql-bootcamp",
+                    hours: 9.0,
+                  },
+                ],
+              },
+              {
+                id: "w1-express-prisma-docker",
+                title:
+                  "Week 1: Advanced PostgreSQL + Node.js Event Loop + SQL Mastery",
+                description:
+                  "<div><strong>Learning objectives</strong>: Event loop phases, indexing strategies (B‑tree, GIN, GiST, Hash, BRIN), window functions, CTEs, EXPLAIN ANALYZE workflow.<br/><strong>Deliverables</strong>: CRUD with pagination, migrations + seed, standardized error shape (RFC7807), structured logs, <em>Indexing strategy document</em>.<br/><strong>Hours</strong>: 12–14 theory + 10–12 hands‑on. <strong>Pacing</strong>: Foundational — take 20–24 hrs.</div>",
+                priority: "high",
+                pacing: "needstime",
+                estimatedTime: 22,
+                plannedSessions: 8,
+                resources: [
+                  {
+                    name: "Node.js Event Loop Explained",
+                    url: "https://www.youtube.com/watch?v=8aGhZQkoFbQ",
+                    hours: 0.17,
+                  },
+                  {
+                    name: "Node.js Official: Event Loop",
+                    url: "https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "PostgreSQL Indexing Deep Dive",
+                    url: "https://www.meerako.com/blogs/postgresql-indexing-strategies-btree-gin-gist-guide",
+                    hours: 2.0,
+                  },
+                  {
+                    name: "SQL Window Functions",
+                    url: "https://mode.com/sql-tutorial/sql-window-functions/",
                     hours: 1.0,
                   },
                   {
-                    name: "Prisma Client (Queries)",
-                    url: "https://www.prisma.io/docs/orm/prisma-client/queries",
-                    hours: 1.2,
+                    name: "PostgreSQL Performance Tips",
+                    url: "https://www.postgresql.org/docs/current/performance-tips.html",
+                    hours: 1.0,
+                  },
+                ],
+                optionalResources: [
+                  {
+                    name: "Node.js Streams Handbook (Week 7)",
+                    url: "https://github.com/substack/stream-handbook",
+                    hours: 1.0,
                   },
                   {
-                    name: "Prisma Seeding",
-                    url: "https://www.prisma.io/docs/orm/prisma-migrate/seed-database",
-                    hours: 0.6,
-                  },
-                  {
-                    name: "Docker for Node.js (Guide)",
-                    url: "https://docs.docker.com/guides/nodejs/",
-                    hours: 1.5,
+                    name: "Advanced SQL Techniques",
+                    url: "https://towardsdatascience.com/two-advanced-sql-techniques-that-can-drastically-improve-your-queries-81a97c92ddd0/",
+                    hours: 0.5,
                   },
                 ],
               },
               {
                 id: "w2-testing-ci",
-                title: "Week 2: Testing Foundation (Jest + Supertest) and CI",
+                title: "Week 2: Concurrency + Docker + Testing",
                 description:
-                  "<div><strong>Skills</strong>: Jest unit tests, Supertest integration vs test DB, deterministic factories/fixtures, GitHub Actions CI.<br/><strong>Deliverables</strong>: CI on PR, coverage uploaded, DB state isolated per test.<br/><strong>Acceptance</strong>: CI green on main; coverage badge visible; isolation proven.</div>",
+                  "<div><strong>Learning objectives</strong>: Concurrency patterns, optimistic locking, production Docker (multi‑stage), Jest/Supertest, CI/CD.<br/><strong>Deliverables</strong>: CI on PR, coverage uploaded, DB state isolated per test.</div>",
                 priority: "high",
-                estimatedTime: 10,
+                estimatedTime: 18,
                 plannedSessions: 6,
                 resources: [
                   {
-                    name: "Testing Express with Jest + Supertest (Dennis O'Keeffe)",
-                    url: "https://blog.dennisokeeffe.com/blog/2023-10-27-testing-express-apps-with-jest-and-supertest",
+                    name: "PostgreSQL Transaction Isolation",
+                    url: "https://www.postgresql.org/docs/current/transaction-iso.html",
+                    hours: 1.5,
+                  },
+                  {
+                    name: "Multi-stage Docker for Node.js (Snyk)",
+                    url: "https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/",
+                    hours: 1.5,
+                  },
+                  {
+                    name: "Jest & Supertest 2025",
+                    url: "https://www.youtube.com/watch?v=LEYuxsGIeGo",
+                    hours: 1.5,
+                  },
+                  {
+                    name: "GitHub Actions: Node.js CI/CD",
+                    url: "https://docs.github.com/actions/guides/building-and-testing-nodejs",
                     hours: 1.0,
-                  },
-                  {
-                    name: "GitHub Actions: setup-node",
-                    url: "https://github.com/actions/setup-node",
-                    hours: 0.5,
-                  },
-                  {
-                    name: "GitHub Actions: Using service containers (Postgres)",
-                    url: "https://docs.github.com/actions/using-containerized-services/creating-postgresql-service-containers",
-                    hours: 0.7,
-                  },
-                  {
-                    name: "Supertest (API) — repo",
-                    url: "https://github.com/ladjs/supertest",
-                    hours: 0.3,
                   },
                 ],
               },
               {
                 id: "w3-auth-security",
-                title: "Week 3: AuthN/AuthZ + Security Baselines",
+                title: "Week 3: Auth + Security",
                 description:
-                  "<div><strong>Skills</strong>: Cookie sessions + optional JWT for API, RBAC middleware, helmet headers, Redis rate limiting (ioredis), CSRF considerations.<br/><strong>Deliverables</strong>: Protected routes with tests; documented flows.<br/><strong>Acceptance</strong>: Auth flows tested and documented.</div>",
+                  "<div><strong>Learning objectives</strong>: JWT vs sessions, RBAC implementation, password hashing, token refresh.<br/><strong>Deliverables</strong>: Protected routes with tests; documented flows.</div>",
                 priority: "high",
                 estimatedTime: 10,
                 plannedSessions: 5,
                 resources: [
                   {
-                    name: "Zod v4 — Intro & Basics",
-                    url: "https://zod.dev/",
+                    name: "Node.js Security Best Practices",
+                    url: "https://nodejs.org/en/docs/guides/security/",
                     hours: 1.0,
                   },
                   {
-                    name: "helmet — Getting Started",
-                    url: "https://helmetjs.github.io/",
-                    hours: 0.5,
+                    name: "OWASP Authentication Cheat Sheet",
+                    url: "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+                    hours: 1.5,
                   },
                   {
-                    name: "ioredis — Client overview",
-                    url: "https://github.com/redis/ioredis",
-                    hours: 0.7,
+                    name: "RBAC vs ABAC (Cloudflare)",
+                    url: "https://www.cloudflare.com/learning/access-management/rbac-vs-abac/",
+                    hours: 0.75,
                   },
                 ],
               },
               {
                 id: "w4-openapi",
-                title: "Week 4: OpenAPI at /api-docs with CI schema validation",
+                title: "Week 4: API Design + Error Handling",
                 description:
-                  "<div><strong>Skills</strong>: OpenAPI/Swagger, error models, pagination schema, versioning strategy; Spectral lint in CI; Postman/Insomnia export.<br/><strong>Deliverables</strong>: /api-docs route with examples; CI schema validation; collection exported.<br/><strong>Acceptance</strong>: Docs accessible; CI blocks invalid schemas.</div>",
+                  "<div><strong>Learning objectives</strong>: API versioning, pagination (cursor‑based), error standardization (RFC7807), idempotency.<br/><strong>Deliverables</strong>: /api-docs route with examples; CI schema validation; collection exported.</div>",
                 priority: "high",
+                pacing: "accelerate",
                 estimatedTime: 8,
                 plannedSessions: 4,
                 resources: [
                   {
-                    name: "swagger-ui-express — README",
-                    url: "https://www.npmjs.com/package/swagger-ui-express",
+                    name: "REST API Best Practices",
+                    url: "https://restfulapi.net/",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "RFC 7807: Problem Details",
+                    url: "https://tools.ietf.org/html/rfc7807",
                     hours: 0.5,
                   },
                   {
-                    name: "Spectral — Getting started",
-                    url: "https://meta.stoplight.io/docs/spectral/4dec24461f3af-openapi-overview",
-                    hours: 0.8,
-                  },
-                  {
-                    name: "OpenAPI in Express (Bump.sh)",
-                    url: "https://bump.sh/blog/express-api-openapi/",
-                    hours: 0.8,
+                    name: "Stripe Idempotency Keys",
+                    url: "https://stripe.com/blog/idempotency",
+                    hours: 0.5,
                   },
                 ],
               },
               {
                 id: "w5-payments-workers",
-                title: "Week 5: Stripe + BullMQ Workers",
+                title: "Week 5: Async Messaging Concepts + BullMQ",
                 description:
-                  "<div><strong>Skills</strong>: Stripe checkout + webhooks with idempotency keys; BullMQ + Redis worker with retry/backoff + DLQ; monitoring scenarios documented.<br/><strong>Deliverables</strong>: Idempotent webhook handler; worker with retry strategy; DLQ docs.<br/><strong>Acceptance</strong>: Webhook idempotency test; DLQ scenario documented.</div>",
+                  "<div><strong>Learning objectives</strong>: Messaging patterns, at‑least‑once delivery, BullMQ implementation, webhook idempotency.<br/><strong>Deliverables</strong>: Idempotent webhook handler; worker with retry strategy; DLQ docs.</div>",
                 priority: "high",
+                pacing: "needstime",
                 estimatedTime: 10,
                 plannedSessions: 5,
                 resources: [
+                  {
+                    name: "Enterprise Integration Patterns (messaging)",
+                    url: "https://www.enterpriseintegrationpatterns.com/",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "BullMQ Official Docs",
+                    url: "https://docs.bullmq.io",
+                    hours: 2.0,
+                  },
                   {
                     name: "Stripe Webhooks",
                     url: "https://docs.stripe.com/webhooks",
                     hours: 0.8,
                   },
                   {
-                    name: "Stripe Idempotent requests",
-                    url: "https://docs.stripe.com/api/idempotent_requests",
-                    hours: 0.5,
+                    name: "Webhook Idempotency",
+                    url: "https://hookdeck.com/webhooks/guides/implement-webhook-idempotency",
+                    hours: 0.8,
+                  },
+                ],
+                optionalResources: [
+                  {
+                    name: "Redis Streams basics (BullMQ internals)",
+                    url: "https://redis.io/docs/latest/develop/data-types/streams/",
+                    hours: 0.8,
                   },
                   {
-                    name: "Stripe CLI — listen & trigger",
-                    url: "https://docs.stripe.com/stripe-cli",
-                    hours: 0.5,
-                  },
-                  {
-                    name: "BullMQ — Connections",
-                    url: "https://docs.bullmq.io/guide/connections",
-                    hours: 0.5,
-                  },
-                  {
-                    name: "BullMQ — Workers",
-                    url: "https://docs.bullmq.io/guide/workers",
-                    hours: 0.5,
-                  },
-                  {
-                    name: "BullMQ — Retrying failing jobs",
-                    url: "https://docs.bullmq.io/guide/retrying-failing-jobs",
-                    hours: 0.5,
-                  },
-                  {
-                    name: "BullMQ Patterns — Idempotent jobs",
-                    url: "https://docs.bullmq.io/patterns/idempotent-jobs",
-                    hours: 0.5,
+                    name: "RabbitMQ/Kafka concepts (overview)",
+                    url: "https://www.confluent.io/learn/kafka-vs-rabbitmq/",
+                    hours: 0.6,
                   },
                 ],
               },
               {
                 id: "w6-caching-performance",
-                title: "Week 6: Caching + Performance",
+                title: "Week 6: Caching + Database Scaling",
                 description:
-                  "<div><strong>Skills</strong>: HTTP caching (ETag/Cache-Control), Redis cache-aside, EXPLAIN ANALYZE, B-tree/GIN indexes.<br/><strong>Deliverables</strong>: Before/after timings and indexes documented in README.<br/><strong>Acceptance</strong>: Performance win recorded with timings.</div>",
+                  "<div><strong>Learning objectives</strong>: Cache‑aside pattern, connection pooling, VACUUM tuning, replication strategies.<br/><strong>Deliverables</strong>: Before/after timings and indexes documented in README.</div>",
                 priority: "medium",
                 estimatedTime: 8,
                 plannedSessions: 4,
                 resources: [
                   {
-                    name: "HTTP caching: Cache-Control & ETag (MDN)",
-                    url: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching",
-                    hours: 0.8,
+                    name: "Caching Strategies (AWS)",
+                    url: "https://aws.amazon.com/caching/best-practices/",
+                    hours: 1.0,
                   },
                   {
-                    name: "ioredis — Client overview",
-                    url: "https://github.com/redis/ioredis",
-                    hours: 0.5,
+                    name: "Redis Node.js Guide",
+                    url: "https://redis.io/docs/latest/develop/clients/nodejs/",
+                    hours: 1.0,
                   },
                   {
-                    name: "PostgreSQL — EXPLAIN & ANALYZE",
-                    url: "https://www.postgresql.org/docs/current/using-explain.html",
-                    hours: 0.8,
+                    name: "PostgreSQL Performance Tuning 2025",
+                    url: "https://www.pgedge.com/blog/postgresql-performance-tuning",
+                    hours: 1.0,
                   },
                   {
-                    name: "PostgreSQL Indexes Intro",
-                    url: "https://www.postgresql.org/docs/current/indexes-intro.html",
-                    hours: 0.7,
-                  },
-                  {
-                    name: "GIN Indexes",
-                    url: "https://www.postgresql.org/docs/current/gin.html",
-                    hours: 0.6,
+                    name: "PostgreSQL Replication",
+                    url: "https://www.postgresql.org/docs/current/warm-standby.html",
+                    hours: 1.0,
                   },
                 ],
               },
               {
                 id: "w7-realtime",
-                title: "Week 7: Real‑time (Socket.IO)",
+                title: "Week 7: Real‑time + Security Deep Dive",
                 description:
-                  "<div><strong>Skills</strong>: Notifications/chat, presence, optimistic UI hooks; minimal e2e smoke (optional).<br/><strong>Deliverables</strong>: Real‑time events + basic verification script.<br/><strong>Acceptance</strong>: Events verified; minimal e2e passes. <em>Note</em>: Consider WebRTC later for media.</div>",
+                  "<div><strong>Learning objectives</strong>: WebSocket authentication, streams/backpressure, rate limiting, load testing.<br/><strong>Deliverables</strong>: Real‑time events + basic verification script.</div>",
                 priority: "medium",
                 estimatedTime: 8,
                 plannedSessions: 4,
                 resources: [
                   {
-                    name: "Socket.IO Tutorial — Intro",
-                    url: "https://socket.io/docs/v4/tutorial/introduction",
+                    name: "Socket.IO Official Tutorial",
+                    url: "https://socket.io/get-started/chat",
                     hours: 0.8,
                   },
                   {
-                    name: "Socket.IO — Rooms & Namespaces",
-                    url: "https://socket.io/docs/v4/rooms/",
+                    name: "Node.js Streams Deep Dive",
+                    url: "https://www.youtube.com/watch?v=GlybFFMXXmQ",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "Rate Limiting Algorithms (Stripe)",
+                    url: "https://stripe.com/blog/rate-limiters",
                     hours: 0.6,
                   },
                   {
-                    name: "Intro to Socket.IO (Video)",
-                    url: "https://www.youtube.com/watch?v=MbStdet9aVk",
-                    hours: 0.6,
+                    name: "k6 Load Testing",
+                    url: "https://k6.io/docs/getting-started/running-k6/",
+                    hours: 0.8,
                   },
                 ],
               },
@@ -1650,7 +1769,7 @@ Changelog (2025-10-27):
                 id: "w8-ship-project-1",
                 title: "Week 8: Ship Project 1 – Task/Project SaaS API (Live)",
                 description:
-                  "<div><strong>Skills</strong>: Deploy (Fly.io), Neon (Postgres), Upstash (Redis), CI/CD.<br/><strong>Deliverables</strong>: Public demo live; OpenAPI at /api-docs; seeds; CI + coverage badges; short runbook.<br/><strong>Acceptance</strong>: Demo reachable; docs browsable.<details><summary>Portfolio Artifacts Checklist</summary><ul><li>OpenAPI at /api-docs with examples</li><li>CI badge + coverage badge</li><li>docker-compose.yml</li><li>.env.example</li><li>Seed script</li><li>One‑page Mermaid system diagram</li><li>CONTRIBUTING, PR template, CODEOWNERS</li><li>Short incident/runbook</li></ul></details></div>",
+                  "<div><strong>Skills</strong>: Deploy (Fly.io), Neon (Postgres), Upstash (Redis), CI/CD.<br/><strong>Deliverables</strong>: Public demo live; OpenAPI at /api-docs; seeds; CI + coverage badges; short runbook; <em>Start applications</em>.<br/><strong>Acceptance</strong>: Demo reachable; docs browsable.<details><summary>Portfolio Artifacts Checklist</summary><ul><li>OpenAPI at /api-docs with examples</li><li>CI badge + coverage badge</li><li>docker-compose.yml</li><li>.env.example</li><li>Seed script</li><li>One‑page Mermaid system diagram</li><li>CONTRIBUTING, PR template, CODEOWNERS</li><li>Short incident/runbook</li></ul></details></div>",
                 priority: "high",
                 estimatedTime: 10,
                 plannedSessions: 6,
@@ -1665,71 +1784,139 @@ Changelog (2025-10-27):
               },
               {
                 id: "w9-ecommerce-part1",
-                title: "Week 9: Headless E‑commerce API (Part 1)",
+                title: "Week 9: NestJS Fundamentals",
                 description:
-                  "<div><strong>Skills</strong>: Catalog, carts, orders; reuse modules from Project 1; Postgres text search.<br/><strong>Deliverables</strong>: Order happy path coverage (integration tests start).<br/><strong>Acceptance</strong>: Happy path green.</div>",
+                  "<div><strong>Learning objectives</strong>: Modules, DI, guards, interceptors, pipes, decorators.<br/><strong>Deliverables</strong>: Feature module with guards/pipes; HTTP adapter; testing baseline.</div>",
                 priority: "high",
+                pacing: "accelerate",
                 estimatedTime: 10,
                 plannedSessions: 6,
                 resources: [
                   {
-                    name: "PostgreSQL Full Text Search",
-                    url: "https://www.postgresql.org/docs/current/textsearch.html",
+                    name: "NestJS Full Course 2025 (Ace Dev Hub) — Recommended 2025",
+                    url: "https://www.youtube.com/watch?v=XVZ10uFY9DU",
+                    hours: 6.5,
+                  },
+                  {
+                    name: "NestJS Official Docs",
+                    url: "https://docs.nestjs.com/first-steps",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "NestJS Best Practices (Project Structure)",
+                    url: "https://github.com/CatsMiaow/nestjs-project-structure",
+                    hours: 0.5,
+                  },
+                ],
+                optionalResources: [
+                  {
+                    name: "Net Ninja NestJS Crash Course — Alternative",
+                    url: "https://www.youtube.com/playlist?list=PL4cUxeGkcC9g8YFseGdkyj9RH9kVs_cMr",
+                    hours: 4.0,
                   },
                 ],
               },
               {
                 id: "w10-ecommerce-part2",
-                title: "Week 10: Headless E‑commerce API (Part 2)",
+                title: "Week 10: NestJS Advanced + GraphQL",
                 description:
-                  "<div><strong>Skills</strong>: Stripe payments; admin RBAC; finalize search.<br/><strong>Deliverables</strong>: Portfolio artifacts present; coverage maintained.<br/><strong>Acceptance</strong>: Order happy path covered by integration tests.<details><summary>Portfolio Artifacts Checklist</summary><ul><li>OpenAPI at /api-docs with examples</li><li>CI badge + coverage badge</li><li>docker-compose.yml</li><li>.env.example (incl. STRIPE keys, webhook secret)</li><li>Seed script</li><li>One‑page Mermaid system diagram</li><li>CONTRIBUTING, PR template, CODEOWNERS</li><li>Short incident/runbook</li></ul></details></div>",
+                  "<div><strong>Learning objectives</strong>: GraphQL basics, validation pipes, custom decorators, config management.<br/><strong>Deliverables</strong>: GraphQL module + schema, validation strategy, config module.</div>",
                 priority: "high",
                 estimatedTime: 10,
                 plannedSessions: 6,
                 resources: [
-                  { name: "Stripe Docs", url: "https://docs.stripe.com/" },
-                ],
-              },
-              {
-                id: "w11-system-design",
-                title: "Week 11: System Design Sprints",
-                description:
-                  "<div><strong>Skills</strong>: Rate limiting algorithms, idempotency patterns, consistency models, partitioning vs sharding.<br/><strong>Deliverables</strong>: 2–3 short case studies with Mermaid diagrams and trade‑offs; ADRs added.<br/><strong>Acceptance</strong>: Diagrams + ADRs in repo.</div>",
-                priority: "medium",
-                estimatedTime: 8,
-                plannedSessions: 4,
-                resources: [
                   {
-                    name: "Case Study: Rate Limiting — Token bucket (Mermaid diagram)",
-                    url: "https://en.wikipedia.org/wiki/Token_bucket",
-                    hours: 0.7,
+                    name: "NestJS GraphQL",
+                    url: "https://docs.nestjs.com/graphql/quick-start",
+                    hours: 1.0,
                   },
                   {
-                    name: "Case Study: Idempotency — Patterns overview",
-                    url: "https://stripe.com/blog/idempotency",
-                    hours: 0.6,
-                  },
-                  {
-                    name: "Case Study: Consistency models — Overview",
-                    url: "https://jepsen.io/consistency",
-                    hours: 0.7,
-                  },
-                  {
-                    name: "Optional: System Design Primer (selected topics)",
-                    url: "https://github.com/donnemartin/system-design-primer",
+                    name: "Ace Dev Hub Course — Advanced Sections",
+                    url: "https://www.youtube.com/watch?v=XVZ10uFY9DU",
                     hours: 2.0,
                   },
                 ],
               },
               {
-                id: "w12-interview-prep",
-                title: "Week 12: Interview Prep",
+                id: "w11-system-design",
+                title: "Week 11: Practical System Design + Advanced Database",
                 description:
-                  "<div><strong>Skills</strong>: LeetCode mediums (60–90 min/day), Node internals (event loop, streams/backpressure), ACID/MVCC/indexing/locks; two mock system designs.<br/><strong>Deliverables</strong>: Question bank + notes committed.<br/><strong>Acceptance</strong>: Notes and solved sets pushed.</div>",
+                  "<div><strong>Learning objectives</strong>: Sharding strategies, partitioning, distributed transactions, MVCC, practical patterns.<br/><strong>Deliverables</strong>: 2–3 short case studies with Mermaid diagrams and trade‑offs; ADRs added; <em>Sharding/partitioning design document</em>.</div>",
+                priority: "medium",
+                pacing: "needstime",
+                estimatedTime: 8,
+                plannedSessions: 4,
+                resources: [
+                  {
+                    name: "System Design Primer (focused)",
+                    url: "https://github.com/donnemartin/system-design-primer",
+                    hours: 3.0,
+                  },
+                  {
+                    name: "PostgreSQL Partitioning",
+                    url: "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "GeeksforGeeks Case Studies",
+                    url: "https://geeksforgeeks.org/system-design/case-studies-in-system-design/",
+                    hours: 2.0,
+                  },
+                  {
+                    name: "PostgreSQL MVCC",
+                    url: "https://www.postgresql.org/docs/current/mvcc.html",
+                    hours: 1.0,
+                  },
+                ],
+              },
+              {
+                id: "w12-interview-prep",
+                title: "Week 12: Advanced Testing + Observability",
+                description:
+                  "<div><strong>Learning objectives</strong>: Contract testing, load testing, observability (logs/metrics/traces), SLOs.<br/><strong>Deliverables</strong>: Ship Project 2 + advanced tests; question bank + notes committed.</div>",
                 priority: "low",
+                pacing: "needstime",
                 estimatedTime: 8,
                 plannedSessions: 5,
-                resources: [{ name: "LeetCode", url: "https://leetcode.com" }],
+                resources: [
+                  {
+                    name: "Testing Microservices (Martin Fowler)",
+                    url: "https://martinfowler.com/articles/microservice-testing/",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "Observability 101 (Honeycomb)",
+                    url: "https://www.honeycomb.io/blog/observability-engineering-101",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "Pino Structured Logging",
+                    url: "https://getpino.io/",
+                    hours: 0.5,
+                  },
+                ],
+              },
+              {
+                id: "w15-dsa-warmup",
+                title: "Week 15–16: DSA Warm-up",
+                description:
+                  "<div><strong>Learning objectives</strong>: Pattern recognition (arrays, hashing, two pointers) — not deep grinding.<br/><strong>Hours</strong>: 12–15 total (30–45 min/day). <strong>Pacing</strong>: Can accelerate to 10–12 hrs if backend roles prioritized.</div>",
+                priority: "low",
+                pacing: "accelerate",
+                estimatedTime: 13,
+                plannedSessions: 8,
+                resources: [
+                  {
+                    name: "NeetCode Roadmap — PRIMARY",
+                    url: "https://neetcode.io/roadmap",
+                    hours: 6.0,
+                  },
+                  {
+                    name: "Blind 75 (reference)",
+                    url: "https://neetcode.io/practice",
+                    hours: 3.0,
+                  },
+                ],
               },
             ],
           },
@@ -1738,80 +1925,7 @@ Changelog (2025-10-27):
           { id: "project1", title: "Project 1 – Task/Project SaaS API" },
           { id: "project2", title: "Project 2 – Headless E‑commerce API" },
         ],
-        curatedResources: [
-          {
-            name: "Backend Web Development with TypeScript",
-            url: "https://www.coursera.org/learn/backend-web-development-with-typescript",
-            hours: "3–5h",
-            priority: "Week 1",
-          },
-          {
-            name: "Getting Started with Prisma ORM",
-            url: "https://www.prisma.io/docs/getting-started",
-            hours: "4–6h",
-            priority: "Week 1",
-          },
-          {
-            name: "The Complete SQL Bootcamp (Udemy) — baseline",
-            url: "https://www.udemy.com/course/the-complete-sql-bootcamp/",
-            hours: "—",
-            priority: "Completed",
-          },
-          {
-            name: "Ultimate Testing TypeScript + Jest (YouTube)",
-            url: "https://www.youtube.com/watch?v=0yScewOhjmU",
-            hours: "6–8h",
-            priority: "Week 2",
-          },
-          {
-            name: "Docker Mastery for Node.js",
-            url: "https://www.bretfisher.com/docker-mastery-for-nodejs/",
-            hours: "8–10h",
-            priority: "Week 1–2",
-          },
-          {
-            name: "CI/CD with GitHub Actions (Docs)",
-            url: "https://docs.github.com/actions/guides/building-and-testing-nodejs",
-            hours: "4–5h",
-            priority: "Week 2",
-          },
-          {
-            name: "Stripe Webhooks (Docs)",
-            url: "https://docs.stripe.com/webhooks",
-            hours: "3–4h",
-            priority: "Week 5",
-          },
-          {
-            name: "Redis Node client (ioredis)",
-            url: "https://redis.io/docs/latest/develop/clients/nodejs/",
-            hours: "3–4h",
-            priority: "Week 6",
-          },
-          {
-            name: "BullMQ Guide",
-            url: "https://docs.bullmq.io/guide/connections",
-            hours: "3–4h",
-            priority: "Week 5",
-          },
-          {
-            name: "Socket.IO Tutorial",
-            url: "https://socket.io/docs/v4/tutorial/introduction",
-            hours: "4–5h",
-            priority: "Week 7",
-          },
-          {
-            name: "OpenAPI + Swagger UI (express)",
-            url: "https://www.npmjs.com/package/swagger-ui-express",
-            hours: "2–3h",
-            priority: "Week 4",
-          },
-          {
-            name: "System Design Primer",
-            url: "https://github.com/donnemartin/system-design-primer",
-            hours: "20–30h",
-            priority: "Week 11+",
-          },
-        ],
+        curatedResources: [],
         advancedTopics: [
           {
             id: "adv-kubernetes",
@@ -1883,10 +1997,16 @@ Changelog (2025-10-27):
         renderAdvancedTopics();
         renderExpressNest();
         renderResourcesGrid();
+        renderJobCoverage();
         updateStats();
         updateReadinessUI();
         updateRoleFitUI();
         initCharts();
+        // Collapse Competency Gates by default
+        const gatesEl = document.getElementById("gates");
+        if (gatesEl && !gatesEl.classList.contains("collapsed")) {
+          gatesEl.classList.add("collapsed");
+        }
       }
 
       // Render the roadmap structure
@@ -1946,7 +2066,7 @@ Changelog (2025-10-27):
         const completedClass = isCompleted ? "completed" : "";
 
         return `
-                <div class="topic ${completedClass}">
+                <div class="topic ${completedClass}" id="topic-${topic.id}">
                     <div class="topic-header">
                         <div class="checkbox-container">
                             <input type="checkbox" class="checkbox" id="task-${
@@ -1961,6 +2081,24 @@ Changelog (2025-10-27):
                         <span class="priority-badge priority-${
                           topic.priority
                         }">${topic.priority}</span>
+                        ${
+                          topic.pacing
+                            ? `<span class="pacing-badge ${
+                                topic.pacing === "accelerate"
+                                  ? "pacing-accelerate"
+                                  : "pacing-needstime"
+                              }">${
+                                topic.pacing === "accelerate"
+                                  ? "⚡ Can Accelerate"
+                                  : "⏰ Needs Time"
+                              }</span>`
+                            : ""
+                        }
+                        ${
+                          topic.isPrerequisites
+                            ? '<span class="pacing-badge prereq-badge">Prerequisites</span>'
+                            : ""
+                        }
                     </div>
                     <div class="topic-description">${topic.description}</div>
                     ${
@@ -2005,6 +2143,49 @@ Changelog (2025-10-27):
                             <div class="resources-title">📚 Resources (per‑resource progress drives this topic)</div>
                             <div>
                                 ${topic.resources
+                                  .map((r) => {
+                                    const rid =
+                                      `${topic.id}-` +
+                                      btoa(r.url).replace(/=/g, "");
+                                    const checked =
+                                      progressData.resourceCompleted &&
+                                      progressData.resourceCompleted[rid]
+                                        ? "checked"
+                                        : "";
+                                    const rprog =
+                                      progressData.resourceProgress &&
+                                      typeof progressData.resourceProgress[
+                                        rid
+                                      ] === "number"
+                                        ? progressData.resourceProgress[rid]
+                                        : checked
+                                        ? 100
+                                        : 0;
+                                    const hoursLabel =
+                                      typeof r.hours === "number"
+                                        ? ` <span class="time-label">~${r.hours}h</span>`
+                                        : "";
+                                    return `<div class="resource-row">
+                                        <input type="checkbox" id="reschk-${rid}" ${checked} onchange="toggleResource('${rid}','${topic.id}')">
+                                        <a href="${r.url}" target="_blank" class="resource-link">${r.name}</a>
+                                        <input type="range" min="0" max="100" step="5" class="resource-slider" value="${rprog}" onchange="updateResourceProgress('${rid}','${topic.id}', this.value)">
+                                        <span class="resource-progress" id="resprog-${rid}">${rprog}%</span>${hoursLabel}
+                                    </div>`;
+                                  })
+                                  .join("")}
+                            </div>
+                        </div>
+                    `
+                        : ""
+                    }
+                    ${
+                      Array.isArray(topic.optionalResources) &&
+                      topic.optionalResources.length
+                        ? `
+                        <div class="resources">
+                            <div class="resources-title">🧩 Optional</div>
+                            <div>
+                                ${topic.optionalResources
                                   .map((r) => {
                                     const rid =
                                       `${topic.id}-` +
@@ -2211,7 +2392,9 @@ Changelog (2025-10-27):
         roadmapData.learningObjectives.forEach((objective) => {
           objective.topics.forEach((topic) => {
             totalTasks++;
-            const planned = topic.plannedSessions || 0;
+            const plannedRaw = topic.plannedSessions || 0;
+            const pacingFactor = topic.pacing === "accelerate" ? 0.5 : 1;
+            const planned = Math.max(1, Math.round(plannedRaw * pacingFactor));
             totalPlannedSessions += planned;
             totalSessions +=
               (progressData.sessions && progressData.sessions[topic.id]) || 0;
@@ -2242,12 +2425,13 @@ Changelog (2025-10-27):
       // Update statistics display
       function updateStats() {
         const stats = calculateStats();
+        const { completedResources, totalResources } = computeResourceStats();
 
         document.getElementById("overallProgress").textContent =
           stats.overallProgress + "%";
-        document.getElementById(
-          "completedTasks"
-        ).textContent = `${stats.completedTasks}/${stats.totalTasks}`;
+        // Show resources completed count in the Resources Completed card
+        const rcEl = document.getElementById("completedTasks");
+        if (rcEl) rcEl.textContent = `${completedResources}/${totalResources}`;
         const tsEl = document.getElementById("totalSessions");
         const psEl = document.getElementById("plannedSessions");
         if (tsEl) tsEl.textContent = stats.totalSessions;
@@ -2285,6 +2469,36 @@ Changelog (2025-10-27):
         updateRoleFitUI();
       }
 
+      // Compute resource completion counts across all topics (core + optional)
+      function computeResourceStats() {
+        let totalResources = 0;
+        let completedResources = 0;
+        (roadmapData.learningObjectives || []).forEach((objective) => {
+          (objective.topics || []).forEach((topic) => {
+            const allR = [];
+            if (Array.isArray(topic.resources)) allR.push(...topic.resources);
+            if (Array.isArray(topic.optionalResources))
+              allR.push(...topic.optionalResources);
+            allR.forEach((r) => {
+              totalResources += 1;
+              const rid = `${topic.id}-` + btoa(r.url).replace(/=/g, "");
+              const checked =
+                progressData.resourceCompleted &&
+                !!progressData.resourceCompleted[rid];
+              const val =
+                progressData.resourceProgress &&
+                typeof progressData.resourceProgress[rid] === "number"
+                  ? progressData.resourceProgress[rid]
+                  : checked
+                  ? 100
+                  : 0;
+              if (val >= 100 || checked) completedResources += 1;
+            });
+          });
+        });
+        return { completedResources, totalResources };
+      }
+
       // Calculate learning objective statistics (session-weighted)
       function calculateObjectiveStats(objective) {
         let totalTasks = 0;
@@ -2295,7 +2509,11 @@ Changelog (2025-10-27):
 
         objective.topics.forEach((topic) => {
           totalTasks++;
-          const planned = topic.plannedSessions || 0;
+          const pacingFactor = topic.pacing === "accelerate" ? 0.5 : 1;
+          const planned = Math.max(
+            1,
+            Math.round((topic.plannedSessions || 0) * pacingFactor)
+          );
           totalPlanned += planned;
           totalSessions +=
             (progressData.sessions && progressData.sessions[topic.id]) || 0;
@@ -2416,9 +2634,10 @@ Changelog (2025-10-27):
           },
         });
 
-        const weeks = (roadmapData.learningObjectives[0]?.topics || []).map(
-          (_, i) => `W${i + 1}`
+        const topics = (roadmapData.learningObjectives[0]?.topics || []).filter(
+          (t) => !t.isPrerequisites && !/week 15/i.test(t.title)
         );
+        const weeks = topics.map((_, i) => `W${i + 1}`);
         timeChart = new Chart(timeCtx, {
           type: "bar",
           data: {
@@ -2426,18 +2645,14 @@ Changelog (2025-10-27):
             datasets: [
               {
                 label: "Planned",
-                data: (roadmapData.learningObjectives[0]?.topics || []).map(
-                  (t) => t.plannedSessions || 0
-                ),
+                data: topics.map((t) => t.plannedSessions || 0),
                 backgroundColor: "rgba(255, 255, 255, 0.2)",
                 borderColor: "rgba(255, 255, 255, 0.3)",
                 borderWidth: 1,
               },
               {
                 label: "Completed",
-                data: (roadmapData.learningObjectives[0]?.topics || []).map(
-                  () => 0
-                ),
+                data: topics.map(() => 0),
                 backgroundColor: "rgba(100, 255, 218, 0.8)",
                 borderColor: "rgba(100, 255, 218, 1)",
                 borderWidth: 1,
@@ -2487,7 +2702,9 @@ Changelog (2025-10-27):
         phaseChart.update();
 
         // Update time chart with week data
-        const topics = roadmapData.learningObjectives[0]?.topics || [];
+        const topics = (roadmapData.learningObjectives[0]?.topics || []).filter(
+          (t) => !t.isPrerequisites && !/week 15/i.test(t.title)
+        );
         const actualSessions = topics.map(
           (t) => (progressData.sessions && progressData.sessions[t.id]) || 0
         );
@@ -2650,13 +2867,32 @@ Changelog (2025-10-27):
       function renderResourcesGrid() {
         const grid = document.getElementById("resourcesGrid");
         if (!grid) return;
-        grid.innerHTML = (roadmapData.curatedResources || [])
+        // Aggregate per-week resources as curated set
+        const items = [];
+        (roadmapData.learningObjectives || []).forEach((objective) => {
+          (objective.topics || []).forEach((topic) => {
+            const weekLabel = topic.title || topic.id;
+            const pushRes = (r, tag) =>
+              items.push({
+                name: `${r.name} — ${tag}`,
+                url: r.url,
+                meta: `${
+                  typeof r.hours === "number" ? `~${r.hours}h` : ""
+                } · ${weekLabel}`,
+              });
+            if (Array.isArray(topic.resources))
+              topic.resources.forEach((r) => pushRes(r, "Core"));
+            if (Array.isArray(topic.optionalResources))
+              topic.optionalResources.forEach((r) => pushRes(r, "Optional"));
+          });
+        });
+        grid.innerHTML = items
           .map(
             (r) => `
-                <div class="advanced-topic">
-                    <div class="advanced-topic-title">🔗 <a href="${r.url}" target="_blank" class="resource-link" style="background:none;border:none;padding:0;">${r.name}</a></div>
-                    <div class="advanced-topic-desc">Estimated: ${r.hours} · Priority: ${r.priority}</div>
-                </div>`
+              <div class="advanced-topic">
+                <div class="advanced-topic-title">🔗 <a href="${r.url}" target="_blank" class="resource-link" style="background:none;border:none;padding:0;">${r.name}</a></div>
+                <div class="advanced-topic-desc">${r.meta}</div>
+              </div>`
           )
           .join("");
       }
@@ -2885,9 +3121,9 @@ Changelog (2025-10-27):
         }
       });
 
-      function toggleResource(resourceId) {
-        // deprecated signature retained for backward compatibility (no topicId)
-        updateResourceCompletion(resourceId, null);
+      function toggleResource(resourceId, topicId) {
+        // Accept optional topicId for immediate topic progress recompute
+        updateResourceCompletion(resourceId, topicId || null);
       }
 
       // NEW: Resource progress + completion handling
@@ -2934,6 +3170,9 @@ Changelog (2025-10-27):
         saveProgressToStorage();
         updateStats();
         updateCharts();
+        // Also recompute readiness and role fit since resources can change topic progress
+        updateReadinessUI();
+        updateRoleFitUI();
       }
 
       function updateResourceProgress(resourceId, topicId, value) {
@@ -2965,6 +3204,8 @@ Changelog (2025-10-27):
         saveProgressToStorage();
         updateStats();
         updateCharts();
+        updateReadinessUI();
+        updateRoleFitUI();
       }
 
       function computeTopicProgressFromResources(topic) {
@@ -2994,6 +3235,32 @@ Changelog (2025-10-27):
               : 0;
           return { val, w: weights[i] };
         });
+        // Include optional resources at half-weight
+        if (
+          Array.isArray(topic.optionalResources) &&
+          topic.optionalResources.length
+        ) {
+          const optIds = topic.optionalResources.map(
+            (r) => `${topic.id}-` + btoa(r.url).replace(/=/g, "")
+          );
+          const optWeights = topic.optionalResources.map((r) => {
+            const hrs = typeof r.hours === "number" ? r.hours : 1;
+            return Math.max(0.25, hrs * 0.5);
+          });
+          optIds.forEach((rid, i) => {
+            const checked =
+              progressData.resourceCompleted &&
+              progressData.resourceCompleted[rid];
+            const val =
+              progressData.resourceProgress &&
+              typeof progressData.resourceProgress[rid] === "number"
+                ? progressData.resourceProgress[rid]
+                : checked
+                ? 100
+                : 0;
+            progresses.push({ val, w: optWeights[i] });
+          });
+        }
         const sumW = progresses.reduce((a, p) => a + p.w, 0);
         const sum = progresses.reduce((a, p) => a + (p.val / 100) * p.w, 0);
         const pct = sumW > 0 ? Math.round((sum / sumW) * 100) : 0;
@@ -3010,6 +3277,158 @@ Changelog (2025-10-27):
         });
         progressData.lastUpdated = new Date().toISOString();
         saveProgressToStorage();
+      }
+
+      // Job Coverage rendering
+      function renderJobCoverage() {
+        const container = document.getElementById("jobCoverage");
+        if (!container) return;
+        const items = [
+          {
+            id: "coverage-mid",
+            title: 'Mid-Level "Feature Owner" (95% Coverage)',
+            percent: 95,
+            bullets: [
+              {
+                label: "Strong Node.js/TypeScript/Express (Weeks 1-3, 8-12)",
+                weeks: [
+                  "w1-express-prisma-docker",
+                  "w2-testing-ci",
+                  "w3-auth-security",
+                  "w8-ship-project-1",
+                  "w11-system-design",
+                  "w12-interview-prep",
+                ],
+              },
+              { label: "API Development (Week 4)", weeks: ["w4-openapi"] },
+              {
+                label: "Database Management (Weeks 1, 6, 11)",
+                weeks: [
+                  "w1-express-prisma-docker",
+                  "w6-caching-performance",
+                  "w11-system-design",
+                ],
+              },
+              {
+                label: "Testing (Weeks 2, 7, 12)",
+                weeks: ["w2-testing-ci", "w7-realtime", "w12-interview-prep"],
+              },
+              { label: "CI/CD + Docker (Week 2)", weeks: ["w2-testing-ci"] },
+              {
+                label: "Security (Weeks 3, 7)",
+                weeks: ["w3-auth-security", "w7-realtime"],
+              },
+              {
+                label: "Ownership (Weeks 8, 12)",
+                weeks: ["w8-ship-project-1", "w12-interview-prep"],
+              },
+              { label: "Collaboration (All weeks)", weeks: [] },
+            ],
+          },
+          {
+            id: "coverage-senior",
+            title: 'Senior "System Owner" (90% Coverage)',
+            percent: 90,
+            bullets: [
+              {
+                label: "All Mid-Level Skills (Weeks 1-12)",
+                weeks: [
+                  "w1-express-prisma-docker",
+                  "w2-testing-ci",
+                  "w3-auth-security",
+                  "w4-openapi",
+                  "w5-payments-workers",
+                  "w6-caching-performance",
+                  "w7-realtime",
+                  "w8-ship-project-1",
+                  "w9-ecommerce-part1",
+                  "w10-ecommerce-part2",
+                  "w11-system-design",
+                  "w12-interview-prep",
+                ],
+              },
+              {
+                label: "System Design (Week 11)",
+                weeks: ["w11-system-design"],
+              },
+              {
+                label:
+                  "Advanced Patterns: Idempotency, Concurrency, Caching, Rate Limiting, Database, API, Authorization, Error Handling (Weeks 2-7, 11)",
+                weeks: [
+                  "w2-testing-ci",
+                  "w3-auth-security",
+                  "w4-openapi",
+                  "w5-payments-workers",
+                  "w6-caching-performance",
+                  "w7-realtime",
+                  "w11-system-design",
+                ],
+              },
+              {
+                label: "Database Expertise (Weeks 1, 6, 11)",
+                weeks: [
+                  "w1-express-prisma-docker",
+                  "w6-caching-performance",
+                  "w11-system-design",
+                ],
+              },
+              {
+                label: "Advanced Security (Week 3)",
+                weeks: ["w3-auth-security"],
+              },
+              { label: "Leadership (Weeks 13+)", weeks: [] },
+              { label: "Trade-off Communication (ADRs all weeks)", weeks: [] },
+            ],
+          },
+        ];
+
+        container.innerHTML = items
+          .map((group) => {
+            const list = group.bullets
+              .map((b) => {
+                const linkSpan =
+                  b.weeks && b.weeks.length
+                    ? `<span style="display:flex;gap:.3rem;margin-left:.35rem;flex-wrap:wrap;">${b.weeks
+                        .map(
+                          (w) =>
+                            `<a href="#topic-${w}" class="resource-link" style=\"padding:.15rem .5rem;\">${w
+                              .toUpperCase()
+                              .slice(0, 2)}</a>`
+                        )
+                        .join("")}</span>`
+                    : "";
+                return `<div class=\"coverage-item\" onclick=\"scrollToWeeks('${(
+                  b.weeks || []
+                ).join(",")}')\">✅ ${b.label}${linkSpan}</div>`;
+              })
+              .join("");
+            return `
+              <div class=\"topic\">
+                <div class=\"topic-header\">
+                  <div class=\"checkbox-container\">
+                    <label class=\"topic-title\">${group.title}</label>
+                  </div>
+                </div>
+                <div class=\"coverage-title\">Coverage</div>
+                <div class=\"coverage-progress\"><div class=\"coverage-bar\" style=\"width:${group.percent}%\"></div></div>
+                <div class=\"notes-container\" style=\"margin-top:1rem;\">
+                  <div class=\"coverage-list\">${list}</div>
+                </div>
+              </div>`;
+          })
+          .join("");
+      }
+
+      function scrollToWeeks(weekIdsCsv) {
+        if (!weekIdsCsv) return;
+        const ids = weekIdsCsv.split(",").filter(Boolean);
+        if (ids.length === 0) return;
+        const el = document.getElementById(`topic-${ids[0]}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          el.classList.add("completed");
+          setTimeout(() => el.classList.remove("completed"), 1200);
+        }
       }
     </script>
   </body>
