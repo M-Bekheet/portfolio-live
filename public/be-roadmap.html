@@ -1,2136 +1,3016 @@
+<!--
+Changelog (2025-10-27):
+- Replaced multi-month phases with Core 12‑Week Track and Advanced Track (Post‑Offer)
+- Added Competency Gates with pass/fail chips and remediation notes; readiness meters use gates
+- Inserted Portfolio Artifacts Checklist (and a reference section) + Express vs NestJS guidance
+- Rebound charts: Gate passes per project, Week 1–12 planned vs actual hours
+- Added Resources grid; preserved theme, animations, and mobile responsiveness
+-->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Backend-First Senior Developer Roadmap</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            
-            --bg-primary: #0f0f23;
-            --bg-secondary: #1a1a35;
-            --bg-card: #242450;
-            --bg-surface: #2a2a5a;
-            --bg-glass: rgba(255, 255, 255, 0.1);
-            
-            --text-primary: #ffffff;
-            --text-secondary: #b8b8ff;
-            --text-muted: #8a8ab8;
-            
-            --accent-blue: #64ffda;
-            --accent-purple: #bb86fc;
-            --accent-pink: #ff6b9d;
-            --accent-green: #39ff9c;
-            --accent-gold: #ffd700;
-            
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
-            --glow: 0 0 20px rgba(100, 255, 218, 0.3);
-            
-            --border-radius: 16px;
-            --border-radius-lg: 24px;
-        }
+      :root {
+        --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        --bg-primary: #0f0f23;
+        --bg-secondary: #1a1a35;
+        --bg-card: #242450;
+        --bg-surface: #2a2a5a;
+        --bg-glass: rgba(255, 255, 255, 0.1);
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        --text-primary: #ffffff;
+        --text-secondary: #b8b8ff;
+        --text-muted: #8a8ab8;
 
-        /* Animated background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(120, 255, 198, 0.1) 0%, transparent 50%);
-            z-index: -1;
-            animation: bgShift 20s ease-in-out infinite;
-        }
+        --accent-blue: #64ffda;
+        --accent-purple: #bb86fc;
+        --accent-pink: #ff6b9d;
+        --accent-green: #39ff9c;
+        --accent-gold: #ffd700;
 
-        @keyframes bgShift {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
+        --glow: 0 0 20px rgba(100, 255, 218, 0.3);
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        --border-radius: 16px;
+        --border-radius-lg: 24px;
+      }
 
-        /* Hero Header */
-        .hero-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 3rem 2rem;
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border-radius: var(--border-radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        .hero-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
 
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+      /* Animated background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 50%,
+            rgba(120, 119, 198, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 80%,
+            rgba(120, 255, 198, 0.1) 0%,
+            transparent 50%
+          );
+        z-index: -1;
+        animation: bgShift 20s ease-in-out infinite;
+      }
+
+      @keyframes bgShift {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* Hero Header */
+      .hero-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 2rem;
+        background: var(--bg-glass);
+        backdrop-filter: blur(20px);
+        border-radius: var(--border-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(
+          135deg,
+          var(--accent-blue),
+          var(--accent-purple),
+          var(--accent-pink)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.5));
+        }
+        to {
+          filter: drop-shadow(0 0 20px rgba(187, 134, 252, 0.8));
+        }
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+
+      /* Level & XP System */
+      .level-system {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .level-card {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .level-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--accent-blue);
+      }
+
+      .level-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--primary);
+      }
+
+      .stat-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--accent-blue);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      /* Role Fit rows */
+      .role-row {
+        font-weight: 600;
+        margin-top: 0.25rem;
+      }
+      .role-hint {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Progress Ring */
+      .progress-ring {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1rem;
+      }
+
+      .progress-ring svg {
+        transform: rotate(-90deg);
+        width: 100%;
+        height: 100%;
+      }
+
+      .progress-ring circle {
+        fill: none;
+        stroke-width: 8;
+      }
+
+      .progress-ring .bg {
+        stroke: var(--bg-surface);
+      }
+
+      .progress-ring .progress {
+        stroke: url(#gradient);
+        stroke-linecap: round;
+        transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+        stroke-dasharray: 0;
+        stroke-dashoffset: 0;
+      }
+
+      /* Controls */
+      .controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+        min-width: 160px;
+        justify-content: center;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+      }
+
+      .btn-secondary {
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-surface);
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+      }
+
+      /* Charts Section */
+      .charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .chart-card {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chart-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--success);
+      }
+
+      .chart-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--accent-blue);
+      }
+
+      .chart-wrapper {
+        position: relative;
+        height: 300px;
+      }
+
+      /* Roadmap Section */
+      .roadmap-section {
+        margin-bottom: 3rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          var(--accent-blue),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Phase Cards */
+      .phase {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .phase:hover {
+        border-color: var(--accent-blue);
+        box-shadow: var(--glow);
+      }
+
+      .phase-header {
+        background: var(--primary);
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .phase-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .phase-header:hover::before {
+        opacity: 1;
+      }
+
+      .phase-header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+      }
+
+      .phase-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .phase-icon {
+        font-size: 2rem;
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .phase-progress {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .phase-content {
+        padding: 2rem;
+        transition: all 0.3s ease;
+      }
+
+      .phase.collapsed .phase-content {
+        display: none;
+      }
+
+      /* Week Cards */
+      .week {
+        background: var(--bg-surface);
+        border-radius: var(--border-radius);
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .week:hover {
+        border-color: var(--accent-purple);
+        transform: translateX(8px);
+      }
+
+      .week-header {
+        background: linear-gradient(
+          135deg,
+          rgba(187, 134, 252, 0.2),
+          rgba(100, 255, 218, 0.2)
+        );
+        padding: 1rem 1.5rem;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .week-header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .week-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+      }
+
+      .week-progress {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+      }
+
+      .week-content {
+        padding: 1.5rem;
+        display: none;
+        animation: slideDown 0.3s ease;
+      }
+
+      .week-content.open {
+        display: block;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Topic Cards */
+      .topic {
+        background: var(--bg-primary);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topic::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--secondary);
+        transition: width 0.3s ease;
+      }
+
+      .topic:hover {
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .topic:hover::before {
+        width: 8px;
+      }
+
+      .topic.completed {
+        border-color: var(--accent-green);
+        background: linear-gradient(
+          135deg,
+          rgba(57, 255, 156, 0.1),
+          rgba(100, 255, 218, 0.1)
+        );
+      }
+
+      .topic.completed::before {
+        background: var(--warning);
+      }
+
+      .topic-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+      }
+
+      .checkbox {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--accent-blue);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .checkbox:checked {
+        filter: drop-shadow(0 0 5px var(--accent-blue));
+      }
+
+      .topic-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .topic-title:hover {
+        color: var(--accent-blue);
+      }
+
+      .priority-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      .priority-high {
+        background: var(--danger);
+        color: white;
+        box-shadow: 0 0 15px rgba(250, 112, 154, 0.4);
+      }
+
+      .priority-medium {
+        background: var(--warning);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px rgba(67, 233, 123, 0.4);
+      }
+
+      .priority-low {
+        background: var(--success);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+      }
+
+      .topic-description {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .objective-description {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        border-left: 4px solid var(--accent-blue);
+        font-style: italic;
+      }
+
+      .focus-areas {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        background: rgba(100, 255, 218, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--accent-blue);
+      }
+
+      /* Time Tracker */
+      .time-tracker {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: var(--bg-glass);
+        border-radius: var(--border-radius);
+        backdrop-filter: blur(10px);
+      }
+
+      .time-item {
+        text-align: center;
+      }
+
+      .time-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .time-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+      }
+
+      .time-input {
+        width: 80px;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        text-align: center;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .time-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+      }
+
+      .progress-input-container {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .progress-unit {
+        font-size: 0.8rem;
+        color: var(--accent-blue);
+        font-weight: 600;
+      }
+
+      /* Notes */
+      .notes-container {
+        margin-top: 1rem;
+      }
+
+      .notes-input {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--border-radius);
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        resize: vertical;
+        min-height: 80px;
+        font-family: inherit;
+        transition: all 0.3s ease;
+      }
+
+      .notes-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+      }
+
+      .notes-input::placeholder {
+        color: var(--text-muted);
+      }
+
+      /* Resources */
+      .resources {
+        margin-top: 1rem;
+      }
+
+      .resources-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-purple);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .resource-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .resource-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(
+          135deg,
+          rgba(187, 134, 252, 0.2),
+          rgba(100, 255, 218, 0.2)
+        );
+        border-radius: 20px;
+        text-decoration: none;
+        color: var(--text-primary);
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .resource-link:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(187, 134, 252, 0.4),
+          rgba(100, 255, 218, 0.4)
+        );
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
+      }
+
+      .resource-link::before {
+        content: "🔗";
+        font-size: 0.8rem;
+      }
+
+      /* Resource Progress */
+      .resource-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.25rem 0;
+        flex-wrap: wrap;
+      }
+      .resource-slider {
+        width: 140px;
+        accent-color: var(--accent-blue);
+      }
+      .resource-progress {
+        min-width: 36px;
+        text-align: right;
+        color: var(--accent-blue);
+        font-weight: 600;
+      }
+
+      /* Advanced Topics */
+      .advanced-section {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .advanced-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--danger);
+      }
+
+      .advanced-topic {
+        background: var(--bg-surface);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .advanced-topic:hover {
+        border-color: var(--accent-pink);
+        transform: scale(1.02);
+      }
+
+      .advanced-topic-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--accent-pink);
+        margin-bottom: 0.5rem;
+      }
+
+      .advanced-topic-desc {
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      .advanced-topic-importance {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      /* Modals */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal-content {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        animation: slideUp 0.3s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--accent-blue);
+      }
+
+      .modal-text {
+        margin-bottom: 1.5rem;
+        color: var(--text-secondary);
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .file-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: var(--border-radius);
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .file-input:hover {
+        border-color: var(--accent-blue);
+        background: var(--bg-glass);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .charts-grid {
+          grid-template-columns: 1fr;
         }
 
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            animation: glow 2s ease-in-out infinite alternate;
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
         }
 
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.5)); }
-            to { filter: drop-shadow(0 0 20px rgba(187, 134, 252, 0.8)); }
+        .hero-title {
+          font-size: 2rem;
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            font-weight: 400;
+          font-size: 1.1rem;
         }
 
-        /* Level & XP System */
-        .level-system {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+        .time-tracker {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
         }
 
-        .level-card {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .level-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent-blue);
-        }
-
-        .level-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary);
-        }
-
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* Role Fit rows */
-        .role-row {
-            font-weight: 600;
-            margin-top: 0.25rem;
-        }
-        .role-hint {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Progress Ring */
-        .progress-ring {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1rem;
-        }
-
-        .progress-ring svg {
-            transform: rotate(-90deg);
-            width: 100%;
-            height: 100%;
-        }
-
-        .progress-ring circle {
-            fill: none;
-            stroke-width: 8;
-        }
-
-        .progress-ring .bg {
-            stroke: var(--bg-surface);
-        }
-
-        .progress-ring .progress {
-            stroke: url(#gradient);
-            stroke-linecap: round;
-            transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
-            stroke-dasharray: 0;
-            stroke-dashoffset: 0;
-        }
-
-        /* Controls */
         .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-            min-width: 160px;
-            justify-content: center;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-secondary {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-surface);
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
-        /* Charts Section */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .chart-card {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--success);
-        }
-
-        .chart-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--accent-blue);
+          flex-direction: column;
+          align-items: stretch;
         }
 
         .chart-wrapper {
-            position: relative;
-            height: 300px;
-        }
-
-        /* Roadmap Section */
-        .roadmap-section {
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Phase Cards */
-        .phase {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .phase:hover {
-            border-color: var(--accent-blue);
-            box-shadow: var(--glow);
+          height: 250px;
         }
 
         .phase-header {
-            background: var(--primary);
-            padding: 1.5rem 2rem;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .phase-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .phase-header:hover::before {
-            opacity: 1;
-        }
-
-        .phase-header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 1;
-        }
-
-        .phase-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .phase-icon {
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .phase-progress {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        .phase-content {
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .phase.collapsed .phase-content {
-            display: none;
-        }
-
-        /* Week Cards */
-        .week {
-            background: var(--bg-surface);
-            border-radius: var(--border-radius);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .week:hover {
-            border-color: var(--accent-purple);
-            transform: translateX(8px);
-        }
-
-        .week-header {
-            background: linear-gradient(135deg, rgba(187, 134, 252, 0.2), rgba(100, 255, 218, 0.2));
-            padding: 1rem 1.5rem;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .week-header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .week-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-        }
-
-        .week-progress {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-blue);
+          padding: 1rem;
         }
 
         .week-content {
-            padding: 1.5rem;
-            display: none;
-            animation: slideDown 0.3s ease;
-        }
-
-        .week-content.open {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Topic Cards */
-        .topic {
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .topic::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--secondary);
-            transition: width 0.3s ease;
-        }
-
-        .topic:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .topic:hover::before {
-            width: 8px;
-        }
-
-        .topic.completed {
-            border-color: var(--accent-green);
-            background: linear-gradient(135deg, rgba(57, 255, 156, 0.1), rgba(100, 255, 218, 0.1));
-        }
-
-        .topic.completed::before {
-            background: var(--warning);
-        }
-
-        .topic-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex: 1;
-        }
-
-        .checkbox {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent-blue);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .checkbox:checked {
-            filter: drop-shadow(0 0 5px var(--accent-blue));
-        }
-
-        .topic-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .topic-title:hover {
-            color: var(--accent-blue);
-        }
-
-        .priority-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        .priority-high {
-            background: var(--danger);
-            color: white;
-            box-shadow: 0 0 15px rgba(250, 112, 154, 0.4);
-        }
-
-        .priority-medium {
-            background: var(--warning);
-            color: var(--bg-primary);
-            box-shadow: 0 0 15px rgba(67, 233, 123, 0.4);
-        }
-
-        .priority-low {
-            background: var(--success);
-            color: var(--bg-primary);
-            box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
-        }
-
-        .topic-description {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .objective-description {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-blue);
-            font-style: italic;
-        }
-
-        .focus-areas {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            background: rgba(100, 255, 218, 0.1);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        /* Time Tracker */
-        .time-tracker {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--bg-glass);
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(10px);
-        }
-
-        .time-item {
-            text-align: center;
-        }
-
-        .time-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .time-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--accent-blue);
-        }
-
-        .time-input {
-            width: 80px;
-            padding: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            background: var(--bg-surface);
-            color: var(--text-primary);
-            text-align: center;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .time-input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
-        }
-
-        .progress-input-container {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .progress-unit {
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
-        /* Notes */
-        .notes-container {
-            margin-top: 1rem;
-        }
-
-        .notes-input {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--border-radius);
-            background: var(--bg-surface);
-            color: var(--text-primary);
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .notes-input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
-        }
-
-        .notes-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        /* Resources */
-        .resources {
-            margin-top: 1rem;
-        }
-
-        .resources-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent-purple);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .resource-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .resource-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, rgba(187, 134, 252, 0.2), rgba(100, 255, 218, 0.2));
-            border-radius: 20px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .resource-link:hover {
-            background: linear-gradient(135deg, rgba(187, 134, 252, 0.4), rgba(100, 255, 218, 0.4));
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
-        }
-
-        .resource-link::before {
-            content: '🔗';
-            font-size: 0.8rem;
-        }
-
-        /* Advanced Topics */
-        .advanced-section {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .advanced-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--danger);
-        }
-
-        .advanced-topic {
-            background: var(--bg-surface);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .advanced-topic:hover {
-            border-color: var(--accent-pink);
-            transform: scale(1.02);
-        }
-
-        .advanced-topic-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--accent-pink);
-            margin-bottom: 0.5rem;
-        }
-
-        .advanced-topic-desc {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .advanced-topic-importance {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        /* Modals */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--accent-blue);
-        }
-
-        .modal-text {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .file-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: var(--border-radius);
-            background: var(--bg-surface);
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .file-input:hover {
-            border-color: var(--accent-blue);
-            background: var(--bg-glass);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .time-tracker {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .chart-wrapper {
-                height: 250px;
-            }
-
-            .phase-header {
-                padding: 1rem;
-            }
-
-            .week-content {
-                padding: 1rem;
-            }
-        }
-
-        /* Expand/Collapse Icons */
-        .expand-icon {
-            transition: transform 0.3s ease;
-            font-size: 1.2rem;
-            color: var(--accent-blue);
-        }
-
-        .collapsed .expand-icon {
-            transform: rotate(-90deg);
-        }
-
-        /* Achievement Styles */
-        .achievement {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            z-index: 1001;
-            transform: translateX(400px);
-            transition: transform 0.5s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .achievement.show {
-            transform: translateX(0);
-        }
-
-        .achievement::before {
-            content: '🎉';
-            margin-right: 0.5rem;
-        }
+          padding: 1rem;
+        }
+      }
+
+      /* Expand/Collapse Icons */
+      .expand-icon {
+        transition: transform 0.3s ease;
+        font-size: 1.2rem;
+        color: var(--accent-blue);
+      }
+
+      .collapsed .expand-icon {
+        transform: rotate(-90deg);
+      }
+
+      /* Achievement Styles */
+      .achievement {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--success);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        z-index: 1001;
+        transform: translateX(400px);
+        transition: transform 0.5s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .achievement.show {
+        transform: translateX(0);
+      }
+
+      .achievement::before {
+        content: "🎉";
+        margin-right: 0.5rem;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- Hero Header -->
-        <div class="hero-header">
-            <h1 class="hero-title">Backend-First Senior Developer Roadmap</h1>
-            <p class="hero-subtitle">48 weeks · 10–12 hours/week · Job readiness by Week 16</p>
+      <!-- Hero Header -->
+      <div class="hero-header">
+        <h1 class="hero-title">Backend-First Senior Developer Roadmap</h1>
+        <p class="hero-subtitle">
+          Core 12‑Week Track · Ship 2 backends by Weeks 8–10 · EU remote‑first
+        </p>
+      </div>
+
+      <!-- Level System -->
+      <div class="level-system">
+        <div class="level-card">
+          <div class="progress-ring">
+            <svg>
+              <defs>
+                <linearGradient
+                  id="gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #64ffda; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #bb86fc; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <circle class="bg" cx="60" cy="60" r="50"></circle>
+              <circle
+                class="progress"
+                cx="60"
+                cy="60"
+                r="50"
+                id="progressCircle"
+              ></circle>
+            </svg>
+            <div
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+              "
+            >
+              <div class="stat-value" id="overallProgress">0%</div>
+            </div>
+          </div>
+          <div class="stat-label">Quest Progress</div>
         </div>
 
-        <!-- Level System -->
-        <div class="level-system">
-            <div class="level-card">
-                <div class="progress-ring">
-                    <svg>
-                        <defs>
-                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#64ffda;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#bb86fc;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="bg" cx="60" cy="60" r="50"></circle>
-                        <circle class="progress" cx="60" cy="60" r="50" id="progressCircle"></circle>
-                    </svg>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                        <div class="stat-value" id="overallProgress">0%</div>
-                    </div>
-                </div>
-                <div class="stat-label">Quest Progress</div>
-            </div>
-            
-            <div class="level-card">
-                <span class="stat-icon">⚡</span>
-                <div class="stat-value" id="completedTasks">0</div>
-                <div class="stat-label">Challenges Completed</div>
-            </div>
-            
-            <div class="level-card">
-                <span class="stat-icon">⏱️</span>
-                <div class="stat-value" id="totalTime">0h</div>
-                <div class="stat-label">Time Invested</div>
-            </div>
-            
-            <div class="level-card">
-                <span class="stat-icon">🎯</span>
-                <div class="stat-value" id="estimatedTime">0h</div>
-                <div class="stat-label">Target Hours</div>
-            </div>
-            <div class="level-card">
-                <div class="progress-ring">
-                    <svg>
-                        <defs>
-                            <linearGradient id="gradientReadiness" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#64ffda;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="bg" cx="60" cy="60" r="50"></circle>
-                        <circle class="progress" cx="60" cy="60" r="50" id="readinessCircle" style="stroke:url(#gradientReadiness)"></circle>
-                    </svg>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                        <div class="stat-value" id="readinessValue">0%</div>
-                    </div>
-                </div>
-                <div class="stat-label">Backend Readiness</div>
-            </div>
-            <div class="level-card">
-                <span class="stat-icon">👔</span>
-                <div class="stat-label">Role Fit</div>
-                <div class="role-row" id="rf-fe-heavy">Full‑stack (FE‑heavy): <span id="rf-fe-heavy-score">0%</span></div>
-                <div class="role-hint">Front‑end senior + back‑end basics; hiring focus on FE.</div>
-                <div class="role-row" id="rf-backend-mid">Backend (Mid‑level): <span id="rf-backend-mid-score">0%</span></div>
-                <div class="role-hint">Independent backend delivery on core APIs and systems.</div>
-                <div class="role-row" id="rf-fs-balanced">Full‑stack (Balanced): <span id="rf-fs-balanced-score">0%</span></div>
-                <div class="role-hint">Senior in both FE and BE; leading across the stack.</div>
-            </div>
+        <div class="level-card">
+          <span class="stat-icon">⚡</span>
+          <div class="stat-value" id="completedTasks">0</div>
+          <div class="stat-label">Resources Completed</div>
         </div>
 
-        <!-- Controls -->
-        <div class="controls">
-            <button class="btn btn-primary" onclick="exportProgress()">💾 Export Progress</button>
-            <button class="btn btn-secondary" onclick="importProgress()">📥 Import Progress</button>
-            <button class="btn btn-secondary" onclick="resetProgress()">🔄 Reset Quest</button>
+        <div class="level-card">
+          <span class="stat-icon">⏱️</span>
+          <div class="stat-value" id="totalSessions">0</div>
+          <div class="stat-label">Sessions Completed</div>
         </div>
 
-        <!-- Charts -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-title">🌟 Learning Objectives Progress</div>
-                <div class="chart-wrapper">
-                    <canvas id="phaseChart"></canvas>
-                </div>
+        <div class="level-card">
+          <span class="stat-icon">🎯</span>
+          <div class="stat-value" id="plannedSessions">0</div>
+          <div class="stat-label">Planned Sessions</div>
+        </div>
+        <div class="level-card">
+          <div class="progress-ring">
+            <svg>
+              <defs>
+                <linearGradient
+                  id="gradientReadiness"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #ffd700; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #64ffda; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <circle class="bg" cx="60" cy="60" r="50"></circle>
+              <circle
+                class="progress"
+                cx="60"
+                cy="60"
+                r="50"
+                id="readinessCircle"
+                style="stroke: url(#gradientReadiness)"
+              ></circle>
+            </svg>
+            <div
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+              "
+            >
+              <div class="stat-value" id="readinessValue">0%</div>
             </div>
-            <div class="chart-card">
-                <div class="chart-title">⏰ Time: Estimated vs Actual</div>
-                <div class="chart-wrapper">
-                    <canvas id="timeChart"></canvas>
-                </div>
+          </div>
+          <div class="stat-label">Backend Readiness</div>
+        </div>
+        <div class="level-card">
+          <span class="stat-icon">👔</span>
+          <div class="stat-label">Role Fit</div>
+          <div class="role-row" id="rf-fe-heavy">
+            Full‑stack (FE‑heavy): <span id="rf-fe-heavy-score">0%</span>
+          </div>
+          <div class="role-hint">
+            Front‑end senior + back‑end basics; hiring focus on FE.
+          </div>
+          <div class="role-row" id="rf-backend-mid">
+            Backend (Mid‑level): <span id="rf-backend-mid-score">0%</span>
+          </div>
+          <div class="role-hint">
+            Independent backend delivery on core APIs and systems.
+          </div>
+          <div class="role-row" id="rf-fs-balanced">
+            Full‑stack (Balanced): <span id="rf-fs-balanced-score">0%</span>
+          </div>
+          <div class="role-hint">
+            Senior in both FE and BE; leading across the stack.
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="btn btn-primary" onclick="exportProgress()">
+          💾 Export Progress
+        </button>
+        <button class="btn btn-secondary" onclick="importProgress()">
+          📥 Import Progress
+        </button>
+        <button class="btn btn-secondary" onclick="resetProgress()">
+          🔄 Reset Quest
+        </button>
+      </div>
+
+      <!-- Charts -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">🌟 Gate Passes per Project</div>
+          <div class="chart-wrapper">
+            <canvas id="phaseChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">
+            ⏰ Week 1–12: Planned vs Completed Sessions
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="timeChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competency Gates -->
+      <div class="phase" id="gates">
+        <div class="phase-header" onclick="togglePhase('gates')">
+          <div class="phase-header-content">
+            <div class="phase-title">
+              <span class="phase-icon">✅</span>
+              <span class="expand-icon">▼</span>
+              Competency Gates (Artifact‑driven Readiness)
             </div>
+            <div class="phase-progress" id="progress-gates">
+              Actionable Pass/Fail chips
+            </div>
+          </div>
         </div>
+        <div class="phase-content" id="content-gates">
+          <div id="gatesContent"></div>
+        </div>
+      </div>
 
-        <!-- Roadmap -->
-        <div class="roadmap-section">
-            <h2 class="section-title">🗺️ Your Learning Adventure</h2>
-            <div id="roadmapContent"></div>
-        </div>
+      <!-- Roadmap -->
+      <div class="roadmap-section" id="core-12-week">
+        <h2 class="section-title">🗺️ Core 12‑Week Track</h2>
+        <div id="roadmapContent"></div>
+      </div>
 
-        <!-- Advanced Topics -->
-        <div class="advanced-section">
-            <h2 class="section-title">🚀 Next Level Challenges</h2>
-            <div id="advancedTopics"></div>
+      <!-- Advanced Topics -->
+      <div class="advanced-section">
+        <h2 class="section-title">🚀 Advanced Track (Post‑Offer)</h2>
+        <div id="advancedTopics"></div>
+      </div>
+
+      <!-- Express vs NestJS Guidance -->
+      <div class="phase" id="express-vs-nest">
+        <div class="phase-header" onclick="togglePhase('express-vs-nest')">
+          <div class="phase-header-content">
+            <div class="phase-title">
+              <span class="phase-icon">🧭</span>
+              <span class="expand-icon">▼</span>
+              Express vs NestJS: Hiring Signal Guidance
+            </div>
+            <div class="phase-progress">
+              Express for speed; optional NestJS after interviews
+            </div>
+          </div>
         </div>
+        <div class="phase-content" id="content-express-vs-nest">
+          <div id="expressNestContent"></div>
+        </div>
+      </div>
+
+      <!-- Resources Grid -->
+      <div class="phase" id="resources">
+        <div class="phase-header" onclick="togglePhase('resources')">
+          <div class="phase-header-content">
+            <div class="phase-title">
+              <span class="phase-icon">📚</span>
+              <span class="expand-icon">▼</span>
+              Curated Resources
+            </div>
+            <div class="phase-progress">
+              Targeted study with hours and priorities
+            </div>
+          </div>
+        </div>
+        <div class="phase-content" id="content-resources">
+          <div id="resourcesGrid"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Import Modal -->
     <div id="importModal" class="modal">
-        <div class="modal-content">
-            <h3 class="modal-title">📥 Import Progress</h3>
-            <p class="modal-text">You already have existing progress. How would you like to handle the import?</p>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="handleImport('merge')">🔄 Merge</button>
-                <button class="btn btn-primary" onclick="handleImport('overwrite')">♻️ Overwrite</button>
-                <button class="btn btn-secondary" onclick="closeModal()">❌ Cancel</button>
-            </div>
+      <div class="modal-content">
+        <h3 class="modal-title">📥 Import Progress</h3>
+        <p class="modal-text">
+          You already have existing progress. How would you like to handle the
+          import?
+        </p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="handleImport('merge')">
+            🔄 Merge
+          </button>
+          <button class="btn btn-primary" onclick="handleImport('overwrite')">
+            ♻️ Overwrite
+          </button>
+          <button class="btn btn-secondary" onclick="closeModal()">
+            ❌ Cancel
+          </button>
         </div>
+      </div>
     </div>
 
     <!-- File Import Modal -->
     <div id="fileModal" class="modal">
-        <div class="modal-content">
-            <h3 class="modal-title">📂 Import Progress File</h3>
-            <input type="file" id="fileInput" class="file-input" accept=".json" placeholder="Choose your progress file...">
-            <div class="modal-actions">
-                <button class="btn btn-primary" onclick="processFileImport()">📥 Import</button>
-                <button class="btn btn-secondary" onclick="closeModal()">❌ Cancel</button>
-            </div>
+      <div class="modal-content">
+        <h3 class="modal-title">📂 Import Progress File</h3>
+        <input
+          type="file"
+          id="fileInput"
+          class="file-input"
+          accept=".json"
+          placeholder="Choose your progress file..."
+        />
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="processFileImport()">
+            📥 Import
+          </button>
+          <button class="btn btn-secondary" onclick="closeModal()">
+            ❌ Cancel
+          </button>
         </div>
+      </div>
     </div>
 
     <script>
-        // Curated roadmap data from public/roadmap.md
-        const roadmapData = {
-            learningObjectives: [
-                {
-                    id: 'phase-1-backend-fundamentals',
-                    title: 'Phase 1: Backend Fundamentals Refresher (Weeks 1–6)',
-                    icon: '⚡',
-                    description: 'Goal: Refresh core Node.js & Express skills efficiently.',
-                    weight: 0.15,
-                    estimatedTime: 50,
-                    topics: [
-                        {
-                            id: 'p1-node-express-refresher',
-                            title: 'Node.js & Express Refresher',
-                            description: '5 hours/week focused practice across 6 weeks.',
-                            priority: 'high',
-                            estimatedTime: 30,
-                            focusAreas: 'Node modules, event loop, Express middleware/routing/auth',
-                            resources: [
-                                { name: 'Node.js Crash Course (Traversy Media)', url: 'https://www.youtube.com/watch?v=32M1al-Y6Ag' },
-                                { name: 'Express Essentials (LinkedIn Learning)', url: 'https://www.linkedin.com/learning/express-essentials-build-powerful-web-apps-with-node-js' },
-                                { name: 'Express.js Getting Started', url: 'https://expressjs.com/en/starter/installing.html' }
-                            ]
-                        },
-                        {
-                            id: 'p1-task-management-api',
-                            title: 'Project: Task Management API (Weeks 5–6)',
-                            description: 'Node.js + Express + PostgreSQL (raw SQL). Auth, CRUD, validation. Deploy to Railway/Heroku.',
-                            priority: 'high',
-                            estimatedTime: 20,
-                            resources: []
-                        }
-                    ]
-                },
-                {
-                    id: 'phase-2-postgres-rest',
-                    title: 'Phase 2: PostgreSQL & REST Patterns (Weeks 7–12)',
-                    icon: '🗄️',
-                    description: 'Goal: Master SQL fundamentals and robust API design.',
-                    weight: 0.20,
-                    estimatedTime: 30,
-                    topics: [
-                        {
-                            id: 'p2-sql-postgres-mastery',
-                            title: 'SQL & PostgreSQL Mastery',
-                            description: '3 hours/week for 6 weeks covering schema design, queries, indexes, perf.',
-                            priority: 'high',
-                            estimatedTime: 18,
-                            focusAreas: 'Database design, complex queries, indexes, performance',
-                            resources: [
-                                { name: 'PostgreSQL Complete Bootcamp (Udemy)', url: 'https://www.udemy.com/course/the-complete-sql-bootcamp/' },
-                                { name: 'Neon PostgreSQL Tutorial (Reference)', url: 'https://neon.com/postgresql/tutorial' }
-                            ]
-                        },
-                        {
-                            id: 'p2-rest-patterns',
-                            title: 'REST API Design Patterns',
-                            description: '2 hours/week for 6 weeks. Controllers, versioning, error handling.',
-                            priority: 'medium',
-                            estimatedTime: 12,
-                            focusAreas: 'Controllers, versioning, error handling',
-                            resources: [
-                                { name: 'Building RESTful APIs with Node.js and Express (LinkedIn Learning)', url: 'https://www.linkedin.com/learning/building-restful-apis-with-node-js-and-express' }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 'phase-3-nestjs-orm',
-                    title: 'Phase 3: NestJS & ORM Integration (Weeks 13–16)',
-                    icon: '🏗️',
-                    description: 'Goal: Build enterprise-grade backends with NestJS and Prisma.',
-                    weight: 0.30,
-                    estimatedTime: 74,
-                    topics: [
-                        {
-                            id: 'p3-nestjs-deep-dive',
-                            title: 'NestJS Deep Dive',
-                            description: '6 hours/week for 4 weeks. Decorators, DI, guards, testing, deployment.',
-                            priority: 'high',
-                            estimatedTime: 24,
-                            focusAreas: 'Modules, providers, guards, testing, deployment',
-                            resources: [
-                                { name: 'NestJS Zero to Hero (Udemy)', url: 'https://www.udemy.com/course/nestjs-zero-to-hero/' },
-                                { name: 'NestJS Docs', url: 'https://docs.nestjs.com/' },
-                                { name: 'Prisma ORM Docs', url: 'https://www.prisma.io/docs' }
-                            ]
-                        },
-                        {
-                            id: 'p3-ecommerce-api',
-                            title: 'Project: E-commerce API (Weeks 12–14)',
-                            description: 'NestJS + PostgreSQL + Prisma + JWT + Redis. Auth, catalog, orders, Stripe, caching.',
-                            priority: 'high',
-                            estimatedTime: 30,
-                            resources: []
-                        },
-                        {
-                            id: 'p3-realtime-chat',
-                            title: 'Project: Real-time Chat System (Weeks 15–16)',
-                            description: 'NestJS + WebSockets + PostgreSQL + Redis + S3. Presence, uploads, admin.',
-                            priority: 'high',
-                            estimatedTime: 20,
-                            resources: []
-                        }
-                    ]
-                },
-                {
-                    id: 'phase-4-sysdesign-devops',
-                    title: 'Phase 4: System Design & DevOps (Weeks 17–32)',
-                    icon: '⚙️',
-                    description: 'Goal: Architect scalable systems and master deployment.',
-                    weight: 0.20,
-                    estimatedTime: 142,
-                    topics: [
-                        {
-                            id: 'p4-system-design-interview',
-                            title: 'System Design Interview Preparation',
-                            description: '4 hours/week for 16 weeks. Frameworks, diagrams, case studies.',
-                            priority: 'high',
-                            estimatedTime: 64,
-                            resources: [
-                                { name: 'System Design Interview – Alex Xu', url: 'https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF' },
-                                { name: 'Designing Data-Intensive Applications', url: 'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/' }
-                            ]
-                        },
-                        {
-                            id: 'p4-cloud-devops-mastery',
-                            title: 'Cloud & DevOps Mastery',
-                            description: '3 hours/week for 16 weeks. Docker, Kubernetes, CI/CD, AWS.',
-                            priority: 'high',
-                            estimatedTime: 48,
-                            resources: [
-                                { name: 'Docker & Kubernetes: The Complete Guide (Udemy)', url: 'https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/' },
-                                { name: 'AWS Certified Developer Associate Prep (LinkedIn Learning)', url: 'https://www.linkedin.com/learning/aws-certified-developer-associate-dva-c02-cert-prep' }
-                            ]
-                        },
-                        {
-                            id: 'p4-distributed-task-system',
-                            title: 'Advanced Project: Distributed Task Processing System (Weeks 30–32)',
-                            description: 'Microservices with message queues. Job scheduling, discovery, logging, fault tolerance.',
-                            priority: 'high',
-                            estimatedTime: 30,
-                            resources: []
-                        }
-                    ]
-                },
-                {
-                    id: 'phase-5-dsa-interview',
-                    title: 'Phase 5: DSA & Interview Projects (Weeks 33–48)',
-                    icon: '🧠',
-                    description: 'Goal: Master algorithms and prepare for leadership roles.',
-                    weight: 0.15,
-                    estimatedTime: 152,
-                    topics: [
-                        {
-                            id: 'p5-dsa',
-                            title: 'Data Structures & Algorithms',
-                            description: '4 hours/week for 16 weeks. Lectures, labs, major projects.',
-                            priority: 'high',
-                            estimatedTime: 64,
-                            resources: [
-                                { name: 'Berkeley CS61B (Spring 2024)', url: 'https://sp24.datastructur.es/' },
-                                { name: 'Elements of Programming Interviews in Java', url: 'https://www.amazon.com/Elements-Programming-Interviews-Java-Insiders/dp/1517435803' }
-                            ]
-                        },
-                        {
-                            id: 'p5-leadership-communication',
-                            title: 'Technical Leadership & Communication',
-                            description: '3 hours/week for 16 weeks. Decision-making, architecture reviews, collaboration.',
-                            priority: 'medium',
-                            estimatedTime: 48,
-                            resources: [
-                                { name: "The Staff Engineer's Path", url: 'https://www.oreilly.com/library/view/the-staff-engineers/9781098118723/' }
-                            ]
-                        },
-                        {
-                            id: 'p5-interview-prep-projects',
-                            title: 'Interview Preparation Projects (Weeks 45–48)',
-                            description: 'System design portfolio docs, DSA solutions repo, presentation practice.',
-                            priority: 'high',
-                            estimatedTime: 40,
-                            resources: []
-                        }
-                    ]
-                }
+      // Updated 12-week, artifact-gated roadmap
+      const roadmapData = {
+        learningObjectives: [
+          {
+            id: "core-12-week",
+            title: "Core 12‑Week Track",
+            icon: "🗺️",
+            description:
+              "Practical, artifact‑gated plan aligned with EU remote roles. Ship two production‑grade backends by Weeks 8–10. Readiness is defined by Competency Gates (Testing, API Docs, Security, Reliability, Ops, Design).",
+            estimatedTime: 120,
+            topics: [
+              {
+                id: "w1-express-prisma-docker",
+                title:
+                  "Week 1: Express + TypeScript + Prisma + PostgreSQL + Docker Compose",
+                description:
+                  "<div><strong>Skills</strong>: Express TS setup, Prisma schema/migrations, seeds, centralized error util, Zod request validation, pino logging with request IDs.<br/><strong>Deliverables</strong>: CRUD with pagination, migrations + seed, error shape, structured logs.<br/><strong>Acceptance</strong>: docker-compose up works, seed succeeds, error format consistent, logs structured.</div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 6,
+                resources: [
+                  {
+                    name: "Express Crash Course (Traversy Media)",
+                    url: "https://www.youtube.com/watch?v=CnH3kAXSrmU",
+                    hours: 1.8,
+                  },
+                  {
+                    name: "Prisma Quickstart (TS + Postgres)",
+                    url: "https://www.prisma.io/docs/getting-started/quickstart-prismaPostgres",
+                    hours: 1.5,
+                  },
+                  {
+                    name: "Prisma Data Model",
+                    url: "https://www.prisma.io/docs/orm/prisma-schema/data-model",
+                    hours: 1.2,
+                  },
+                  {
+                    name: "Prisma Relations",
+                    url: "https://www.prisma.io/docs/orm/prisma-schema/relations",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "Prisma Migrations",
+                    url: "https://www.prisma.io/docs/orm/prisma-migrate",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "Prisma Client (Queries)",
+                    url: "https://www.prisma.io/docs/orm/prisma-client/queries",
+                    hours: 1.2,
+                  },
+                  {
+                    name: "Prisma Seeding",
+                    url: "https://www.prisma.io/docs/orm/prisma-migrate/seed-database",
+                    hours: 0.6,
+                  },
+                  {
+                    name: "Docker for Node.js (Guide)",
+                    url: "https://docs.docker.com/guides/nodejs/",
+                    hours: 1.5,
+                  },
+                ],
+              },
+              {
+                id: "w2-testing-ci",
+                title: "Week 2: Testing Foundation (Jest + Supertest) and CI",
+                description:
+                  "<div><strong>Skills</strong>: Jest unit tests, Supertest integration vs test DB, deterministic factories/fixtures, GitHub Actions CI.<br/><strong>Deliverables</strong>: CI on PR, coverage uploaded, DB state isolated per test.<br/><strong>Acceptance</strong>: CI green on main; coverage badge visible; isolation proven.</div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 6,
+                resources: [
+                  {
+                    name: "Testing Express with Jest + Supertest (Dennis O'Keeffe)",
+                    url: "https://blog.dennisokeeffe.com/blog/2023-10-27-testing-express-apps-with-jest-and-supertest",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "GitHub Actions: setup-node",
+                    url: "https://github.com/actions/setup-node",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "GitHub Actions: Using service containers (Postgres)",
+                    url: "https://docs.github.com/actions/using-containerized-services/creating-postgresql-service-containers",
+                    hours: 0.7,
+                  },
+                  {
+                    name: "Supertest (API) — repo",
+                    url: "https://github.com/ladjs/supertest",
+                    hours: 0.3,
+                  },
+                ],
+              },
+              {
+                id: "w3-auth-security",
+                title: "Week 3: AuthN/AuthZ + Security Baselines",
+                description:
+                  "<div><strong>Skills</strong>: Cookie sessions + optional JWT for API, RBAC middleware, helmet headers, Redis rate limiting (ioredis), CSRF considerations.<br/><strong>Deliverables</strong>: Protected routes with tests; documented flows.<br/><strong>Acceptance</strong>: Auth flows tested and documented.</div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 5,
+                resources: [
+                  {
+                    name: "Zod v4 — Intro & Basics",
+                    url: "https://zod.dev/",
+                    hours: 1.0,
+                  },
+                  {
+                    name: "helmet — Getting Started",
+                    url: "https://helmetjs.github.io/",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "ioredis — Client overview",
+                    url: "https://github.com/redis/ioredis",
+                    hours: 0.7,
+                  },
+                ],
+              },
+              {
+                id: "w4-openapi",
+                title: "Week 4: OpenAPI at /api-docs with CI schema validation",
+                description:
+                  "<div><strong>Skills</strong>: OpenAPI/Swagger, error models, pagination schema, versioning strategy; Spectral lint in CI; Postman/Insomnia export.<br/><strong>Deliverables</strong>: /api-docs route with examples; CI schema validation; collection exported.<br/><strong>Acceptance</strong>: Docs accessible; CI blocks invalid schemas.</div>",
+                priority: "high",
+                estimatedTime: 8,
+                plannedSessions: 4,
+                resources: [
+                  {
+                    name: "swagger-ui-express — README",
+                    url: "https://www.npmjs.com/package/swagger-ui-express",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "Spectral — Getting started",
+                    url: "https://meta.stoplight.io/docs/spectral/4dec24461f3af-openapi-overview",
+                    hours: 0.8,
+                  },
+                  {
+                    name: "OpenAPI in Express (Bump.sh)",
+                    url: "https://bump.sh/blog/express-api-openapi/",
+                    hours: 0.8,
+                  },
+                ],
+              },
+              {
+                id: "w5-payments-workers",
+                title: "Week 5: Stripe + BullMQ Workers",
+                description:
+                  "<div><strong>Skills</strong>: Stripe checkout + webhooks with idempotency keys; BullMQ + Redis worker with retry/backoff + DLQ; monitoring scenarios documented.<br/><strong>Deliverables</strong>: Idempotent webhook handler; worker with retry strategy; DLQ docs.<br/><strong>Acceptance</strong>: Webhook idempotency test; DLQ scenario documented.</div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 5,
+                resources: [
+                  {
+                    name: "Stripe Webhooks",
+                    url: "https://docs.stripe.com/webhooks",
+                    hours: 0.8,
+                  },
+                  {
+                    name: "Stripe Idempotent requests",
+                    url: "https://docs.stripe.com/api/idempotent_requests",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "Stripe CLI — listen & trigger",
+                    url: "https://docs.stripe.com/stripe-cli",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "BullMQ — Connections",
+                    url: "https://docs.bullmq.io/guide/connections",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "BullMQ — Workers",
+                    url: "https://docs.bullmq.io/guide/workers",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "BullMQ — Retrying failing jobs",
+                    url: "https://docs.bullmq.io/guide/retrying-failing-jobs",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "BullMQ Patterns — Idempotent jobs",
+                    url: "https://docs.bullmq.io/patterns/idempotent-jobs",
+                    hours: 0.5,
+                  },
+                ],
+              },
+              {
+                id: "w6-caching-performance",
+                title: "Week 6: Caching + Performance",
+                description:
+                  "<div><strong>Skills</strong>: HTTP caching (ETag/Cache-Control), Redis cache-aside, EXPLAIN ANALYZE, B-tree/GIN indexes.<br/><strong>Deliverables</strong>: Before/after timings and indexes documented in README.<br/><strong>Acceptance</strong>: Performance win recorded with timings.</div>",
+                priority: "medium",
+                estimatedTime: 8,
+                plannedSessions: 4,
+                resources: [
+                  {
+                    name: "HTTP caching: Cache-Control & ETag (MDN)",
+                    url: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching",
+                    hours: 0.8,
+                  },
+                  {
+                    name: "ioredis — Client overview",
+                    url: "https://github.com/redis/ioredis",
+                    hours: 0.5,
+                  },
+                  {
+                    name: "PostgreSQL — EXPLAIN & ANALYZE",
+                    url: "https://www.postgresql.org/docs/current/using-explain.html",
+                    hours: 0.8,
+                  },
+                  {
+                    name: "PostgreSQL Indexes Intro",
+                    url: "https://www.postgresql.org/docs/current/indexes-intro.html",
+                    hours: 0.7,
+                  },
+                  {
+                    name: "GIN Indexes",
+                    url: "https://www.postgresql.org/docs/current/gin.html",
+                    hours: 0.6,
+                  },
+                ],
+              },
+              {
+                id: "w7-realtime",
+                title: "Week 7: Real‑time (Socket.IO)",
+                description:
+                  "<div><strong>Skills</strong>: Notifications/chat, presence, optimistic UI hooks; minimal e2e smoke (optional).<br/><strong>Deliverables</strong>: Real‑time events + basic verification script.<br/><strong>Acceptance</strong>: Events verified; minimal e2e passes. <em>Note</em>: Consider WebRTC later for media.</div>",
+                priority: "medium",
+                estimatedTime: 8,
+                plannedSessions: 4,
+                resources: [
+                  {
+                    name: "Socket.IO Tutorial — Intro",
+                    url: "https://socket.io/docs/v4/tutorial/introduction",
+                    hours: 0.8,
+                  },
+                  {
+                    name: "Socket.IO — Rooms & Namespaces",
+                    url: "https://socket.io/docs/v4/rooms/",
+                    hours: 0.6,
+                  },
+                  {
+                    name: "Intro to Socket.IO (Video)",
+                    url: "https://www.youtube.com/watch?v=MbStdet9aVk",
+                    hours: 0.6,
+                  },
+                ],
+              },
+              {
+                id: "w8-ship-project-1",
+                title: "Week 8: Ship Project 1 – Task/Project SaaS API (Live)",
+                description:
+                  "<div><strong>Skills</strong>: Deploy (Fly.io), Neon (Postgres), Upstash (Redis), CI/CD.<br/><strong>Deliverables</strong>: Public demo live; OpenAPI at /api-docs; seeds; CI + coverage badges; short runbook.<br/><strong>Acceptance</strong>: Demo reachable; docs browsable.<details><summary>Portfolio Artifacts Checklist</summary><ul><li>OpenAPI at /api-docs with examples</li><li>CI badge + coverage badge</li><li>docker-compose.yml</li><li>.env.example</li><li>Seed script</li><li>One‑page Mermaid system diagram</li><li>CONTRIBUTING, PR template, CODEOWNERS</li><li>Short incident/runbook</li></ul></details></div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 6,
+                resources: [
+                  { name: "Fly.io Docs", url: "https://fly.io/docs/" },
+                  { name: "Neon Docs", url: "https://neon.tech/docs" },
+                  {
+                    name: "Upstash Redis Docs",
+                    url: "https://upstash.com/docs/redis/overall/getstarted",
+                  },
+                ],
+              },
+              {
+                id: "w9-ecommerce-part1",
+                title: "Week 9: Headless E‑commerce API (Part 1)",
+                description:
+                  "<div><strong>Skills</strong>: Catalog, carts, orders; reuse modules from Project 1; Postgres text search.<br/><strong>Deliverables</strong>: Order happy path coverage (integration tests start).<br/><strong>Acceptance</strong>: Happy path green.</div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 6,
+                resources: [
+                  {
+                    name: "PostgreSQL Full Text Search",
+                    url: "https://www.postgresql.org/docs/current/textsearch.html",
+                  },
+                ],
+              },
+              {
+                id: "w10-ecommerce-part2",
+                title: "Week 10: Headless E‑commerce API (Part 2)",
+                description:
+                  "<div><strong>Skills</strong>: Stripe payments; admin RBAC; finalize search.<br/><strong>Deliverables</strong>: Portfolio artifacts present; coverage maintained.<br/><strong>Acceptance</strong>: Order happy path covered by integration tests.<details><summary>Portfolio Artifacts Checklist</summary><ul><li>OpenAPI at /api-docs with examples</li><li>CI badge + coverage badge</li><li>docker-compose.yml</li><li>.env.example (incl. STRIPE keys, webhook secret)</li><li>Seed script</li><li>One‑page Mermaid system diagram</li><li>CONTRIBUTING, PR template, CODEOWNERS</li><li>Short incident/runbook</li></ul></details></div>",
+                priority: "high",
+                estimatedTime: 10,
+                plannedSessions: 6,
+                resources: [
+                  { name: "Stripe Docs", url: "https://docs.stripe.com/" },
+                ],
+              },
+              {
+                id: "w11-system-design",
+                title: "Week 11: System Design Sprints",
+                description:
+                  "<div><strong>Skills</strong>: Rate limiting algorithms, idempotency patterns, consistency models, partitioning vs sharding.<br/><strong>Deliverables</strong>: 2–3 short case studies with Mermaid diagrams and trade‑offs; ADRs added.<br/><strong>Acceptance</strong>: Diagrams + ADRs in repo.</div>",
+                priority: "medium",
+                estimatedTime: 8,
+                plannedSessions: 4,
+                resources: [
+                  {
+                    name: "Case Study: Rate Limiting — Token bucket (Mermaid diagram)",
+                    url: "https://en.wikipedia.org/wiki/Token_bucket",
+                    hours: 0.7,
+                  },
+                  {
+                    name: "Case Study: Idempotency — Patterns overview",
+                    url: "https://stripe.com/blog/idempotency",
+                    hours: 0.6,
+                  },
+                  {
+                    name: "Case Study: Consistency models — Overview",
+                    url: "https://jepsen.io/consistency",
+                    hours: 0.7,
+                  },
+                  {
+                    name: "Optional: System Design Primer (selected topics)",
+                    url: "https://github.com/donnemartin/system-design-primer",
+                    hours: 2.0,
+                  },
+                ],
+              },
+              {
+                id: "w12-interview-prep",
+                title: "Week 12: Interview Prep",
+                description:
+                  "<div><strong>Skills</strong>: LeetCode mediums (60–90 min/day), Node internals (event loop, streams/backpressure), ACID/MVCC/indexing/locks; two mock system designs.<br/><strong>Deliverables</strong>: Question bank + notes committed.<br/><strong>Acceptance</strong>: Notes and solved sets pushed.</div>",
+                priority: "low",
+                estimatedTime: 8,
+                plannedSessions: 5,
+                resources: [{ name: "LeetCode", url: "https://leetcode.com" }],
+              },
             ],
-            advancedTopics: [
-                {
-                    id: 'architecture-design-patterns',
-                    title: 'Architecture & Design Patterns',
-                    description: 'In-depth patterns and principles for scalable, maintainable systems.',
-                    importance: 'Strengthens architecture decisions and code quality.',
-                    resources: [
-                        { name: 'Node.js Design Patterns (3rd Edition)', url: 'https://www.nodejsdesignpatterns.com/' },
-                        { name: 'Clean Architecture', url: 'https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/' },
-                        { name: 'Microservices Patterns', url: 'https://www.manning.com/books/microservices-patterns' }
-                    ]
-                },
-                {
-                    id: 'operations-reliability',
-                    title: 'Operations & Reliability',
-                    description: 'Production-grade resilience and reliability practices.',
-                    importance: 'Crucial for senior roles operating systems at scale.',
-                    resources: [
-                        { name: 'Release It! (2nd Edition)', url: 'https://pragprog.com/titles/mnee2/release-it-second-edition/' },
-                        { name: 'Site Reliability Engineering (Google)', url: 'https://sre.google/books/' }
-                    ]
-                },
-                {
-                    id: 'professional-development',
-                    title: 'Professional Development',
-                    description: 'Core software craftsmanship and high-performance DevOps culture.',
-                    importance: 'Elevates team impact and delivery velocity.',
-                    resources: [
-                        { name: 'The Pragmatic Programmer', url: 'https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/' },
-                        { name: 'Accelerate', url: 'https://itrevolution.com/accelerate-book/' }
-                    ]
-                },
-                {
-                    id: 'advanced-system-design',
-                    title: 'Advanced System Design',
-                    description: 'Security and reliability principles for large-scale systems; database internals.',
-                    importance: 'Core competency for senior+ and leadership roles.',
-                    resources: [
-                        { name: 'Building Secure & Reliable Systems (Google)', url: 'https://sre.google/resources/practices-and-processes/building-secure-and-reliable-systems/' },
-                        { name: 'Database Internals', url: 'https://www.oreilly.com/library/view/database-internals/9781492040330/' }
-                    ]
-                }
-            ]
-        };
+          },
+        ],
+        projects: [
+          { id: "project1", title: "Project 1 – Task/Project SaaS API" },
+          { id: "project2", title: "Project 2 – Headless E‑commerce API" },
+        ],
+        curatedResources: [
+          {
+            name: "Backend Web Development with TypeScript",
+            url: "https://www.coursera.org/learn/backend-web-development-with-typescript",
+            hours: "3–5h",
+            priority: "Week 1",
+          },
+          {
+            name: "Getting Started with Prisma ORM",
+            url: "https://www.prisma.io/docs/getting-started",
+            hours: "4–6h",
+            priority: "Week 1",
+          },
+          {
+            name: "The Complete SQL Bootcamp (Udemy) — baseline",
+            url: "https://www.udemy.com/course/the-complete-sql-bootcamp/",
+            hours: "—",
+            priority: "Completed",
+          },
+          {
+            name: "Ultimate Testing TypeScript + Jest (YouTube)",
+            url: "https://www.youtube.com/watch?v=0yScewOhjmU",
+            hours: "6–8h",
+            priority: "Week 2",
+          },
+          {
+            name: "Docker Mastery for Node.js",
+            url: "https://www.bretfisher.com/docker-mastery-for-nodejs/",
+            hours: "8–10h",
+            priority: "Week 1–2",
+          },
+          {
+            name: "CI/CD with GitHub Actions (Docs)",
+            url: "https://docs.github.com/actions/guides/building-and-testing-nodejs",
+            hours: "4–5h",
+            priority: "Week 2",
+          },
+          {
+            name: "Stripe Webhooks (Docs)",
+            url: "https://docs.stripe.com/webhooks",
+            hours: "3–4h",
+            priority: "Week 5",
+          },
+          {
+            name: "Redis Node client (ioredis)",
+            url: "https://redis.io/docs/latest/develop/clients/nodejs/",
+            hours: "3–4h",
+            priority: "Week 6",
+          },
+          {
+            name: "BullMQ Guide",
+            url: "https://docs.bullmq.io/guide/connections",
+            hours: "3–4h",
+            priority: "Week 5",
+          },
+          {
+            name: "Socket.IO Tutorial",
+            url: "https://socket.io/docs/v4/tutorial/introduction",
+            hours: "4–5h",
+            priority: "Week 7",
+          },
+          {
+            name: "OpenAPI + Swagger UI (express)",
+            url: "https://www.npmjs.com/package/swagger-ui-express",
+            hours: "2–3h",
+            priority: "Week 4",
+          },
+          {
+            name: "System Design Primer",
+            url: "https://github.com/donnemartin/system-design-primer",
+            hours: "20–30h",
+            priority: "Week 11+",
+          },
+        ],
+        advancedTopics: [
+          {
+            id: "adv-kubernetes",
+            title: "Kubernetes Fundamentals (4–6 weeks post‑offer)",
+            description:
+              "Workloads, services/ingress, health probes, HPA, zero‑downtime deploys.",
+            importance: "Post‑offer specialization",
+            resources: [],
+          },
+          {
+            id: "adv-terraform",
+            title: "Terraform/IaC & Secrets",
+            description:
+              "Infra modules, remote state, secure secret handling (SOPS/Cloud KMS).",
+            importance: "Post‑offer",
+            resources: [],
+          },
+          {
+            id: "adv-microservices",
+            title: "Microservices & Messaging",
+            description:
+              "Service boundaries, idempotency, saga/outbox patterns, contracts.",
+            importance: "Post‑offer",
+            resources: [],
+          },
+          {
+            id: "adv-observability",
+            title: "Observability",
+            description:
+              "OpenTelemetry traces + metrics + logs; SLOs and alerting.",
+            importance: "Post‑offer",
+            resources: [],
+          },
+        ],
+      };
 
-        // State management
-        let progressData = {
-            tasks: {},
-            notes: {},
-            timeSpent: {},
-            progress: {}, // Learning progress percentage (0-100)
-            lastUpdated: null
-        };
+      // State management
+      let progressData = {
+        tasks: {},
+        notes: {},
+        timeSpent: {},
+        progress: {}, // Learning progress percentage (0-100)
+        lastUpdated: null,
+        sessions: {},
+        resourceCompleted: {},
+      };
 
-        // Chart instances
-        let phaseChart = null;
-        let timeChart = null;
-        let importData = null;
+      // Chart instances
+      let phaseChart = null;
+      let timeChart = null;
+      let importData = null;
+      const GATES = [
+        "testing",
+        "apiDocs",
+        "security",
+        "reliability",
+        "ops",
+        "design",
+      ];
 
-        // Initialize the application
-        function init() {
-            loadProgressFromStorage();
-            reconcileProgressWithTasks();
-            renderRoadmap();
-            renderAdvancedTopics();
-            updateStats();
-            updateReadinessUI();
-            updateRoleFitUI();
-            initCharts();
-        }
+      // Initialize the application
+      function init() {
+        loadProgressFromStorage();
+        reconcileProgressWithTasks();
+        // Compute topic progress from resource progress before rendering
+        recomputeAllTopicProgressFromResources();
+        renderRoadmap();
+        renderGates();
+        renderAdvancedTopics();
+        renderExpressNest();
+        renderResourcesGrid();
+        updateStats();
+        updateReadinessUI();
+        updateRoleFitUI();
+        initCharts();
+      }
 
-        // Render the roadmap structure
-        function renderRoadmap() {
-            const container = document.getElementById('roadmapContent');
-            container.innerHTML = '';
+      // Render the roadmap structure
+      function renderRoadmap() {
+        const container = document.getElementById("roadmapContent");
+        container.innerHTML = "";
 
-            roadmapData.learningObjectives.forEach(objective => {
-                const objectiveElement = createObjectiveElement(objective);
-                container.appendChild(objectiveElement);
-            });
-        }
+        roadmapData.learningObjectives.forEach((objective) => {
+          const objectiveElement = createObjectiveElement(objective);
+          container.appendChild(objectiveElement);
+        });
+      }
 
-        // Create learning objective element
-        function createObjectiveElement(objective) {
-            const objectiveDiv = document.createElement('div');
-            objectiveDiv.className = 'phase';
-            objectiveDiv.innerHTML = `
-                <div class="phase-header" onclick="togglePhase('${objective.id}')">
+      // Create learning objective element
+      function createObjectiveElement(objective) {
+        const objectiveDiv = document.createElement("div");
+        objectiveDiv.className = "phase";
+        objectiveDiv.innerHTML = `
+                <div class="phase-header" onclick="togglePhase('${
+                  objective.id
+                }')">
                     <div class="phase-header-content">
                         <div class="phase-title">
                             <span class="phase-icon">${objective.icon}</span>
                             <span class="expand-icon">▼</span>
-                            ${objective.title} (Est: ${objective.estimatedTime}h)
+                            ${objective.title} (Est: ${
+          objective.estimatedTime
+        }h)
                         </div>
-                        <div class="phase-progress" id="progress-${objective.id}">0% Complete</div>
+                        <div class="phase-progress" id="progress-${
+                          objective.id
+                        }">0% Complete</div>
                     </div>
                 </div>
                 <div class="phase-content" id="content-${objective.id}">
-                    <div class="objective-description">${objective.description}</div>
-                    ${objective.topics.map(topic => createTopicElement(topic, objective.id)).join('')}
+                    <div class="objective-description">${
+                      objective.description
+                    }</div>
+                    ${objective.topics
+                      .map((topic) => createTopicElement(topic, objective.id))
+                      .join("")}
                 </div>
             `;
-            return objectiveDiv;
-        }
+        return objectiveDiv;
+      }
 
-        // Create topic element
-        function createTopicElement(topic, objectiveId) {
-            const isCompleted = progressData.tasks[topic.id] || false;
-            const timeSpent = progressData.timeSpent[topic.id] || 0;
-            const learningProgress = progressData.progress[topic.id] || 0;
-            const notes = progressData.notes[topic.id] || '';
-            const completedClass = isCompleted ? 'completed' : '';
+      // Create topic element
+      function createTopicElement(topic, objectiveId) {
+        const isCompleted = progressData.tasks[topic.id] || false;
+        const sessions =
+          (progressData.sessions && progressData.sessions[topic.id]) || 0;
+        const learningProgress =
+          typeof progressData.progress[topic.id] === "number"
+            ? progressData.progress[topic.id]
+            : 0;
+        const notes = progressData.notes[topic.id] || "";
+        const completedClass = isCompleted ? "completed" : "";
 
-            return `
+        return `
                 <div class="topic ${completedClass}">
                     <div class="topic-header">
                         <div class="checkbox-container">
-                            <input type="checkbox" class="checkbox" id="task-${topic.id}" 
-                                   ${isCompleted ? 'checked' : ''} 
+                            <input type="checkbox" class="checkbox" id="task-${
+                              topic.id
+                            }" 
+                                   ${isCompleted ? "checked" : ""} 
                                    onchange="updateTaskProgress('${topic.id}')">
-                            <label for="task-${topic.id}" class="topic-title">${topic.title}</label>
+                            <label for="task-${topic.id}" class="topic-title">${
+          topic.title
+        }</label>
                         </div>
-                        <span class="priority-badge priority-${topic.priority}">${topic.priority}</span>
+                        <span class="priority-badge priority-${
+                          topic.priority
+                        }">${topic.priority}</span>
                     </div>
                     <div class="topic-description">${topic.description}</div>
-                    ${topic.focusAreas ? `
+                    ${
+                      topic.focusAreas
+                        ? `
                         <div class="focus-areas">
                             <strong>📎 Focus Areas:</strong> ${topic.focusAreas}
                         </div>
-                    ` : ''}
+                    `
+                        : ""
+                    }
                     <div class="time-tracker">
                         <div class="time-item">
-                            <div class="time-label">Estimated</div>
-                            <div class="time-value">${topic.estimatedTime}h</div>
+                            <div class="time-label">Planned</div>
+                            <div class="time-value">${
+                              topic.plannedSessions || 0
+                            } session${
+          (topic.plannedSessions || 0) === 1 ? "" : "s"
+        }</div>
                         </div>
                         <div class="time-item">
-                            <div class="time-label">Time Spent</div>
-                            <input type="number" id="time-${topic.id}" class="time-input" 
-                                   value="${timeSpent}" min="0" step="0.5" 
-                                   onchange="updateTimeSpent('${topic.id}', this.value)">
+                            <div class="time-label">Sessions</div>
+                            <input type="number" id="sess-${
+                              topic.id
+                            }" class="time-input" 
+                                   value="${sessions}" min="0" step="1" 
+                                   onchange="updateSessions('${
+                                     topic.id
+                                   }', this.value)">
                         </div>
                         <div class="time-item">
                             <div class="time-label">Learning Progress</div>
-                            <div class="progress-input-container">
-                                <input type="number" id="progress-${topic.id}" class="time-input" 
-                                       value="${learningProgress}" min="0" max="100" step="5" 
-                                       onchange="updateLearningProgress('${topic.id}', this.value)">
-                                <span class="progress-unit">%</span>
-                            </div>
+                            <div class="time-value" id="topicprog-${
+                              topic.id
+                            }">${learningProgress}%</div>
                         </div>
                     </div>
+                    ${
+                      Array.isArray(topic.resources) && topic.resources.length
+                        ? `
+                        <div class="resources">
+                            <div class="resources-title">📚 Resources (per‑resource progress drives this topic)</div>
+                            <div>
+                                ${topic.resources
+                                  .map((r) => {
+                                    const rid =
+                                      `${topic.id}-` +
+                                      btoa(r.url).replace(/=/g, "");
+                                    const checked =
+                                      progressData.resourceCompleted &&
+                                      progressData.resourceCompleted[rid]
+                                        ? "checked"
+                                        : "";
+                                    const rprog =
+                                      progressData.resourceProgress &&
+                                      typeof progressData.resourceProgress[
+                                        rid
+                                      ] === "number"
+                                        ? progressData.resourceProgress[rid]
+                                        : checked
+                                        ? 100
+                                        : 0;
+                                    const hoursLabel =
+                                      typeof r.hours === "number"
+                                        ? ` <span class="time-label">~${r.hours}h</span>`
+                                        : "";
+                                    return `<div class="resource-row">
+                                        <input type="checkbox" id="reschk-${rid}" ${checked} onchange="toggleResource('${rid}','${topic.id}')">
+                                        <a href="${r.url}" target="_blank" class="resource-link">${r.name}</a>
+                                        <input type="range" min="0" max="100" step="5" class="resource-slider" value="${rprog}" onchange="updateResourceProgress('${rid}','${topic.id}', this.value)">
+                                        <span class="resource-progress" id="resprog-${rid}">${rprog}%</span>${hoursLabel}
+                                    </div>`;
+                                  })
+                                  .join("")}
+                            </div>
+                        </div>
+                    `
+                        : ""
+                    }
                     <div class="notes-container">
                         <textarea class="notes-input" id="notes-${topic.id}" 
                                   placeholder="📝 Add your learning notes, insights, or challenges here..." 
-                                  onchange="updateNotes('${topic.id}', this.value)">${notes}</textarea>
+                                  onchange="updateNotes('${
+                                    topic.id
+                                  }', this.value)">${notes}</textarea>
                     </div>
-                    ${topic.resources ? `
-                        <div class="resources">
-                            <div class="resources-title">📚 Learning Resources</div>
-                            <div class="resource-links">
-                                ${topic.resources.map(resource => `
-                                    <a href="${resource.url}" target="_blank" class="resource-link">${resource.name}</a>
-                                `).join('')}
-                            </div>
-                        </div>
-                    ` : ''}
                 </div>
             `;
-        }
+      }
 
-        // Render advanced topics
-        function renderAdvancedTopics() {
-            const container = document.getElementById('advancedTopics');
-            container.innerHTML = roadmapData.advancedTopics.map(topic => `
+      // Render advanced topics
+      function renderAdvancedTopics() {
+        const container = document.getElementById("advancedTopics");
+        container.innerHTML = roadmapData.advancedTopics
+          .map(
+            (topic) => `
                 <div class="advanced-topic">
                     <div class="advanced-topic-title">🌟 ${topic.title}</div>
                     <div class="advanced-topic-desc">${topic.description}</div>
-                    <div class="advanced-topic-importance"><strong>Why Important:</strong> ${topic.importance}</div>
-                    ${topic.resources ? `
+                    <div class="advanced-topic-importance"><strong>Why Important:</strong> ${
+                      topic.importance
+                    }</div>
+                    ${
+                      topic.resources
+                        ? `
                         <div class="resources">
                             <div class="resources-title">📚 Learning Resources</div>
                             <div class="resource-links">
-                                ${topic.resources.map(resource => `
+                                ${topic.resources
+                                  .map(
+                                    (resource) => `
                                     <a href="${resource.url}" target="_blank" class="resource-link">${resource.name}</a>
-                                `).join('')}
+                                `
+                                  )
+                                  .join("")}
                             </div>
                         </div>
-                    ` : ''}
+                    `
+                        : ""
+                    }
                 </div>
-            `).join('');
+            `
+          )
+          .join("");
+      }
+
+      // Toggle learning objective visibility
+      function togglePhase(objectiveId) {
+        const objectiveElement = document.querySelector(
+          `#content-${objectiveId}`
+        ).parentElement;
+        objectiveElement.classList.toggle("collapsed");
+      }
+
+      // Update task progress with gamification
+      function updateTaskProgress(taskId) {
+        const checkbox = document.getElementById(`task-${taskId}`);
+        const wasCompleted = progressData.tasks[taskId];
+
+        progressData.tasks[taskId] = checkbox.checked;
+        progressData.lastUpdated = new Date().toISOString();
+
+        // Add visual feedback
+        const topicElement = checkbox.closest(".topic");
+        if (checkbox.checked) {
+          topicElement.classList.add("completed");
+          // Auto-set learning progress to 100% when task is completed
+          progressData.progress[taskId] = 100;
+          const progressInput = document.getElementById(`progress-${taskId}`);
+          if (progressInput) {
+            progressInput.value = 100;
+          }
+          if (!wasCompleted) {
+            showAchievement("🎉 Challenge Completed!");
+          }
+        } else {
+          topicElement.classList.remove("completed");
+          // Reset learning progress when unchecking to reflect not learned
+          progressData.progress[taskId] = 0;
+          const progressInput = document.getElementById(`progress-${taskId}`);
+          if (progressInput) {
+            progressInput.value = 0;
+          }
         }
 
-        // Toggle learning objective visibility
-        function togglePhase(objectiveId) {
-            const objectiveElement = document.querySelector(`#content-${objectiveId}`).parentElement;
-            objectiveElement.classList.toggle('collapsed');
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      // Update sessions
+      function updateSessions(taskId, value) {
+        if (!progressData.sessions) progressData.sessions = {};
+        progressData.sessions[taskId] = parseInt(value, 10) || 0;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      // Update learning progress
+      function updateLearningProgress(taskId, progressPercent) {
+        const progress = Math.max(
+          0,
+          Math.min(100, parseFloat(progressPercent) || 0)
+        );
+        progressData.progress[taskId] = progress;
+        progressData.lastUpdated = new Date().toISOString();
+
+        // Auto-check the task if progress reaches 100%
+        if (progress >= 100 && !progressData.tasks[taskId]) {
+          progressData.tasks[taskId] = true;
+          const checkbox = document.getElementById(`task-${taskId}`);
+          if (checkbox) {
+            checkbox.checked = true;
+            const topicElement = checkbox.closest(".topic");
+            topicElement.classList.add("completed");
+            showAchievement("🎉 Challenge Completed!");
+          }
         }
 
-        // Update task progress with gamification
-        function updateTaskProgress(taskId) {
-            const checkbox = document.getElementById(`task-${taskId}`);
-            const wasCompleted = progressData.tasks[taskId];
-            
-            progressData.tasks[taskId] = checkbox.checked;
-            progressData.lastUpdated = new Date().toISOString();
-            
-            // Add visual feedback
-            const topicElement = checkbox.closest('.topic');
-            if (checkbox.checked) {
-                topicElement.classList.add('completed');
-                // Auto-set learning progress to 100% when task is completed
-                progressData.progress[taskId] = 100;
-                const progressInput = document.getElementById(`progress-${taskId}`);
-                if (progressInput) {
-                    progressInput.value = 100;
-                }
-                if (!wasCompleted) {
-                    showAchievement('🎉 Challenge Completed!');
-                }
-            } else {
-                topicElement.classList.remove('completed');
-                // Reset learning progress when unchecking to reflect not learned
-                progressData.progress[taskId] = 0;
-                const progressInput = document.getElementById(`progress-${taskId}`);
-                if (progressInput) {
-                    progressInput.value = 0;
-                }
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      // Update notes
+      function updateNotes(taskId, notes) {
+        progressData.notes[taskId] = notes;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+      }
+
+      // Find topic by ID
+      function findTopicById(topicId) {
+        for (const objective of roadmapData.learningObjectives) {
+          for (const topic of objective.topics) {
+            if (topic.id === topicId) {
+              return topic;
             }
-            
-            saveProgressToStorage();
-            updateStats();
-            updateCharts();
+          }
         }
+        return null;
+      }
 
-        // Update time spent
-        function updateTimeSpent(taskId, hours) {
-            progressData.timeSpent[taskId] = parseFloat(hours) || 0;
-            progressData.lastUpdated = new Date().toISOString();
-            saveProgressToStorage();
-            updateStats();
-            updateCharts();
-        }
+      // Show achievement notification
+      function showAchievement(message) {
+        const achievement = document.createElement("div");
+        achievement.className = "achievement";
+        achievement.textContent = message;
+        document.body.appendChild(achievement);
 
-        // Update learning progress
-        function updateLearningProgress(taskId, progressPercent) {
-            const progress = Math.max(0, Math.min(100, parseFloat(progressPercent) || 0));
-            progressData.progress[taskId] = progress;
-            progressData.lastUpdated = new Date().toISOString();
-            
-            // Auto-check the task if progress reaches 100%
-            if (progress >= 100 && !progressData.tasks[taskId]) {
-                progressData.tasks[taskId] = true;
-                const checkbox = document.getElementById(`task-${taskId}`);
-                if (checkbox) {
-                    checkbox.checked = true;
-                    const topicElement = checkbox.closest('.topic');
-                    topicElement.classList.add('completed');
-                    showAchievement('🎉 Challenge Completed!');
-                }
+        setTimeout(() => achievement.classList.add("show"), 100);
+        setTimeout(() => {
+          achievement.classList.remove("show");
+          setTimeout(() => document.body.removeChild(achievement), 500);
+        }, 3000);
+      }
+
+      // Calculate statistics (session-weighted overall progress)
+      function calculateStats() {
+        let totalTasks = 0;
+        let completedTasks = 0;
+        let totalSessions = 0;
+        let totalPlannedSessions = 0;
+        let weightedProgressSum = 0;
+
+        roadmapData.learningObjectives.forEach((objective) => {
+          objective.topics.forEach((topic) => {
+            totalTasks++;
+            const planned = topic.plannedSessions || 0;
+            totalPlannedSessions += planned;
+            totalSessions +=
+              (progressData.sessions && progressData.sessions[topic.id]) || 0;
+            if (progressData.tasks[topic.id]) {
+              completedTasks++;
             }
-            
-            saveProgressToStorage();
-            updateStats();
-            updateCharts();
-        }
-
-        // Update notes
-        function updateNotes(taskId, notes) {
-            progressData.notes[taskId] = notes;
-            progressData.lastUpdated = new Date().toISOString();
-            saveProgressToStorage();
-        }
-
-        // Find topic by ID
-        function findTopicById(topicId) {
-            for (const objective of roadmapData.learningObjectives) {
-                for (const topic of objective.topics) {
-                    if (topic.id === topicId) {
-                        return topic;
-                    }
-                }
-            }
-            return null;
-        }
-
-        // Show achievement notification
-        function showAchievement(message) {
-            const achievement = document.createElement('div');
-            achievement.className = 'achievement';
-            achievement.textContent = message;
-            document.body.appendChild(achievement);
-            
-            setTimeout(() => achievement.classList.add('show'), 100);
-            setTimeout(() => {
-                achievement.classList.remove('show');
-                setTimeout(() => document.body.removeChild(achievement), 500);
-            }, 3000);
-        }
-
-        // Calculate statistics (time-weighted overall progress)
-        function calculateStats() {
-            let totalTasks = 0;
-            let completedTasks = 0;
-            let totalTimeSpent = 0;
-            let totalEstimatedTime = 0;
-            let weightedProgressSum = 0;
-
-            roadmapData.learningObjectives.forEach(objective => {
-                objective.topics.forEach(topic => {
-                    totalTasks++;
-                    const estimate = topic.estimatedTime || 0;
-                    totalEstimatedTime += estimate;
-                    totalTimeSpent += progressData.timeSpent[topic.id] || 0;
-                    if (progressData.tasks[topic.id]) {
-                        completedTasks++;
-                    }
-                    const topicProgress = typeof progressData.progress[topic.id] === 'number'
-                        ? progressData.progress[topic.id]
-                        : (progressData.tasks[topic.id] ? 100 : 0);
-                    weightedProgressSum += estimate * (Math.max(0, Math.min(100, topicProgress)) / 100);
-                });
-            });
-
-            const overallProgress = totalEstimatedTime > 0 ? Math.round((weightedProgressSum / totalEstimatedTime) * 100) : 0;
-
-            return {
-                overallProgress,
-                completedTasks,
-                totalTasks,
-                totalTimeSpent: Math.round(totalTimeSpent * 10) / 10,
-                totalEstimatedTime
-            };
-        }
-
-        // Update statistics display
-        function updateStats() {
-            const stats = calculateStats();
-            
-            document.getElementById('overallProgress').textContent = stats.overallProgress + '%';
-            document.getElementById('completedTasks').textContent = `${stats.completedTasks}/${stats.totalTasks}`;
-            document.getElementById('totalTime').textContent = stats.totalTimeSpent + 'h';
-            document.getElementById('estimatedTime').textContent = stats.totalEstimatedTime + 'h';
-
-            // Update progress ring
-            const circumference = 2 * Math.PI * 50;
-            const progressCircle = document.getElementById('progressCircle');
-            const offset = circumference - (stats.overallProgress / 100) * circumference;
-            progressCircle.style.strokeDasharray = circumference;
-            progressCircle.style.strokeDashoffset = offset;
-
-            // Update learning objective progress
-            roadmapData.learningObjectives.forEach(objective => {
-                const objectiveStats = calculateObjectiveStats(objective);
-                const progressElement = document.getElementById(`progress-${objective.id}`);
-                if (progressElement) {
-                    progressElement.textContent = `${objectiveStats.progress}% Complete`;
-                }
-            });
-
-            // Update readiness gauge
-            updateReadinessUI();
-            updateRoleFitUI();
-        }
-
-        // Calculate learning objective statistics (time-weighted)
-        function calculateObjectiveStats(objective) {
-            let totalTasks = 0;
-            let completedTasks = 0;
-            let totalTimeSpent = 0;
-            let totalEstimated = 0;
-            let weightedProgressSum = 0;
-
-            objective.topics.forEach(topic => {
-                totalTasks++;
-                const estimate = topic.estimatedTime || 0;
-                totalEstimated += estimate;
-                totalTimeSpent += progressData.timeSpent[topic.id] || 0;
-                if (progressData.tasks[topic.id]) {
-                    completedTasks++;
-                }
-                const topicProgress = typeof progressData.progress[topic.id] === 'number'
-                    ? progressData.progress[topic.id]
-                    : (progressData.tasks[topic.id] ? 100 : 0);
-                weightedProgressSum += estimate * (Math.max(0, Math.min(100, topicProgress)) / 100);
-            });
-
-            const weightedProgress = totalEstimated > 0 ? Math.round((weightedProgressSum / totalEstimated) * 100) : 0;
-
-            return {
-                progress: weightedProgress,
-                completedTasks,
-                totalTasks,
-                totalTimeSpent: Math.round(totalTimeSpent * 10) / 10,
-                totalEstimated
-            };
-        }
-
-        // Compute backend readiness gauge (weighted by phase weights)
-        function calculateReadiness() {
-            if (!roadmapData.learningObjectives || roadmapData.learningObjectives.length === 0) return 0;
-            let readiness = 0;
-            let totalWeight = 0;
-            roadmapData.learningObjectives.forEach(obj => {
-                const w = typeof obj.weight === 'number' ? obj.weight : 1;
-                const stats = calculateObjectiveStats(obj);
-                readiness += w * stats.progress;
-                totalWeight += w;
-            });
-            const score = totalWeight > 0 ? Math.round(readiness / totalWeight) : 0;
-            return Math.max(0, Math.min(100, score));
-        }
-
-        function updateReadinessUI() {
-            const readiness = calculateReadiness();
-            const valueEl = document.getElementById('readinessValue');
-            const circle = document.getElementById('readinessCircle');
-            if (valueEl) valueEl.textContent = readiness + '%';
-            if (circle) {
-                const circumference = 2 * Math.PI * 50;
-                const offset = circumference - (readiness / 100) * circumference;
-                circle.style.strokeDasharray = circumference;
-                circle.style.strokeDashoffset = offset;
-            }
-        }
-
-        // Multi-track readiness based on calibrated baselines and weights
-        function computePhaseProgressMap() {
-            return Object.fromEntries(
-                roadmapData.learningObjectives.map(o => [o.id, calculateObjectiveStats(o).progress])
-            );
-        }
-
-        function calculateReadinessTracks() {
-            const p = computePhaseProgressMap();
-            const p1 = p['phase-1-backend-fundamentals'] || 0;
-            const p2 = p['phase-2-postgres-rest'] || 0;
-            const p3 = p['phase-3-nestjs-orm'] || 0;
-            const p4 = p['phase-4-sysdesign-devops'] || 0;
-            const p5 = p['phase-5-dsa-interview'] || 0;
-
-            // Baselines (from CV)
-            const baselineFEHeavy = 80;  // almost ready for FE-heavy FS
-            const baselineBackendMid = 35; // prior FS year + FE senior
-            const feSeniorBaseline = 90;   // FE seniority anchor for balanced FS
-
-            // Weights
-            const wFEHeavy = { p1: 0.25, p2: 0.25, p3: 0.20, p4: 0.20, p5: 0.10 };
-            const wBackendMid = { p1: 0.10, p2: 0.25, p3: 0.40, p4: 0.20, p5: 0.05 };
-            // Backend seniority estimate (harder than mid-level)
-            const seniorBaseline = 10;
-            const wBackendSenior = { p1: 0.05, p2: 0.25, p3: 0.45, p4: 0.20, p5: 0.05 };
-
-            // Scores (clamped 0..100)
-            const feHeavy = Math.max(0, Math.min(100, Math.round(
-                baselineFEHeavy + (wFEHeavy.p1*p1 + wFEHeavy.p2*p2 + wFEHeavy.p3*p3 + wFEHeavy.p4*p4 + wFEHeavy.p5*p5)
-            )));
-            const backendMid = Math.max(0, Math.min(100, Math.round(
-                baselineBackendMid + (wBackendMid.p1*p1 + wBackendMid.p2*p2 + wBackendMid.p3*p3 + wBackendMid.p4*p4 + wBackendMid.p5*p5)
-            )));
-
-            // Backend senior score emphasizes P3 & P4 and has low baseline
-            const backendSenior = Math.max(0, Math.min(100, Math.round(
-                seniorBaseline + (wBackendSenior.p1*p1 + wBackendSenior.p2*p2 + wBackendSenior.p3*p3 + wBackendSenior.p4*p4 + wBackendSenior.p5*p5)
-            )));
-
-            // Full-stack (balanced) is limited by weaker side: backendSenior vs FE senior anchor
-            const fsBalanced = Math.min(feSeniorBaseline, backendSenior);
-
-            return { feHeavy, backendMid, fsBalanced, p1, p2, p3, p4, p5 };
-        }
-
-        function updateRoleFitUI() {
-            const { feHeavy, backendMid, fsBalanced, p2, p3, p4 } = calculateReadinessTracks();
-
-            const feHeavyScore = document.getElementById('rf-fe-heavy-score');
-            const backendMidScore = document.getElementById('rf-backend-mid-score');
-            const fsBalancedScore = document.getElementById('rf-fs-balanced-score');
-
-            if (feHeavyScore) feHeavyScore.textContent = feHeavy + '%';
-            if (backendMidScore) backendMidScore.textContent = backendMid + '%';
-            if (fsBalancedScore) fsBalancedScore.textContent = fsBalanced + '%';
-        }
-
-        // Initialize charts
-        function initCharts() {
-            const phaseCtx = document.getElementById('phaseChart').getContext('2d');
-            const timeCtx = document.getElementById('timeChart').getContext('2d');
-
-            // Get chart colors for learning objectives
-            const chartColors = [
-                'rgba(100, 255, 218, 0.8)', 'rgba(187, 134, 252, 0.8)', 'rgba(255, 107, 157, 0.8)',
-                'rgba(255, 183, 77, 0.8)', 'rgba(67, 233, 123, 0.8)', 'rgba(79, 172, 254, 0.8)',
-                'rgba(250, 112, 154, 0.8)', 'rgba(158, 158, 158, 0.8)', 'rgba(255, 159, 64, 0.8)',
-                'rgba(153, 102, 255, 0.8)', 'rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',
-                'rgba(255, 206, 86, 0.8)'
-            ];
-
-            phaseChart = new Chart(phaseCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: roadmapData.learningObjectives.map(obj => obj.title.substring(0, 25) + '...'),
-                    datasets: [{
-                        data: roadmapData.learningObjectives.map(() => 0),
-                        backgroundColor: chartColors.slice(0, roadmapData.learningObjectives.length),
-                        borderWidth: 2,
-                        borderColor: 'rgba(255, 255, 255, 0.1)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                font: {
-                                    size: 10,
-                                    weight: '500'
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            timeChart = new Chart(timeCtx, {
-                type: 'bar',
-                data: {
-                    labels: roadmapData.learningObjectives.map(obj => obj.title.substring(0, 15) + '...'),
-                    datasets: [
-                        {
-                            label: 'Estimated',
-                            data: roadmapData.learningObjectives.map(obj => obj.estimatedTime),
-                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                            borderColor: 'rgba(255, 255, 255, 0.3)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Actual',
-                            data: roadmapData.learningObjectives.map(() => 0),
-                            backgroundColor: 'rgba(100, 255, 218, 0.8)',
-                            borderColor: 'rgba(100, 255, 218, 1)',
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Hours',
-                                color: 'rgba(255, 255, 255, 0.8)'
-                            },
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.8)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                maxRotation: 45
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                font: {
-                                    size: 12,
-                                    weight: '500'
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            updateCharts();
-        }
-
-        // Update charts with current data
-        function updateCharts() {
-            if (!phaseChart || !timeChart) return;
-
-            // Update objective progress chart
-            const objectiveProgress = roadmapData.learningObjectives.map(objective => calculateObjectiveStats(objective).progress);
-            phaseChart.data.datasets[0].data = objectiveProgress;
-            phaseChart.update();
-
-            // Update time chart
-            const actualTimes = roadmapData.learningObjectives.map(objective => calculateObjectiveStats(objective).totalTimeSpent);
-            timeChart.data.datasets[1].data = actualTimes;
-            timeChart.update();
-        }
-
-        // Storage functions
-        function saveProgressToStorage() {
-            localStorage.setItem('roadmapProgress', JSON.stringify(progressData));
-        }
-
-        function loadProgressFromStorage() {
-            const saved = localStorage.getItem('roadmapProgress');
-            if (saved) {
-                progressData = JSON.parse(saved);
-                // Ensure progress field exists for backward compatibility
-                if (!progressData.progress) {
-                    progressData.progress = {};
-                }
-            }
-        }
-
-        // Reconcile imported/saved data:
-        // - If a task is unchecked, ensure its progress is 0
-        // - If time spent is undefined, normalize to 0
-        function reconcileProgressWithTasks() {
-            roadmapData.learningObjectives.forEach(objective => {
-                objective.topics.forEach(topic => {
-                    const id = topic.id;
-                    const checked = !!progressData.tasks[id];
-                    if (!checked) {
-                        progressData.progress[id] = 0;
-                    } else if (typeof progressData.progress[id] !== 'number') {
-                        progressData.progress[id] = 100;
-                    }
-                    if (typeof progressData.timeSpent[id] !== 'number') {
-                        progressData.timeSpent[id] = 0;
-                    }
-                });
-            });
-            progressData.lastUpdated = new Date().toISOString();
-            saveProgressToStorage();
-        }
-
-        // Export progress
-        function exportProgress() {
-            const exportData = {
-                ...progressData,
-                exportDate: new Date().toISOString(),
-                version: '2.0'
-            };
-
-            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `backend-quest-progress-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showAchievement('💾 Progress Exported Successfully!');
-        }
-
-        // Import progress
-        function importProgress() {
-            document.getElementById('fileModal').classList.add('show');
-        }
-
-        // Process file import
-        function processFileImport() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert('Please select a file to import.');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    
-                    // Validate imported data
-                    if (!validateImportData(data)) {
-                        return;
-                    }
-
-                    importData = data;
-                    
-                    // Close file modal but keep importData
-                    document.getElementById('fileModal').classList.remove('show');
-                    document.getElementById('fileInput').value = '';
-
-                    // Check if user has existing progress
-                    const hasExistingProgress = Object.keys(progressData.tasks).length > 0 || 
-                                               Object.keys(progressData.notes).length > 0 || 
-                                               Object.keys(progressData.timeSpent).length > 0 ||
-                                               Object.keys(progressData.progress).length > 0;
-
-                    if (hasExistingProgress) {
-                        document.getElementById('importModal').classList.add('show');
-                    } else {
-                        handleImport('overwrite');
-                    }
-                } catch (error) {
-                    alert('Error reading file. Please ensure it\'s a valid JSON file.\n\nError: ' + error.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // Validate import data
-        function validateImportData(data) {
-            if (!data || typeof data !== 'object') {
-                return false;
-            }
-            
-            const requiredFields = ['tasks', 'notes', 'timeSpent'];
-            const missingFields = requiredFields.filter(field => !data.hasOwnProperty(field));
-            
-            if (missingFields.length > 0) {
-                alert(`Missing required fields: ${missingFields.join(', ')}`);
-                return false;
-            }
-            
-            // Validate that fields are objects
-            if (typeof data.tasks !== 'object' || typeof data.notes !== 'object' || typeof data.timeSpent !== 'object') {
-                alert('Invalid field types - all progress fields must be objects');
-                return false;
-            }
-            
-            // Progress field is optional for backward compatibility
-            if (data.progress && typeof data.progress !== 'object') {
-                alert('Invalid progress field type - must be an object');
-                return false;
-            }
-            
-            return true;
-        }
-
-        // Handle import with user preference
-        function handleImport(action) {
-            if (!importData) {
-                alert('Import failed: No data available. Please try importing again.');
-                return;
-            }
-
-            if (action === 'overwrite') {
-                progressData = {
-                    tasks: importData.tasks || {},
-                    notes: importData.notes || {},
-                    timeSpent: importData.timeSpent || {},
-                    progress: importData.progress || {},
-                    lastUpdated: new Date().toISOString()
-                };
-            } else if (action === 'merge') {
-                progressData.tasks = { ...progressData.tasks, ...importData.tasks };
-                progressData.notes = { ...progressData.notes, ...importData.notes };
-                progressData.timeSpent = { ...progressData.timeSpent, ...importData.timeSpent };
-                progressData.progress = { ...progressData.progress, ...(importData.progress || {}) };
-                progressData.lastUpdated = new Date().toISOString();
-            }
-
-            saveProgressToStorage();
-            closeModal();
-            showAchievement('📥 Progress Imported Successfully!');
-            location.reload();
-        }
-
-        // Reset all progress
-        function resetProgress() {
-            if (confirm('🔄 Are you sure you want to reset your entire quest? This will clear all progress and cannot be undone!')) {
-                progressData = {
-                    tasks: {},
-                    notes: {},
-                    timeSpent: {},
-                    progress: {},
-                    lastUpdated: null
-                };
-                saveProgressToStorage();
-                showAchievement('🔄 Quest Reset - Ready for a Fresh Start!');
-                location.reload();
-            }
-        }
-
-        // Close modal
-        function closeModal() {
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.classList.remove('show');
-            });
-            document.getElementById('fileInput').value = '';
-            importData = null;
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', init);
-
-        // Add some keyboard shortcuts for power users
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case 'e':
-                        e.preventDefault();
-                        exportProgress();
-                        break;
-                    case 'i':
-                        e.preventDefault();
-                        importProgress();
-                        break;
-                }
-            }
+            const topicProgress = computeTopicProgressFromResources(topic);
+            weightedProgressSum +=
+              (planned || 1) *
+              (Math.max(0, Math.min(100, topicProgress)) / 100);
+          });
         });
+
+        const overallProgress =
+          totalPlannedSessions > 0
+            ? Math.round((weightedProgressSum / totalPlannedSessions) * 100)
+            : 0;
+
+        return {
+          overallProgress,
+          completedTasks,
+          totalTasks,
+          totalSessions,
+          totalPlannedSessions,
+        };
+      }
+
+      // Update statistics display
+      function updateStats() {
+        const stats = calculateStats();
+
+        document.getElementById("overallProgress").textContent =
+          stats.overallProgress + "%";
+        document.getElementById(
+          "completedTasks"
+        ).textContent = `${stats.completedTasks}/${stats.totalTasks}`;
+        const tsEl = document.getElementById("totalSessions");
+        const psEl = document.getElementById("plannedSessions");
+        if (tsEl) tsEl.textContent = stats.totalSessions;
+        if (psEl) psEl.textContent = stats.totalPlannedSessions;
+
+        // Update progress ring
+        const circumference = 2 * Math.PI * 50;
+        const progressCircle = document.getElementById("progressCircle");
+        const offset =
+          circumference - (stats.overallProgress / 100) * circumference;
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = offset;
+
+        // Update learning objective progress
+        roadmapData.learningObjectives.forEach((objective) => {
+          const objectiveStats = calculateObjectiveStats(objective);
+          const progressElement = document.getElementById(
+            `progress-${objective.id}`
+          );
+          if (progressElement) {
+            progressElement.textContent = `${objectiveStats.progress}% Complete`;
+          }
+          // Also update per-topic displayed value
+          objective.topics.forEach((topic) => {
+            const el = document.getElementById(`topicprog-${topic.id}`);
+            if (el) {
+              const topicPct = computeTopicProgressFromResources(topic);
+              el.textContent = `${topicPct}%`;
+            }
+          });
+        });
+
+        // Update readiness gauge
+        updateReadinessUI();
+        updateRoleFitUI();
+      }
+
+      // Calculate learning objective statistics (session-weighted)
+      function calculateObjectiveStats(objective) {
+        let totalTasks = 0;
+        let completedTasks = 0;
+        let totalSessions = 0;
+        let totalPlanned = 0;
+        let weightedProgressSum = 0;
+
+        objective.topics.forEach((topic) => {
+          totalTasks++;
+          const planned = topic.plannedSessions || 0;
+          totalPlanned += planned;
+          totalSessions +=
+            (progressData.sessions && progressData.sessions[topic.id]) || 0;
+          if (progressData.tasks[topic.id]) {
+            completedTasks++;
+          }
+          const topicProgress = computeTopicProgressFromResources(topic);
+          weightedProgressSum +=
+            (planned || 1) * (Math.max(0, Math.min(100, topicProgress)) / 100);
+        });
+
+        const weightedProgress =
+          totalPlanned > 0
+            ? Math.round((weightedProgressSum / totalPlanned) * 100)
+            : 0;
+
+        return {
+          progress: weightedProgress,
+          completedTasks,
+          totalTasks,
+          totalSessions,
+          totalPlanned,
+        };
+      }
+
+      // Gate-based readiness
+      function getGateCounts() {
+        const gates = progressData.gates || {};
+        const p1 = gates.project1 || {};
+        const p2 = gates.project2 || {};
+        const p1Passed = GATES.filter((g) => !!p1[g]).length;
+        const p2Passed = GATES.filter((g) => !!p2[g]).length;
+        const totalPassed = p1Passed + p2Passed;
+        const totalGates = GATES.length * 2;
+        return { p1Passed, p2Passed, totalPassed, totalGates };
+      }
+
+      function calculateReadiness() {
+        const { totalPassed, totalGates } = getGateCounts();
+        const pct =
+          totalGates > 0 ? Math.round((totalPassed / totalGates) * 100) : 0;
+        return Math.max(0, Math.min(100, pct));
+      }
+
+      function updateReadinessUI() {
+        const readiness = calculateReadiness();
+        const valueEl = document.getElementById("readinessValue");
+        const circle = document.getElementById("readinessCircle");
+        if (valueEl) valueEl.textContent = readiness + "%";
+        if (circle) {
+          const circumference = 2 * Math.PI * 50;
+          const offset = circumference - (readiness / 100) * circumference;
+          circle.style.strokeDasharray = circumference;
+          circle.style.strokeDashoffset = offset;
+        }
+      }
+
+      function calculateReadinessTracks() {
+        const gates = progressData.gates || {};
+        const p1 = gates.project1 || {};
+        const p2 = gates.project2 || {};
+        const p1Ratio = GATES.filter((g) => !!p1[g]).length / GATES.length;
+        const p2Ratio = GATES.filter((g) => !!p2[g]).length / GATES.length;
+        const avg = (p1Ratio + p2Ratio) / 2;
+        const feHeavy = Math.round(Math.max(p1Ratio, p2Ratio) * 100);
+        const backendMid = Math.round(avg * 100);
+        const bothAll = p1Ratio === 1 && p2Ratio === 1;
+        const perfWin = !!p1.perfWin || !!p2.perfWin;
+        const fsBalanced = bothAll && perfWin ? 100 : Math.round(avg * 100);
+        return { feHeavy, backendMid, fsBalanced };
+      }
+
+      function updateRoleFitUI() {
+        const { feHeavy, backendMid, fsBalanced } = calculateReadinessTracks();
+
+        const feHeavyScore = document.getElementById("rf-fe-heavy-score");
+        const backendMidScore = document.getElementById("rf-backend-mid-score");
+        const fsBalancedScore = document.getElementById("rf-fs-balanced-score");
+
+        if (feHeavyScore) feHeavyScore.textContent = feHeavy + "%";
+        if (backendMidScore) backendMidScore.textContent = backendMid + "%";
+        if (fsBalancedScore) fsBalancedScore.textContent = fsBalanced + "%";
+      }
+
+      // Initialize charts
+      function initCharts() {
+        const phaseCtx = document.getElementById("phaseChart").getContext("2d");
+        const timeCtx = document.getElementById("timeChart").getContext("2d");
+
+        phaseChart = new Chart(phaseCtx, {
+          type: "doughnut",
+          data: {
+            labels: ["Project 1", "Project 2"],
+            datasets: [
+              {
+                data: [0, 0],
+                backgroundColor: [
+                  "rgba(100, 255, 218, 0.8)",
+                  "rgba(187, 134, 252, 0.8)",
+                ],
+                borderWidth: 2,
+                borderColor: "rgba(255, 255, 255, 0.1)",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  color: "rgba(255, 255, 255, 0.8)",
+                  font: { size: 10, weight: "500" },
+                },
+              },
+            },
+          },
+        });
+
+        const weeks = (roadmapData.learningObjectives[0]?.topics || []).map(
+          (_, i) => `W${i + 1}`
+        );
+        timeChart = new Chart(timeCtx, {
+          type: "bar",
+          data: {
+            labels: weeks,
+            datasets: [
+              {
+                label: "Planned",
+                data: (roadmapData.learningObjectives[0]?.topics || []).map(
+                  (t) => t.plannedSessions || 0
+                ),
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                borderColor: "rgba(255, 255, 255, 0.3)",
+                borderWidth: 1,
+              },
+              {
+                label: "Completed",
+                data: (roadmapData.learningObjectives[0]?.topics || []).map(
+                  () => 0
+                ),
+                backgroundColor: "rgba(100, 255, 218, 0.8)",
+                borderColor: "rgba(100, 255, 218, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Sessions",
+                  color: "rgba(255, 255, 255, 0.8)",
+                },
+                ticks: { color: "rgba(255, 255, 255, 0.8)" },
+                grid: { color: "rgba(255, 255, 255, 0.1)" },
+              },
+              x: {
+                ticks: { color: "rgba(255, 255, 255, 0.8)", maxRotation: 45 },
+                grid: { color: "rgba(255, 255, 255, 0.1)" },
+              },
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: "rgba(255, 255, 255, 0.8)",
+                  font: { size: 12, weight: "500" },
+                },
+              },
+            },
+          },
+        });
+
+        updateCharts();
+      }
+
+      // Update charts with current data
+      function updateCharts() {
+        if (!phaseChart || !timeChart) return;
+
+        // Update gate passes chart
+        const { p1Passed, p2Passed } = getGateCounts();
+        phaseChart.data.datasets[0].data = [p1Passed, p2Passed];
+        phaseChart.update();
+
+        // Update time chart with week data
+        const topics = roadmapData.learningObjectives[0]?.topics || [];
+        const actualSessions = topics.map(
+          (t) => (progressData.sessions && progressData.sessions[t.id]) || 0
+        );
+        const plannedSessions = topics.map((t) => t.plannedSessions || 0);
+        timeChart.data.datasets[0].data = plannedSessions;
+        timeChart.data.datasets[1].data = actualSessions;
+        timeChart.update();
+      }
+
+      // Storage functions
+      function saveProgressToStorage() {
+        localStorage.setItem("roadmapProgress", JSON.stringify(progressData));
+      }
+
+      function loadProgressFromStorage() {
+        const saved = localStorage.getItem("roadmapProgress");
+        if (saved) {
+          progressData = JSON.parse(saved);
+          // Ensure progress field exists for backward compatibility
+          if (!progressData.progress) {
+            progressData.progress = {};
+          }
+          if (!progressData.gates) {
+            progressData.gates = { project1: {}, project2: {} };
+          }
+          if (!progressData.sessions) {
+            progressData.sessions = {};
+          }
+          if (!progressData.resourceCompleted) {
+            progressData.resourceCompleted = {};
+          }
+          if (!progressData.resourceProgress) {
+            progressData.resourceProgress = {};
+          }
+        }
+      }
+
+      // Reconcile imported/saved data:
+      // - If a task is unchecked, ensure its progress is 0
+      // - If time spent is undefined, normalize to 0
+      function reconcileProgressWithTasks() {
+        roadmapData.learningObjectives.forEach((objective) => {
+          objective.topics.forEach((topic) => {
+            const id = topic.id;
+            const checked = !!progressData.tasks[id];
+            if (!checked) {
+              progressData.progress[id] = 0;
+            } else if (typeof progressData.progress[id] !== "number") {
+              progressData.progress[id] = 100;
+            }
+            if (typeof progressData.timeSpent[id] !== "number") {
+              progressData.timeSpent[id] = 0;
+            }
+          });
+        });
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+      }
+
+      // Gates UI
+      function renderGates() {
+        if (!progressData.gates) {
+          progressData.gates = { project1: {}, project2: {} };
+        }
+        const container = document.getElementById("gatesContent");
+        const gates = progressData.gates;
+        const remediation = {
+          testing: "Add Jest+Supertest, isolate DB, publish coverage",
+          apiDocs: "Serve OpenAPI at /api-docs; validate with Spectral in CI",
+          security:
+            "Add Zod validators, helmet headers, rate limiter (ioredis)",
+          reliability:
+            "Idempotent Stripe webhooks; retries/backoff; DLQ documented",
+          ops: "docker-compose.yml, .env.example, seed, GH Actions deploy",
+          design: "One‑page Mermaid diagram + 2 ADRs per project",
+        };
+        const label = {
+          testing: "Testing",
+          apiDocs: "API Docs",
+          security: "Security",
+          reliability: "Reliability",
+          ops: "Ops",
+          design: "Design",
+        };
+        function projectBlock(pid, title) {
+          const state = gates[pid] || {};
+          const chips = GATES.map((g) => {
+            const passed = !!state[g];
+            const color = passed ? "var(--accent-green)" : "var(--accent-pink)";
+            const txt = passed ? "Pass" : "Fail";
+            return `<div style="display:flex;align-items:center;gap:.5rem;margin:.25rem 0;">
+                        <span class="week-progress" role="button" tabindex="0" style="cursor:pointer;color:${color}" onclick="toggleGate('${pid}','${g}')">${
+              label[g]
+            }: ${txt}</span>
+                        <span style="color:var(--text-muted);font-size:.85rem;">${
+                          passed ? "" : remediation[g]
+                        }</span>
+                    </div>`;
+          }).join("");
+          const perfColor = state.perfWin
+            ? "var(--accent-green)"
+            : "var(--accent-pink)";
+          const perfTxt = state.perfWin ? "Recorded" : "Missing";
+          const perf = `<div style="display:flex;align-items:center;gap:.5rem;margin:.5rem 0;">
+                    <span class="week-progress" role="button" tabindex="0" style="cursor:pointer;color:${perfColor}" onclick="togglePerf('${pid}')">Performance Win: ${perfTxt}</span>
+                    <span style="color:var(--text-muted);font-size:.85rem;">Indexing/cache improvement with timings</span>
+                </div>`;
+          return `<div class="topic"><div class="topic-header"><div class="checkbox-container"><label class="topic-title">${title}</label></div></div>${chips}${perf}</div>`;
+        }
+        container.innerHTML = [
+          projectBlock("project1", "Project 1 – Task/Project SaaS API"),
+          projectBlock("project2", "Project 2 – Headless E‑commerce API"),
+        ].join("");
+      }
+
+      function toggleGate(projectId, gate) {
+        if (!progressData.gates)
+          progressData.gates = { project1: {}, project2: {} };
+        const state = progressData.gates[projectId] || {};
+        state[gate] = !state[gate];
+        progressData.gates[projectId] = state;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+        renderGates();
+        updateReadinessUI();
+        updateRoleFitUI();
+        updateCharts();
+      }
+
+      function togglePerf(projectId) {
+        if (!progressData.gates)
+          progressData.gates = { project1: {}, project2: {} };
+        const state = progressData.gates[projectId] || {};
+        state.perfWin = !state.perfWin;
+        progressData.gates[projectId] = state;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+        renderGates();
+        updateReadinessUI();
+        updateRoleFitUI();
+      }
+
+      // Express vs NestJS guidance
+      function renderExpressNest() {
+        const el = document.getElementById("expressNestContent");
+        if (!el) return;
+        el.innerHTML = `
+                <div class="topic">
+                    <div class="topic-description">
+                        <strong>Recommendation</strong>: Use <em>Express + TypeScript + Prisma</em> for Projects 1–2 to ship faster. After interviews begin, add an optional <em>NestJS</em> project to showcase DI, guards, pipes, and filters.
+                        <ul style="margin-top:.75rem;">
+                            <li><strong>Express</strong>: minimal ceremony, fastest iteration, best for shipping artifacts.</li>
+                            <li><strong>NestJS</strong>: strong architecture signal (modules/providers/guards) once artifacts exist.</li>
+                        </ul>
+                    </div>
+                </div>`;
+      }
+
+      // Resources grid
+      function renderResourcesGrid() {
+        const grid = document.getElementById("resourcesGrid");
+        if (!grid) return;
+        grid.innerHTML = (roadmapData.curatedResources || [])
+          .map(
+            (r) => `
+                <div class="advanced-topic">
+                    <div class="advanced-topic-title">🔗 <a href="${r.url}" target="_blank" class="resource-link" style="background:none;border:none;padding:0;">${r.name}</a></div>
+                    <div class="advanced-topic-desc">Estimated: ${r.hours} · Priority: ${r.priority}</div>
+                </div>`
+          )
+          .join("");
+      }
+
+      // Export progress
+      function exportProgress() {
+        const exportData = {
+          ...progressData,
+          exportDate: new Date().toISOString(),
+          version: "2.0",
+        };
+
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `backend-quest-progress-${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showAchievement("💾 Progress Exported Successfully!");
+      }
+
+      // Import progress
+      function importProgress() {
+        document.getElementById("fileModal").classList.add("show");
+      }
+
+      // Process file import
+      function processFileImport() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select a file to import.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const data = JSON.parse(e.target.result);
+
+            // Validate imported data
+            if (!validateImportData(data)) {
+              return;
+            }
+
+            importData = data;
+
+            // Close file modal but keep importData
+            document.getElementById("fileModal").classList.remove("show");
+            document.getElementById("fileInput").value = "";
+
+            // Check if user has existing progress
+            const hasExistingProgress =
+              Object.keys(progressData.tasks).length > 0 ||
+              Object.keys(progressData.notes).length > 0 ||
+              Object.keys(progressData.timeSpent).length > 0 ||
+              Object.keys(progressData.progress).length > 0;
+
+            if (hasExistingProgress) {
+              document.getElementById("importModal").classList.add("show");
+            } else {
+              handleImport("overwrite");
+            }
+          } catch (error) {
+            alert(
+              "Error reading file. Please ensure it's a valid JSON file.\n\nError: " +
+                error.message
+            );
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      // Validate import data
+      function validateImportData(data) {
+        if (!data || typeof data !== "object") {
+          return false;
+        }
+
+        const requiredFields = ["tasks", "notes", "timeSpent"];
+        const missingFields = requiredFields.filter(
+          (field) => !data.hasOwnProperty(field)
+        );
+
+        if (missingFields.length > 0) {
+          alert(`Missing required fields: ${missingFields.join(", ")}`);
+          return false;
+        }
+
+        // Validate that fields are objects
+        if (
+          typeof data.tasks !== "object" ||
+          typeof data.notes !== "object" ||
+          typeof data.timeSpent !== "object"
+        ) {
+          alert("Invalid field types - all progress fields must be objects");
+          return false;
+        }
+
+        // Progress field is optional for backward compatibility
+        if (data.progress && typeof data.progress !== "object") {
+          alert("Invalid progress field type - must be an object");
+          return false;
+        }
+
+        // Optional new fields
+        if (
+          data.resourceCompleted &&
+          typeof data.resourceCompleted !== "object"
+        ) {
+          alert("Invalid resourceCompleted field type - must be an object");
+          return false;
+        }
+        if (
+          data.resourceProgress &&
+          typeof data.resourceProgress !== "object"
+        ) {
+          alert("Invalid resourceProgress field type - must be an object");
+          return false;
+        }
+
+        return true;
+      }
+
+      // Handle import with user preference
+      function handleImport(action) {
+        if (!importData) {
+          alert(
+            "Import failed: No data available. Please try importing again."
+          );
+          return;
+        }
+
+        if (action === "overwrite") {
+          progressData = {
+            tasks: importData.tasks || {},
+            notes: importData.notes || {},
+            timeSpent: importData.timeSpent || {},
+            progress: importData.progress || {},
+            resourceCompleted: importData.resourceCompleted || {},
+            resourceProgress: importData.resourceProgress || {},
+            lastUpdated: new Date().toISOString(),
+          };
+        } else if (action === "merge") {
+          progressData.tasks = { ...progressData.tasks, ...importData.tasks };
+          progressData.notes = { ...progressData.notes, ...importData.notes };
+          progressData.timeSpent = {
+            ...progressData.timeSpent,
+            ...importData.timeSpent,
+          };
+          progressData.progress = {
+            ...progressData.progress,
+            ...(importData.progress || {}),
+          };
+          progressData.resourceCompleted = {
+            ...(progressData.resourceCompleted || {}),
+            ...(importData.resourceCompleted || {}),
+          };
+          progressData.resourceProgress = {
+            ...(progressData.resourceProgress || {}),
+            ...(importData.resourceProgress || {}),
+          };
+          progressData.lastUpdated = new Date().toISOString();
+        }
+
+        saveProgressToStorage();
+        closeModal();
+        showAchievement("📥 Progress Imported Successfully!");
+        location.reload();
+      }
+
+      // Reset all progress
+      function resetProgress() {
+        if (
+          confirm(
+            "🔄 Are you sure you want to reset your entire quest? This will clear all progress and cannot be undone!"
+          )
+        ) {
+          progressData = {
+            tasks: {},
+            notes: {},
+            timeSpent: {},
+            progress: {},
+            lastUpdated: null,
+          };
+          saveProgressToStorage();
+          showAchievement("🔄 Quest Reset - Ready for a Fresh Start!");
+          location.reload();
+        }
+      }
+
+      // Close modal
+      function closeModal() {
+        document.querySelectorAll(".modal").forEach((modal) => {
+          modal.classList.remove("show");
+        });
+        document.getElementById("fileInput").value = "";
+        importData = null;
+      }
+
+      // Initialize when page loads
+      document.addEventListener("DOMContentLoaded", init);
+
+      // Add some keyboard shortcuts for power users
+      document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey || e.metaKey) {
+          switch (e.key) {
+            case "e":
+              e.preventDefault();
+              exportProgress();
+              break;
+            case "i":
+              e.preventDefault();
+              importProgress();
+              break;
+          }
+        }
+      });
+
+      function toggleResource(resourceId) {
+        // deprecated signature retained for backward compatibility (no topicId)
+        updateResourceCompletion(resourceId, null);
+      }
+
+      // NEW: Resource progress + completion handling
+      function updateResourceCompletion(resourceId, topicId) {
+        if (!progressData.resourceCompleted)
+          progressData.resourceCompleted = {};
+        if (!progressData.resourceProgress) progressData.resourceProgress = {};
+
+        const wasChecked = !!progressData.resourceCompleted[resourceId];
+        const checkbox = document.getElementById(`reschk-${resourceId}`);
+        const nowChecked = checkbox ? checkbox.checked : !wasChecked;
+        progressData.resourceCompleted[resourceId] = nowChecked;
+
+        // If checked => set progress 100. If unchecked: keep last numeric unless it was 100, then reset to 0
+        const prev =
+          typeof progressData.resourceProgress[resourceId] === "number"
+            ? progressData.resourceProgress[resourceId]
+            : wasChecked
+            ? 100
+            : 0;
+        if (nowChecked) {
+          progressData.resourceProgress[resourceId] = 100;
+        } else {
+          progressData.resourceProgress[resourceId] = prev === 100 ? 0 : prev;
+        }
+
+        // Reflect UI label
+        const label = document.getElementById(`resprog-${resourceId}`);
+        if (label)
+          label.textContent = `${progressData.resourceProgress[resourceId]}%`;
+
+        // Recompute topic progress if we know the topic
+        if (topicId) {
+          const topic = findTopicById(topicId);
+          if (topic) {
+            const pct = computeTopicProgressFromResources(topic);
+            progressData.progress[topicId] = pct;
+            const el = document.getElementById(`topicprog-${topicId}`);
+            if (el) el.textContent = `${pct}%`;
+          }
+        }
+
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      function updateResourceProgress(resourceId, topicId, value) {
+        if (!progressData.resourceProgress) progressData.resourceProgress = {};
+        const val = Math.max(0, Math.min(100, parseInt(value, 10) || 0));
+        progressData.resourceProgress[resourceId] = val;
+
+        // If slider hits 100, auto-check; if it drops from 100 and box is checked, keep checked per rule? We only auto-check on 100.
+        const chk = document.getElementById(`reschk-${resourceId}`);
+        if (chk) {
+          if (val >= 100) chk.checked = true;
+          // Keep existing check otherwise; do not auto-uncheck on <100
+          progressData.resourceCompleted[resourceId] = chk.checked;
+        }
+
+        const label = document.getElementById(`resprog-${resourceId}`);
+        if (label) label.textContent = `${val}%`;
+
+        // Recompute topic progress
+        const topic = findTopicById(topicId);
+        if (topic) {
+          const pct = computeTopicProgressFromResources(topic);
+          progressData.progress[topicId] = pct;
+          const el = document.getElementById(`topicprog-${topicId}`);
+          if (el) el.textContent = `${pct}%`;
+        }
+
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      function computeTopicProgressFromResources(topic) {
+        if (!Array.isArray(topic.resources) || topic.resources.length === 0) {
+          return Math.max(
+            0,
+            Math.min(100, progressData.progress[topic.id] || 0)
+          );
+        }
+        const weights = topic.resources.map((r) => {
+          const hrs = typeof r.hours === "number" ? r.hours : 1;
+          return Math.max(0.5, hrs); // minimum weight to avoid zero
+        });
+        const ids = topic.resources.map(
+          (r) => `${topic.id}-` + btoa(r.url).replace(/=/g, "")
+        );
+        const progresses = ids.map((rid, i) => {
+          const checked =
+            progressData.resourceCompleted &&
+            progressData.resourceCompleted[rid];
+          const val =
+            progressData.resourceProgress &&
+            typeof progressData.resourceProgress[rid] === "number"
+              ? progressData.resourceProgress[rid]
+              : checked
+              ? 100
+              : 0;
+          return { val, w: weights[i] };
+        });
+        const sumW = progresses.reduce((a, p) => a + p.w, 0);
+        const sum = progresses.reduce((a, p) => a + (p.val / 100) * p.w, 0);
+        const pct = sumW > 0 ? Math.round((sum / sumW) * 100) : 0;
+        return Math.max(0, Math.min(100, pct));
+      }
+
+      function recomputeAllTopicProgressFromResources() {
+        roadmapData.learningObjectives.forEach((objective) => {
+          objective.topics.forEach((topic) => {
+            const pct = computeTopicProgressFromResources(topic);
+            // Use best estimate policy: resource-driven overrides manual
+            progressData.progress[topic.id] = pct;
+          });
+        });
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+      }
     </script>
-</body>
+  </body>
 </html>
