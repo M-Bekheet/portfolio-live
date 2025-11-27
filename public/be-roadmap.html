@@ -1,17 +1,16 @@
 <!--
-Changelog (2025-10-27):
-- Replaced multi-month phases with Core 12‑Week Track and Advanced Track (Post‑Offer)
-- Added Competency Gates with pass/fail chips and remediation notes; readiness meters use gates
-- Inserted Portfolio Artifacts Checklist (and a reference section) + Express vs NestJS guidance
-- Rebound charts: Gate passes per project, Week 1–12 planned vs actual hours
-- Added Resources grid; preserved theme, animations, and mobile responsiveness
+Changelog (2025-11-27):
+- Implemented Roadmap Versioning (V1: Backend, V2: Sophisticated Engineer)
+- Added Version Switcher Dropdown
+- Added support for Engineering Logic, Success Metrics, and Key Topics display
+- Defaulted to V2 (C++ & DSA)
 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Backend-First Senior Developer Roadmap</title>
+    <title>Senior Developer Roadmap</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -173,6 +172,46 @@ Changelog (2025-10-27):
         font-size: 1.3rem;
         color: var(--text-secondary);
         font-weight: 400;
+      }
+
+      /* Version Switcher */
+      .version-switcher-container {
+          margin-bottom: 1.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          position: relative;
+          z-index: 10;
+      }
+
+      .version-select {
+          appearance: none;
+          background: var(--bg-surface);
+          color: var(--text-primary);
+          border: 1px solid var(--accent-blue);
+          padding: 0.75rem 2.5rem 0.75rem 1.5rem;
+          border-radius: 50px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364ffda%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+          background-repeat: no-repeat;
+          background-position: right 1rem center;
+          background-size: 0.8rem auto;
+      }
+
+      .version-select:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(100, 255, 218, 0.3);
+      }
+
+      .version-select:focus {
+          outline: none;
+          border-color: var(--accent-purple);
+          box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.3);
       }
 
       /* Level & XP System */
@@ -502,74 +541,6 @@ Changelog (2025-10-27):
         display: none;
       }
 
-      /* Week Cards */
-      .week {
-        background: var(--bg-surface);
-        border-radius: var(--border-radius);
-        margin-bottom: 1.5rem;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .week:hover {
-        border-color: var(--accent-purple);
-        transform: translateX(8px);
-      }
-
-      .week-header {
-        background: linear-gradient(
-          135deg,
-          rgba(187, 134, 252, 0.2),
-          rgba(100, 255, 218, 0.2)
-        );
-        padding: 1rem 1.5rem;
-        cursor: pointer;
-        position: relative;
-      }
-
-      .week-header-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .week-title {
-        font-weight: 600;
-        color: var(--text-primary);
-        font-size: 1.1rem;
-      }
-
-      .week-progress {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0.25rem 0.75rem;
-        border-radius: 12px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--accent-blue);
-      }
-
-      .week-content {
-        padding: 1.5rem;
-        display: none;
-        animation: slideDown 0.3s ease;
-      }
-
-      .week-content.open {
-        display: block;
-      }
-
-      @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
       /* Topic Cards */
       .topic {
         background: var(--bg-primary);
@@ -728,48 +699,6 @@ Changelog (2025-10-27):
         border: 1px solid rgba(100, 255, 218, 0.35);
       }
 
-      /* Job Coverage */
-      .coverage-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-      }
-
-      .coverage-item {
-        background: var(--bg-surface);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: var(--border-radius);
-        padding: 1rem;
-        transition: transform 0.2s ease, border-color 0.2s ease;
-        cursor: pointer;
-      }
-
-      .coverage-item:hover {
-        transform: translateY(-2px);
-        border-color: var(--accent-blue);
-      }
-
-      .coverage-title {
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--text-primary);
-      }
-
-      .coverage-progress {
-        height: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 999px;
-        overflow: hidden;
-      }
-
-      .coverage-bar {
-        height: 100%;
-        width: 0%;
-        background: var(--success);
-        box-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
-        transition: width 0.4s ease;
-      }
-
       .topic-description {
         color: var(--text-secondary);
         margin-bottom: 1rem;
@@ -794,6 +723,36 @@ Changelog (2025-10-27):
         background: rgba(100, 255, 218, 0.1);
         border-radius: 8px;
         border-left: 3px solid var(--accent-blue);
+      }
+
+      /* Engineering Logic & Success Metrics */
+      .engineering-logic {
+        background: rgba(187, 134, 252, 0.1);
+        border-left: 3px solid var(--accent-purple);
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 0 8px 8px 0;
+        position: relative;
+      }
+      
+      .engineering-logic-title {
+        color: var(--accent-purple);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: block;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .success-metric {
+        background: rgba(79, 172, 254, 0.1);
+        border-left: 3px solid var(--success);
+        padding: 0.75rem;
+        margin-top: 0.75rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: var(--text-primary);
       }
 
       /* Time Tracker */
@@ -844,18 +803,6 @@ Changelog (2025-10-27):
         box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
       }
 
-      .progress-input-container {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-      }
-
-      .progress-unit {
-        font-size: 0.8rem;
-        color: var(--accent-blue);
-        font-weight: 600;
-      }
-
       /* Notes */
       .notes-container {
         margin-top: 1rem;
@@ -878,10 +825,6 @@ Changelog (2025-10-27):
         outline: none;
         border-color: var(--accent-blue);
         box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
-      }
-
-      .notes-input::placeholder {
-        color: var(--text-muted);
       }
 
       /* Resources */
@@ -965,6 +908,7 @@ Changelog (2025-10-27):
         border: 1px solid rgba(255, 255, 255, 0.1);
         position: relative;
         overflow: hidden;
+        margin-bottom: 2rem;
       }
 
       .advanced-section::before {
@@ -986,11 +930,6 @@ Changelog (2025-10-27):
         transition: all 0.3s ease;
       }
 
-      .advanced-topic:hover {
-        border-color: var(--accent-pink);
-        transform: scale(1.02);
-      }
-
       .advanced-topic-title {
         font-size: 1.2rem;
         font-weight: 600;
@@ -1002,7 +941,7 @@ Changelog (2025-10-27):
         color: var(--text-secondary);
         margin-bottom: 0.5rem;
       }
-
+      
       .advanced-topic-importance {
         color: var(--text-muted);
         font-size: 0.9rem;
@@ -1030,12 +969,8 @@ Changelog (2025-10-27):
       }
 
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
 
       .modal-content {
@@ -1050,14 +985,8 @@ Changelog (2025-10-27):
       }
 
       @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .modal-title {
@@ -1095,13 +1024,17 @@ Changelog (2025-10-27):
         border-color: var(--accent-blue);
         background: var(--bg-glass);
       }
+      
+      /* Visibility helpers */
+      .hidden {
+          display: none !important;
+      }
 
       /* Responsive Design */
       @media (max-width: 1024px) {
         .charts-grid {
           grid-template-columns: 1fr;
         }
-
         .hero-title {
           font-size: 2.5rem;
         }
@@ -1111,39 +1044,28 @@ Changelog (2025-10-27):
         .container {
           padding: 1rem;
         }
-
         .hero-title {
           font-size: 2rem;
         }
-
         .hero-subtitle {
           font-size: 1.1rem;
         }
-
         .time-tracker {
           grid-template-columns: 1fr;
           gap: 0.5rem;
         }
-
         .controls {
           flex-direction: column;
           align-items: stretch;
         }
-
         .chart-wrapper {
           height: 250px;
         }
-
         .phase-header {
-          padding: 1rem;
-        }
-
-        .week-content {
           padding: 1rem;
         }
       }
 
-      /* Expand/Collapse Icons */
       .expand-icon {
         transition: transform 0.3s ease;
         font-size: 1.2rem;
@@ -1184,9 +1106,15 @@ Changelog (2025-10-27):
     <div class="container">
       <!-- Hero Header -->
       <div class="hero-header">
-        <h1 class="hero-title">Backend-First Senior Developer Roadmap</h1>
-        <p class="hero-subtitle">
-          Core 12‑Week Track · Ship 2 backends by Weeks 8–10 · EU remote‑first
+        <div class="version-switcher-container">
+            <select id="versionSelect" class="version-select" onchange="switchVersion(this.value)">
+                <option value="v2" selected>Version 2: Sophisticated Engineer (C++)</option>
+                <option value="v1">Version 1: Backend Roadmap (Legacy)</option>
+            </select>
+        </div>
+        <h1 class="hero-title" id="heroTitle">Senior Developer Roadmap</h1>
+        <p class="hero-subtitle" id="heroSubtitle">
+          Master the skills to become a top-tier engineer
         </p>
       </div>
 
@@ -1254,7 +1182,9 @@ Changelog (2025-10-27):
           <div class="stat-value" id="plannedSessions">0</div>
           <div class="stat-label">Planned Sessions</div>
         </div>
-        <div class="level-card">
+        
+        <!-- Backend Readiness (V1 Only) -->
+        <div class="level-card v1-only">
           <div class="progress-ring">
             <svg>
               <defs>
@@ -1299,7 +1229,9 @@ Changelog (2025-10-27):
           </div>
           <div class="stat-label">Backend Readiness</div>
         </div>
-        <div class="level-card">
+        
+        <!-- Role Fit (V1 Only) -->
+        <div class="level-card v1-only">
           <span class="stat-icon">👔</span>
           <div class="stat-label">Role Fit</div>
           <div class="role-row" id="rf-fe-heavy">
@@ -1338,7 +1270,7 @@ Changelog (2025-10-27):
 
       <!-- Charts -->
       <div class="charts-grid">
-        <div class="chart-card">
+        <div class="chart-card v1-only">
           <div class="chart-title">🌟 Gate Passes per Project</div>
           <div class="chart-wrapper">
             <canvas id="phaseChart"></canvas>
@@ -1346,7 +1278,7 @@ Changelog (2025-10-27):
         </div>
         <div class="chart-card">
           <div class="chart-title">
-            ⏰ Week 1–12: Planned vs Completed Sessions
+            ⏰ Planned vs Completed Sessions
           </div>
           <div class="chart-wrapper">
             <canvas id="timeChart"></canvas>
@@ -1354,8 +1286,8 @@ Changelog (2025-10-27):
         </div>
       </div>
 
-      <!-- Competency Gates -->
-      <div class="phase" id="gates">
+      <!-- Competency Gates (V1 Only) -->
+      <div class="phase v1-only" id="gates">
         <div class="phase-header" onclick="togglePhase('gates')">
           <div class="phase-header-content">
             <div class="phase-title">
@@ -1374,19 +1306,19 @@ Changelog (2025-10-27):
       </div>
 
       <!-- Roadmap -->
-      <div class="roadmap-section" id="core-12-week">
-        <h2 class="section-title">🗺️ Core 12‑Week Track</h2>
+      <div class="roadmap-section" id="main-roadmap">
+        <h2 class="section-title" id="roadmap-track-title">🗺️ Core Track</h2>
         <div id="roadmapContent"></div>
       </div>
 
       <!-- Advanced Topics -->
-      <div class="advanced-section">
-        <h2 class="section-title">🚀 Advanced Track (Post‑Offer)</h2>
+      <div class="advanced-section" id="advanced-section">
+        <h2 class="section-title">🚀 Advanced / Future Track</h2>
         <div id="advancedTopics"></div>
       </div>
 
-      <!-- Express vs NestJS Guidance -->
-      <div class="phase" id="express-vs-nest">
+      <!-- Express vs NestJS Guidance (V1 Only) -->
+      <div class="phase v1-only" id="express-vs-nest">
         <div class="phase-header" onclick="togglePhase('express-vs-nest')">
           <div class="phase-header-content">
             <div class="phase-title">
@@ -1424,8 +1356,8 @@ Changelog (2025-10-27):
       </div>
     </div>
 
-    <!-- Job Requirement Coverage -->
-    <div class="phase" id="job-coverage">
+    <!-- Job Requirement Coverage (V1 Only) -->
+    <div class="phase v1-only" id="job-coverage">
       <div class="phase-header" onclick="togglePhase('job-coverage')">
         <div class="phase-header-content">
           <div class="phase-title">
@@ -1486,8 +1418,185 @@ Changelog (2025-10-27):
     </div>
 
     <script>
-      // Updated 12-week, artifact-gated roadmap
-      const roadmapData = {
+      // ==========================================
+      // DATA: Version 2 - Sophisticated Engineer
+      // ==========================================
+      const roadmapDataV2 = {
+        learningObjectives: [
+            {
+                id: "sophisticated-engineer",
+                title: "Sophisticated Engineer Track (C++ & DSA)",
+                icon: "🧠",
+                description: "A 6-month journey to master Data Structures, Algorithms, and System Design using C++. Focus on memory, efficiency, and patterns.",
+                estimatedTime: 240, 
+                topics: [
+                    {
+                        id: "phase-1-foundations",
+                        title: "Phase 1: The Foundation (Weeks 1-4) – C++ Memory Mastery",
+                        description: "Move beyond syntax. Understand how the machine actually works.",
+                        engineeringLogic: "You cannot optimize high-performance systems if you don't understand the cost of a pointer dereference or a memory allocation. We use C++ here to force manual memory management, creating an intuition that transfers to every other language.",
+                        successMetric: "Able to implement a recursive solution without blowing the stack and explain int* vs int&.",
+                        keyTopics: [
+                            "Pointers vs. References (Stack vs. Heap)",
+                            "Memory Management (New/Delete)",
+                            "Recursive Functions (Prerequisite for Trees)",
+                            "STL: Vectors, Strings, Maps (Usage)"
+                        ],
+                        priority: "high",
+                        estimatedTime: 40,
+                        plannedSessions: 20,
+                        resources: [
+                            {
+                                 name: "Mastering 4 critical SKILLS using C++ 17",
+                                 url: "https://www.udemy.com/course/cpp-4skills/",
+                                 hours: 40
+                            }
+                        ],
+                        notes: "Skip the final 'Library Project.' Focus on the raw language mechanics."
+                    },
+                    {
+                        id: "phase-2-linear",
+                        title: "Phase 2: Building the Tools (Linear) (Weeks 5-9)",
+                        description: "Stop using arrays; start building them.",
+                        engineeringLogic: "We build these from scratch to understand the 'hidden costs.' Why is unshift() in JS slow? Because in a Vector, it forces a O(n) shift of all elements. Building it proves it.",
+                        successMetric: "You have a custom MyVector class that resizes itself automatically.",
+                        keyTopics: [
+                            "Time Complexity Analysis: Big O notation",
+                            "Dynamic Arrays: Implementing a Vector class from scratch (Capacity vs Size)",
+                            "Linked Lists: Single & Doubly Linked Lists",
+                            "Stacks & Queues: Building them using your own Linked List"
+                        ],
+                        priority: "high",
+                        estimatedTime: 50,
+                        plannedSessions: 25,
+                         resources: [
+                            {
+                                 name: "Mastering critical SKILLS in Data Structures using C++",
+                                 url: "https://www.udemy.com/course/dscpp-skills/",
+                                 hours: 50
+                            }
+                        ]
+                    },
+                    {
+                        id: "phase-3-nonlinear",
+                        title: "Phase 3: The Architect's Mind (Non-Linear) (Weeks 10-14)",
+                        description: "Handling hierarchical data and fast lookups.",
+                        engineeringLogic: "The Hash Map is the most used data structure in the world. By building one, you understand 'Collisions' and 'Load Factors,' which is essential for understanding Database Indexing later.",
+                        successMetric: "A working MyHashMap class.",
+                        keyTopics: [
+                             "Hash Tables: Implementing a Hash Map with Chaining (Handling collisions)",
+                             "Binary Trees: Traversals (In-order, Pre-order)",
+                             "Binary Search Trees (BST): O(log n) lookup logic"
+                        ],
+                        priority: "high",
+                        estimatedTime: 50,
+                        plannedSessions: 25,
+                        resources: [
+                            {
+                                 name: "Mastering critical SKILLS in Data Structures using C++ (Continued)",
+                                 url: "https://www.udemy.com/course/dscpp-skills/",
+                                 hours: 50
+                            }
+                        ]
+                    },
+                    {
+                        id: "phase-4-algorithms",
+                        title: "Phase 4: Core Algorithms (Weeks 15-18)",
+                        description: "Sorting and Searching with mathematical precision.",
+                        engineeringLogic: "Sorting isn't just Array.sort(). It's about memory locality and worst-case scenarios. Merge Sort is stable; Quick Sort is fast. Knowing when to use which is the Senior Engineer trait.",
+                        successMetric: "Can write Merge Sort on a whiteboard without syntax errors.",
+                        keyTopics: [
+                             "Sorting: Merge Sort (Divide & Conquer) & Quick Sort",
+                             "Binary Search: Mastering the logic (Standard & Lower/Upper bound)",
+                             "Recursion (Advanced): Tracing complex recursion trees"
+                        ],
+                        priority: "high",
+                        estimatedTime: 40,
+                        plannedSessions: 20,
+                        resources: [
+                            {
+                                 name: "Algorithms Part 1",
+                                 url: "https://www.udemy.com/course/skills-algorithms-cpp/",
+                                 hours: 40
+                            }
+                        ]
+                    },
+                    {
+                        id: "phase-5-graphs-dp",
+                        title: "Phase 5: Advanced Graphs & DP (Weeks 19-22)",
+                        description: "Modeling complex relationships and optimization problems.",
+                        engineeringLogic: "Real-world problems (Social Networks, Google Maps, Package Dependencies) are Graphs. You cannot solve them with Arrays. DP teaches you to trade Space (Memory) for Time (Speed).",
+                        successMetric: "Solving 'Number of Islands' and 'Climbing Stairs' (Memoized).",
+                        keyTopics: [
+                             "Graph Traversal: BFS (Breadth-First) & DFS (Depth-First)",
+                             "Topological Sort: Dependency resolution",
+                             "Dynamic Programming: Memoization (Caching results)"
+                        ],
+                        priority: "high",
+                        estimatedTime: 40,
+                        plannedSessions: 20,
+                        resources: [
+                            {
+                                 name: "Algorithms Part 2",
+                                 url: "https://www.udemy.com/course/skills-algorithms-cpp2/",
+                                 hours: 40
+                            }
+                        ]
+                    },
+                    {
+                        id: "phase-6-interview",
+                        title: "Phase 6: The Interview Bridge (Weeks 23-24)",
+                        description: "Translating academic theory into interview performance.",
+                        engineeringLogic: "Academic courses teach 'First Principles.' Interviews test 'Pattern Matching.' This phase bridges that gap.",
+                        successMetric: "Confidence with Medium-level LeetCode/NeetCode problems.",
+                        keyTopics: [
+                            "Sliding Window: Optimization for subarrays",
+                            "Two Pointers: Space optimization",
+                            "Review: NeetCode 150 (Mediums)"
+                        ],
+                        priority: "high",
+                        estimatedTime: 20,
+                        plannedSessions: 10,
+                        resources: [
+                            {
+                                name: "NeetCode 150 Practice",
+                                url: "https://neetcode.io/practice",
+                                hours: 20
+                            }
+                        ]
+                    },
+                    {
+                        id: "parallel-system-design",
+                        title: "Parallel Track: System Design (Weekends Only)",
+                        description: "Preparing for the L5/L6 Senior Round.",
+                        engineeringLogic: "While your left brain learns Algorithms, your right brain absorbs Architecture (Load Balancers, Caching, Sharding) to prevent being 'down-leveled' during interviews.",
+                        successMetric: "Understand standard distributed system patterns.",
+                        keyTopics: [
+                            "Read 1 Chapter every weekend. No coding."
+                        ],
+                        priority: "medium",
+                        estimatedTime: 24,
+                        plannedSessions: 24,
+                        resources: [
+                             {
+                                name: "System Design Interview – An Insider's Guide (Alex Xu)",
+                                url: "https://bytebytego.com/",
+                                hours: 24
+                             }
+                        ]
+                    }
+                ]
+            }
+        ],
+        projects: [], 
+        curatedResources: [],
+        advancedTopics: [] 
+      };
+
+      // ==========================================
+      // DATA: Version 1 - Backend Roadmap (Legacy)
+      // ==========================================
+      const roadmapDataV1 = {
         learningObjectives: [
           {
             id: "core-12-week",
@@ -1962,6 +2071,10 @@ Changelog (2025-10-27):
         ],
       };
 
+      // Active roadmap state (default to V2)
+      let currentRoadmap = roadmapDataV2;
+      let currentVersion = "v2";
+
       // State management
       let progressData = {
         tasks: {},
@@ -1971,6 +2084,8 @@ Changelog (2025-10-27):
         lastUpdated: null,
         sessions: {},
         resourceCompleted: {},
+        resourceProgress: {},
+        gates: { project1: {}, project2: {} }
       };
 
       // Chart instances
@@ -1989,34 +2104,126 @@ Changelog (2025-10-27):
       // Initialize the application
       function init() {
         loadProgressFromStorage();
+        
+        // Try to restore version from storage if exists, otherwise default to V2
+        if (progressData.version) {
+           switchVersion(progressData.version, false);
+        } else {
+           switchVersion("v2", false);
+        }
+        
         reconcileProgressWithTasks();
-        // Compute topic progress from resource progress before rendering
         recomputeAllTopicProgressFromResources();
+        
+        // UI Render
         renderRoadmap();
-        renderGates();
-        renderAdvancedTopics();
-        renderExpressNest();
+        updateVisibilityForVersion();
         renderResourcesGrid();
-        renderJobCoverage();
+        
+        // Only render specific sections for V1
+        if (currentVersion === 'v1') {
+            renderGates();
+            renderAdvancedTopics();
+            renderExpressNest();
+            renderJobCoverage();
+            updateReadinessUI();
+            updateRoleFitUI();
+        }
+        
         updateStats();
-        updateReadinessUI();
-        updateRoleFitUI();
         initCharts();
+        
         // Collapse Competency Gates by default
         const gatesEl = document.getElementById("gates");
         if (gatesEl && !gatesEl.classList.contains("collapsed")) {
           gatesEl.classList.add("collapsed");
         }
       }
+      
+      function switchVersion(version, save = true) {
+          currentVersion = version;
+          document.getElementById("versionSelect").value = version;
+          
+          if (version === 'v1') {
+              currentRoadmap = roadmapDataV1;
+              document.getElementById("heroTitle").innerText = "Backend-First Senior Roadmap";
+              document.getElementById("heroSubtitle").innerText = "Core 12‑Week Track · Ship 2 backends by Weeks 8–10";
+          } else {
+              currentRoadmap = roadmapDataV2;
+              document.getElementById("heroTitle").innerText = "Sophisticated Engineer Roadmap";
+              document.getElementById("heroSubtitle").innerText = "Data Structures, Algorithms, and C++ Mastery";
+          }
+          
+          if (save) {
+              if (!progressData) progressData = {};
+              progressData.version = version;
+              saveProgressToStorage();
+              
+              // Re-render everything
+              renderRoadmap();
+              updateVisibilityForVersion();
+              renderResourcesGrid();
+              
+              if (currentVersion === 'v1') {
+                  renderGates();
+                  renderAdvancedTopics();
+                  renderExpressNest();
+                  renderJobCoverage();
+                  updateReadinessUI();
+                  updateRoleFitUI();
+              }
+              
+              updateStats();
+              updateCharts(); // Re-init charts with new data
+          }
+      }
+      
+      function updateVisibilityForVersion() {
+          const v1Elements = document.querySelectorAll('.v1-only');
+          v1Elements.forEach(el => {
+              if (currentVersion === 'v1') {
+                  el.classList.remove('hidden');
+              } else {
+                  el.classList.add('hidden');
+              }
+          });
+          
+          const advSection = document.getElementById('advanced-section');
+          if (currentVersion === 'v2') {
+              advSection.classList.add('hidden');
+          } else {
+              advSection.classList.remove('hidden');
+          }
+      }
 
       // Render the roadmap structure
       function renderRoadmap() {
         const container = document.getElementById("roadmapContent");
         container.innerHTML = "";
+        
+        document.getElementById("roadmap-track-title").innerText = currentRoadmap.learningObjectives[0].title;
 
-        roadmapData.learningObjectives.forEach((objective) => {
-          const objectiveElement = createObjectiveElement(objective);
-          container.appendChild(objectiveElement);
+        currentRoadmap.learningObjectives.forEach((objective) => {
+            // For V2 we might have just one objective but many topics (Phases)
+            // We can just render the topics directly if we want, but reusing structure is easier
+            // For V2, let's skip the outer "Objective" wrapper if there is only one and just render Topics? 
+            // The existing code renders "Phase" (Objective) -> Topics inside.
+            // V1 has 1 Objective ("Core 12-Week"). V2 has 1 Objective ("Sophisticated Engineer").
+            // So the structure holds.
+            
+            // BUT, existing code wraps objective in a div.phase.
+            // Inside it puts topics.
+            
+            // V1: "Core 12-Week Track" (Objective) -> "Week 1" (Topic)
+            // V2: "Sophisticated Engineer Track" (Objective) -> "Phase 1" (Topic)
+            
+            // Actually, let's unwrap the V2 objective to make it look better, 
+            // OR just rename the Objective title to "Phases"
+            // The prompt says "Refactor... so that the roadmap nodes are dynamically loaded".
+            // I will stick to the existing hierarchy: Objective -> Topics.
+            
+            const objectiveElement = createObjectiveElement(objective);
+            container.appendChild(objectiveElement);
         });
       }
 
@@ -2024,6 +2231,9 @@ Changelog (2025-10-27):
       function createObjectiveElement(objective) {
         const objectiveDiv = document.createElement("div");
         objectiveDiv.className = "phase";
+        // Auto-expand if V2
+        if (currentVersion === 'v2') objectiveDiv.className = "phase"; // Not collapsed
+        
         objectiveDiv.innerHTML = `
                 <div class="phase-header" onclick="togglePhase('${
                   objective.id
@@ -2032,9 +2242,7 @@ Changelog (2025-10-27):
                         <div class="phase-title">
                             <span class="phase-icon">${objective.icon}</span>
                             <span class="expand-icon">▼</span>
-                            ${objective.title} (Est: ${
-          objective.estimatedTime
-        }h)
+                            ${objective.title}
                         </div>
                         <div class="phase-progress" id="progress-${
                           objective.id
@@ -2101,6 +2309,20 @@ Changelog (2025-10-27):
                         }
                     </div>
                     <div class="topic-description">${topic.description}</div>
+                    
+                    ${topic.engineeringLogic ? `
+                        <div class="engineering-logic">
+                            <span class="engineering-logic-title">💡 Engineering Logic</span>
+                            ${topic.engineeringLogic}
+                        </div>
+                    ` : ''}
+                    
+                    ${topic.successMetric ? `
+                        <div class="success-metric">
+                            <strong>🎯 Success Metric:</strong> ${topic.successMetric}
+                        </div>
+                    ` : ''}
+
                     ${
                       topic.focusAreas
                         ? `
@@ -2110,6 +2332,16 @@ Changelog (2025-10-27):
                     `
                         : ""
                     }
+                    
+                    ${topic.keyTopics && topic.keyTopics.length ? `
+                        <div class="focus-areas" style="margin-top:0.5rem">
+                            <strong>🔑 Key Topics:</strong>
+                            <ul style="padding-left: 1.2rem; margin-top: 0.25rem">
+                                ${topic.keyTopics.map(t => `<li>${t}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+
                     <div class="time-tracker">
                         <div class="time-item">
                             <div class="time-label">Planned</div>
@@ -2235,7 +2467,12 @@ Changelog (2025-10-27):
       // Render advanced topics
       function renderAdvancedTopics() {
         const container = document.getElementById("advancedTopics");
-        container.innerHTML = roadmapData.advancedTopics
+        if (!currentRoadmap.advancedTopics) {
+             container.innerHTML = "";
+             return;
+        }
+        
+        container.innerHTML = currentRoadmap.advancedTopics
           .map(
             (topic) => `
                 <div class="advanced-topic">
@@ -2286,14 +2523,48 @@ Changelog (2025-10-27):
 
         // Add visual feedback
         const topicElement = checkbox.closest(".topic");
+        const topic = findTopicById(taskId);
+
         if (checkbox.checked) {
           topicElement.classList.add("completed");
-          // Auto-set learning progress to 100% when task is completed
+          
+          // 1. Set Topic Progress to 100
           progressData.progress[taskId] = 100;
-          const progressInput = document.getElementById(`progress-${taskId}`);
-          if (progressInput) {
-            progressInput.value = 100;
+          
+          // 2. Update Topic UI Text
+          const progressEl = document.getElementById(`topicprog-${taskId}`);
+          if (progressEl) progressEl.textContent = "100%";
+
+          // 3. Update All Resources (Data & UI) to 100%
+          if (topic) {
+             const resources = [...(topic.resources || []), ...(topic.optionalResources || [])];
+             resources.forEach(r => {
+                 const rid = `${taskId}-` + btoa(r.url).replace(/=/g, "");
+                 
+                 // Data Update
+                 if (!progressData.resourceCompleted) progressData.resourceCompleted = {};
+                 if (!progressData.resourceProgress) progressData.resourceProgress = {};
+                 progressData.resourceCompleted[rid] = true;
+                 progressData.resourceProgress[rid] = 100;
+                 
+                 // UI Update - Checkbox
+                 const resChk = document.getElementById(`reschk-${rid}`);
+                 if (resChk) {
+                     resChk.checked = true;
+                     // UI Update - Slider (find relative to checkbox)
+                     const row = resChk.closest('.resource-row');
+                     if (row) {
+                         const slider = row.querySelector('.resource-slider');
+                         if (slider) slider.value = 100;
+                     }
+                 }
+                 
+                 // UI Update - Text Label
+                 const resLabel = document.getElementById(`resprog-${rid}`);
+                 if (resLabel) resLabel.textContent = "100%";
+             });
           }
+
           if (!wasCompleted) {
             showAchievement("🎉 Challenge Completed!");
           }
@@ -2301,10 +2572,9 @@ Changelog (2025-10-27):
           topicElement.classList.remove("completed");
           // Reset learning progress when unchecking to reflect not learned
           progressData.progress[taskId] = 0;
-          const progressInput = document.getElementById(`progress-${taskId}`);
-          if (progressInput) {
-            progressInput.value = 0;
-          }
+          
+          const progressEl = document.getElementById(`topicprog-${taskId}`);
+          if (progressEl) progressEl.textContent = "0%";
         }
 
         saveProgressToStorage();
@@ -2357,7 +2627,7 @@ Changelog (2025-10-27):
 
       // Find topic by ID
       function findTopicById(topicId) {
-        for (const objective of roadmapData.learningObjectives) {
+        for (const objective of currentRoadmap.learningObjectives) {
           for (const topic of objective.topics) {
             if (topic.id === topicId) {
               return topic;
@@ -2381,36 +2651,41 @@ Changelog (2025-10-27):
         }, 3000);
       }
 
-      // Calculate statistics (session-weighted overall progress)
+      // Calculate statistics (Pure percentage based)
       function calculateStats() {
         let totalTasks = 0;
         let completedTasks = 0;
         let totalSessions = 0;
         let totalPlannedSessions = 0;
-        let weightedProgressSum = 0;
+        let progressSum = 0;
 
-        roadmapData.learningObjectives.forEach((objective) => {
+        currentRoadmap.learningObjectives.forEach((objective) => {
           objective.topics.forEach((topic) => {
             totalTasks++;
+            
+            // Keep tracking sessions for stats cards
             const plannedRaw = topic.plannedSessions || 0;
             const pacingFactor = topic.pacing === "accelerate" ? 0.5 : 1;
             const planned = Math.max(1, Math.round(plannedRaw * pacingFactor));
             totalPlannedSessions += planned;
             totalSessions +=
               (progressData.sessions && progressData.sessions[topic.id]) || 0;
+            
             if (progressData.tasks[topic.id]) {
               completedTasks++;
             }
+            
+            // Sum percentage directly (no weighting)
+            // computeTopicProgressFromResources returns 0-100
             const topicProgress = computeTopicProgressFromResources(topic);
-            weightedProgressSum +=
-              (planned || 1) *
-              (Math.max(0, Math.min(100, topicProgress)) / 100);
+            progressSum += topicProgress;
           });
         });
 
+        // Average of all topic percentages
         const overallProgress =
-          totalPlannedSessions > 0
-            ? Math.round((weightedProgressSum / totalPlannedSessions) * 100)
+          totalTasks > 0
+            ? Math.round(progressSum / totalTasks)
             : 0;
 
         return {
@@ -2446,7 +2721,7 @@ Changelog (2025-10-27):
         progressCircle.style.strokeDashoffset = offset;
 
         // Update learning objective progress
-        roadmapData.learningObjectives.forEach((objective) => {
+        currentRoadmap.learningObjectives.forEach((objective) => {
           const objectiveStats = calculateObjectiveStats(objective);
           const progressElement = document.getElementById(
             `progress-${objective.id}`
@@ -2464,16 +2739,18 @@ Changelog (2025-10-27):
           });
         });
 
-        // Update readiness gauge
-        updateReadinessUI();
-        updateRoleFitUI();
+        // Update readiness gauge (Only visible in V1)
+        if (currentVersion === 'v1') {
+            updateReadinessUI();
+            updateRoleFitUI();
+        }
       }
 
       // Compute resource completion counts across all topics (core + optional)
       function computeResourceStats() {
         let totalResources = 0;
         let completedResources = 0;
-        (roadmapData.learningObjectives || []).forEach((objective) => {
+        (currentRoadmap.learningObjectives || []).forEach((objective) => {
           (objective.topics || []).forEach((topic) => {
             const allR = [];
             if (Array.isArray(topic.resources)) allR.push(...topic.resources);
@@ -2600,44 +2877,50 @@ Changelog (2025-10-27):
 
       // Initialize charts
       function initCharts() {
-        const phaseCtx = document.getElementById("phaseChart").getContext("2d");
-        const timeCtx = document.getElementById("timeChart").getContext("2d");
-
-        phaseChart = new Chart(phaseCtx, {
-          type: "doughnut",
-          data: {
-            labels: ["Project 1", "Project 2"],
-            datasets: [
-              {
-                data: [0, 0],
-                backgroundColor: [
-                  "rgba(100, 255, 218, 0.8)",
-                  "rgba(187, 134, 252, 0.8)",
+        // Cleanup existing
+        if (phaseChart) phaseChart.destroy();
+        if (timeChart) timeChart.destroy();
+        
+        if (currentVersion === 'v1') {
+            const phaseCtx = document.getElementById("phaseChart").getContext("2d");
+            phaseChart = new Chart(phaseCtx, {
+              type: "doughnut",
+              data: {
+                labels: ["Project 1", "Project 2"],
+                datasets: [
+                  {
+                    data: [0, 0],
+                    backgroundColor: [
+                      "rgba(100, 255, 218, 0.8)",
+                      "rgba(187, 134, 252, 0.8)",
+                    ],
+                    borderWidth: 2,
+                    borderColor: "rgba(255, 255, 255, 0.1)",
+                  },
                 ],
-                borderWidth: 2,
-                borderColor: "rgba(255, 255, 255, 0.1)",
               },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  color: "rgba(255, 255, 255, 0.8)",
-                  font: { size: 10, weight: "500" },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: "bottom",
+                    labels: {
+                      color: "rgba(255, 255, 255, 0.8)",
+                      font: { size: 10, weight: "500" },
+                    },
+                  },
                 },
               },
-            },
-          },
-        });
+            });
+        }
 
-        const topics = (roadmapData.learningObjectives[0]?.topics || []).filter(
+        const topics = (currentRoadmap.learningObjectives[0]?.topics || []).filter(
           (t) => !t.isPrerequisites && !/week 15/i.test(t.title)
         );
         const weeks = topics.map((_, i) => `W${i + 1}`);
+        
+        const timeCtx = document.getElementById("timeChart").getContext("2d");
         timeChart = new Chart(timeCtx, {
           type: "bar",
           data: {
@@ -2694,24 +2977,31 @@ Changelog (2025-10-27):
 
       // Update charts with current data
       function updateCharts() {
-        if (!phaseChart || !timeChart) return;
-
-        // Update gate passes chart
-        const { p1Passed, p2Passed } = getGateCounts();
-        phaseChart.data.datasets[0].data = [p1Passed, p2Passed];
-        phaseChart.update();
+        // Update gate passes chart (V1 only)
+        if (currentVersion === 'v1' && phaseChart) {
+            const { p1Passed, p2Passed } = getGateCounts();
+            phaseChart.data.datasets[0].data = [p1Passed, p2Passed];
+            phaseChart.update();
+        }
 
         // Update time chart with week data
-        const topics = (roadmapData.learningObjectives[0]?.topics || []).filter(
-          (t) => !t.isPrerequisites && !/week 15/i.test(t.title)
-        );
-        const actualSessions = topics.map(
-          (t) => (progressData.sessions && progressData.sessions[t.id]) || 0
-        );
-        const plannedSessions = topics.map((t) => t.plannedSessions || 0);
-        timeChart.data.datasets[0].data = plannedSessions;
-        timeChart.data.datasets[1].data = actualSessions;
-        timeChart.update();
+        if (timeChart) {
+            const topics = (currentRoadmap.learningObjectives[0]?.topics || []).filter(
+              (t) => !t.isPrerequisites && !/week 15/i.test(t.title)
+            );
+            const actualSessions = topics.map(
+              (t) => (progressData.sessions && progressData.sessions[t.id]) || 0
+            );
+            const plannedSessions = topics.map((t) => t.plannedSessions || 0);
+            timeChart.data.labels = topics.map((_, i) => `P${i+1}`); // Use P for Phase in V2? Or just W.
+            if (currentVersion === 'v2') {
+                 timeChart.data.labels = topics.map((_, i) => `Ph${i+1}`);
+            }
+            
+            timeChart.data.datasets[0].data = plannedSessions;
+            timeChart.data.datasets[1].data = actualSessions;
+            timeChart.update();
+        }
       }
 
       // Storage functions
@@ -2743,10 +3033,11 @@ Changelog (2025-10-27):
       }
 
       // Reconcile imported/saved data:
-      // - If a task is unchecked, ensure its progress is 0
-      // - If time spent is undefined, normalize to 0
       function reconcileProgressWithTasks() {
-        roadmapData.learningObjectives.forEach((objective) => {
+        // Loop through BOTH versions if possible, or just current?
+        // Best to reconcile current.
+        
+        currentRoadmap.learningObjectives.forEach((objective) => {
           objective.topics.forEach((topic) => {
             const id = topic.id;
             const checked = !!progressData.tasks[id];
@@ -2869,7 +3160,7 @@ Changelog (2025-10-27):
         if (!grid) return;
         // Aggregate per-week resources as curated set
         const items = [];
-        (roadmapData.learningObjectives || []).forEach((objective) => {
+        (currentRoadmap.learningObjectives || []).forEach((objective) => {
           (objective.topics || []).forEach((topic) => {
             const weekLabel = topic.title || topic.id;
             const pushRes = (r, tag) =>
@@ -2911,7 +3202,7 @@ Changelog (2025-10-27):
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `backend-quest-progress-${
+        a.download = `roadmap-progress-${
           new Date().toISOString().split("T")[0]
         }.json`;
         document.body.appendChild(a);
@@ -3044,6 +3335,7 @@ Changelog (2025-10-27):
             resourceCompleted: importData.resourceCompleted || {},
             resourceProgress: importData.resourceProgress || {},
             lastUpdated: new Date().toISOString(),
+            version: importData.version || "v2"
           };
         } else if (action === "merge") {
           progressData.tasks = { ...progressData.tasks, ...importData.tasks };
@@ -3086,6 +3378,7 @@ Changelog (2025-10-27):
             timeSpent: {},
             progress: {},
             lastUpdated: null,
+            version: "v2"
           };
           saveProgressToStorage();
           showAchievement("🔄 Quest Reset - Ready for a Fresh Start!");
@@ -3170,9 +3463,11 @@ Changelog (2025-10-27):
         saveProgressToStorage();
         updateStats();
         updateCharts();
-        // Also recompute readiness and role fit since resources can change topic progress
-        updateReadinessUI();
-        updateRoleFitUI();
+        
+        if (currentVersion === 'v1') {
+            updateReadinessUI();
+            updateRoleFitUI();
+        }
       }
 
       function updateResourceProgress(resourceId, topicId, value) {
@@ -3204,8 +3499,10 @@ Changelog (2025-10-27):
         saveProgressToStorage();
         updateStats();
         updateCharts();
-        updateReadinessUI();
-        updateRoleFitUI();
+        if (currentVersion === 'v1') {
+            updateReadinessUI();
+            updateRoleFitUI();
+        }
       }
 
       function computeTopicProgressFromResources(topic) {
@@ -3268,7 +3565,7 @@ Changelog (2025-10-27):
       }
 
       function recomputeAllTopicProgressFromResources() {
-        roadmapData.learningObjectives.forEach((objective) => {
+        currentRoadmap.learningObjectives.forEach((objective) => {
           objective.topics.forEach((topic) => {
             const pct = computeTopicProgressFromResources(topic);
             // Use best estimate policy: resource-driven overrides manual
