@@ -1108,7 +1108,8 @@ Changelog (2025-11-27):
       <div class="hero-header">
         <div class="version-switcher-container">
             <select id="versionSelect" class="version-select" onchange="switchVersion(this.value)">
-                <option value="v2" selected>Version 2: Sophisticated Engineer (C++)</option>
+                <option value="v3" selected>Version 3: DSA Mastery (4-Month)</option>
+                <option value="v2">Version 2: Sophisticated Engineer (Legacy)</option>
                 <option value="v1">Version 1: Backend Roadmap (Legacy)</option>
             </select>
         </div>
@@ -1181,6 +1182,16 @@ Changelog (2025-11-27):
           <span class="stat-icon">🎯</span>
           <div class="stat-value" id="plannedSessions">0</div>
           <div class="stat-label">Planned Sessions</div>
+        </div>
+        
+        <!-- Problems Solved (V3 Only) -->
+        <div class="level-card v3-only">
+          <span class="stat-icon">🧩</span>
+          <div style="display:flex;align-items:baseline;justify-content:center;gap:0.25rem;">
+            <input type="number" id="problemsSolvedInput" class="time-input" style="width:60px;font-size:1.5rem;font-weight:700;color:var(--accent-blue);" value="0" min="0" onchange="updateProblemsSolved(this.value)">
+            <span class="stat-value" style="font-size:1rem;color:var(--text-muted);">/ 200</span>
+          </div>
+          <div class="stat-label">Problems Solved</div>
         </div>
         
         <!-- Backend Readiness (V1 Only) -->
@@ -1591,6 +1602,175 @@ Changelog (2025-11-27):
         projects: [], 
         curatedResources: [],
         advancedTopics: [] 
+      };
+
+      // ==========================================
+      // DATA: Version 3 - DSA Mastery (4-Month)
+      // ==========================================
+      const roadmapDataV3 = {
+        learningObjectives: [
+            {
+                id: "dsa-mastery-4month",
+                title: "DSA Mastery Track (4-Month)",
+                icon: "🎯",
+                description: "From Frontend Developer to Sophisticated Software Engineer. Master Data Structures & Algorithms with C++ in 4 months. Focus: 40% learning, 60% practicing. Target: 150-200 problems solved.",
+                estimatedTime: 200,
+                topics: [
+                    {
+                        id: "phase-0-cpp-refresher",
+                        title: "Phase 0: C++ Refresher (Week 1-2)",
+                        description: "Get comfortable with C++ syntax and STL before diving into DSA. You have prior C++ experience from Programming I, so this is a refresher, not a beginner course.",
+                        engineeringLogic: "JavaScript hides too much (no pointers, automatic memory, no native data structures like linked lists). C++ teaches you CS fundamentals while being practical. You can always use JavaScript for web dev work.",
+                        successMetric: "Can read/write C++ code, use vector, map, set, stack, queue, priority_queue comfortably. Solved 10-15 basic problems.",
+                        keyTopics: [
+                            "Variables, data types, operators",
+                            "Control flow (if/else, loops, switch)",
+                            "Functions, pointers, references",
+                            "Dynamic memory (new, delete)",
+                            "STL: vector, string, map, unordered_map, set, stack, queue, priority_queue, pair"
+                        ],
+                        priority: "high",
+                        pacing: "accelerate",
+                        estimatedTime: 12,
+                        plannedSessions: 8,
+                        resources: [
+                            { name: "C++ Tutorial for Beginners - Full Course (freeCodeCamp)", url: "https://www.youtube.com/watch?v=vLnPwxZdW4Y", hours: 4 },
+                            { name: "LearnCpp.com (Sections 1-13)", url: "https://www.learncpp.com/", hours: 6 },
+                            { name: "HackerRank C++ Track", url: "https://www.hackerrank.com/domains/cpp", hours: 3 }
+                        ],
+                        notes: "Watch at 1.5x speed, skip what you remember. Focus on pointers, references, and STL containers."
+                    },
+                    {
+                        id: "month-1-foundations",
+                        title: "Month 1: Foundations (Weeks 3-6)",
+                        description: "Build the foundation: Big O notation, Arrays, Strings, and Recursion. These are the building blocks for everything else.",
+                        engineeringLogic: "Understanding time/space complexity is the lens through which you evaluate every solution. Arrays and strings are everywhere. Recursion is the prerequisite for trees and graphs.",
+                        successMetric: "Solve most Easy array/string problems in 15-20 minutes. Can explain Big O for common operations. Understand when to use recursion.",
+                        keyTopics: [
+                            "Big O Notation: Time & Space complexity, Best/Average/Worst case",
+                            "Arrays: Static vs dynamic, Two-pointer technique, Sliding window pattern",
+                            "Strings: Manipulation, Pattern matching basics",
+                            "Recursion: Base case, recursive case, call stack understanding"
+                        ],
+                        priority: "high",
+                        pacing: "needstime",
+                        estimatedTime: 45,
+                        plannedSessions: 20,
+                        resources: [
+                            { name: "Abdul Bari: Introduction & Recursion (Sections 1-5)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 15 },
+                            { name: "Abdul Bari: Arrays (Section 6)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 5 },
+                            { name: "NeetCode: Arrays & Hashing (Easy)", url: "https://neetcode.io/roadmap", hours: 8 },
+                            { name: "NeetCode: Two Pointers (Easy)", url: "https://neetcode.io/roadmap", hours: 6 },
+                            { name: "NeetCode: Sliding Window (Easy)", url: "https://neetcode.io/roadmap", hours: 5 }
+                        ],
+                        notes: "Target: 20-25 problems this month. Watch Abdul Bari at 1.25-1.5x speed. Skip advanced proofs."
+                    },
+                    {
+                        id: "month-2-linear",
+                        title: "Month 2: Linear Data Structures (Weeks 7-10)",
+                        description: "Master the fundamental linear data structures: Linked Lists, Stacks, Queues, and Hash Tables. Implement each from scratch at least once.",
+                        engineeringLogic: "We build these from scratch to understand the 'hidden costs.' Why is unshift() in JS slow? Because in an array, it forces O(n) shift of all elements. Building these structures proves the theory.",
+                        successMetric: "Implemented linked list from scratch. Understand when to use each structure. Recognize stack/queue patterns. Master hash table usage. 50-70 total problems solved.",
+                        keyTopics: [
+                            "Linked Lists: Singly & Doubly, Fast/Slow pointer, Reversal",
+                            "Stacks: LIFO, Parentheses matching, Expression evaluation",
+                            "Queues: FIFO, Circular queue, Deque",
+                            "Hashing: Hash functions, Collision handling, unordered_map vs map"
+                        ],
+                        priority: "high",
+                        estimatedTime: 45,
+                        plannedSessions: 20,
+                        resources: [
+                            { name: "Abdul Bari: Linked Lists (Section 11)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 8 },
+                            { name: "Abdul Bari: Stacks (Section 13)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 4 },
+                            { name: "Abdul Bari: Queues (Section 14)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 4 },
+                            { name: "Abdul Bari: Hashing (Section 12)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 5 },
+                            { name: "NeetCode: Linked List (Easy → Medium)", url: "https://neetcode.io/roadmap", hours: 10 },
+                            { name: "NeetCode: Stack (Easy → Medium)", url: "https://neetcode.io/roadmap", hours: 8 }
+                        ],
+                        notes: "Target: 25-30 problems this month. Implement each data structure from scratch before using STL."
+                    },
+                    {
+                        id: "month-3-trees-graphs",
+                        title: "Month 3: Trees & Graphs (Weeks 11-14)",
+                        description: "Handle hierarchical data and graph traversals. This is where many developers struggle, but mastering these opens doors to solving complex problems.",
+                        engineeringLogic: "Trees model hierarchical relationships (DOM, file systems, org charts). Graphs model networks (social, maps, dependencies). BFS/DFS are the foundation for countless algorithms.",
+                        successMetric: "Implemented BST from scratch. Can traverse trees in all 4 ways. Understand heap operations. Comfortable with BFS and DFS. 100-120 total problems solved.",
+                        keyTopics: [
+                            "Binary Trees: Terminology, Traversals (inorder, preorder, postorder, level-order)",
+                            "Binary Search Trees: BST property, Insert/Delete/Search operations",
+                            "Heaps: Min/Max heap, Insert/Extract/Heapify, priority_queue usage",
+                            "Graphs: Adjacency matrix/list, BFS, DFS, Directed vs Undirected"
+                        ],
+                        priority: "high",
+                        pacing: "needstime",
+                        estimatedTime: 50,
+                        plannedSessions: 22,
+                        resources: [
+                            { name: "Abdul Bari: Trees (Section 15)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 12 },
+                            { name: "Abdul Bari: Heaps (Section 17)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 5 },
+                            { name: "Abdul Bari: Graphs (Section 16)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 8 },
+                            { name: "NeetCode: Trees (Easy → Medium)", url: "https://neetcode.io/roadmap", hours: 12 },
+                            { name: "NeetCode: Heap / Priority Queue", url: "https://neetcode.io/roadmap", hours: 5 },
+                            { name: "NeetCode: Graphs (BFS/DFS)", url: "https://neetcode.io/roadmap", hours: 8 }
+                        ],
+                        notes: "Target: 25-30 problems. Skip AVL Trees for now (can return later). Focus on traversals and BFS/DFS patterns."
+                    },
+                    {
+                        id: "month-4-algorithms",
+                        title: "Month 4: Algorithms (Weeks 15-18)",
+                        description: "Master the classic algorithms: Sorting, Divide & Conquer, Dynamic Programming, Greedy, and Backtracking. DP is the hardest topic - be patient!",
+                        engineeringLogic: "Sorting isn't just Array.sort(). It's about memory locality and worst-case scenarios. DP teaches you to trade space for time. Greedy vs DP decision-making is a Senior Engineer trait.",
+                        successMetric: "Understand major sorting algorithms. Can solve basic 1D DP problems. Recognize greedy vs DP situations. Comfortable with backtracking pattern. 150-180 total problems solved.",
+                        keyTopics: [
+                            "Sorting: Merge Sort, Quick Sort, Heap Sort, when to use which",
+                            "Divide & Conquer: Problem-solving pattern, Recurrence relations",
+                            "Dynamic Programming: Overlapping subproblems, Memoization vs Tabulation, 1D then 2D",
+                            "Greedy: Greedy choice property, When it works vs doesn't",
+                            "Backtracking: Recursive exploration, Pruning, Permutations/Combinations/Subsets"
+                        ],
+                        priority: "high",
+                        pacing: "needstime",
+                        estimatedTime: 55,
+                        plannedSessions: 24,
+                        resources: [
+                            { name: "Abdul Bari: Sorting (Sections 7-8)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 8 },
+                            { name: "Abdul Bari: Divide & Conquer (Section 9)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 5 },
+                            { name: "Abdul Bari: Dynamic Programming (Section 19)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 12 },
+                            { name: "Abdul Bari: Greedy (Section 18)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 5 },
+                            { name: "Abdul Bari: Backtracking (Section 20)", url: "https://www.udemy.com/course/datastructurescncpp/", hours: 5 },
+                            { name: "NeetCode: 1-D Dynamic Programming", url: "https://neetcode.io/roadmap", hours: 10 },
+                            { name: "NeetCode: Greedy", url: "https://neetcode.io/roadmap", hours: 5 },
+                            { name: "NeetCode: Backtracking", url: "https://neetcode.io/roadmap", hours: 5 }
+                        ],
+                        notes: "Target: 30-35 problems. Spend extra time on DP - it's the hardest but most valuable topic. Start with 1D DP before 2D."
+                    },
+                    {
+                        id: "parallel-system-design",
+                        title: "Parallel Track: System Design (Weekends Only)",
+                        description: "Preparing for the L5/L6 Senior Round. Read 1 chapter every weekend - no coding required.",
+                        engineeringLogic: "While your left brain learns Algorithms, your right brain absorbs Architecture (Load Balancers, Caching, Sharding) to prevent being 'down-leveled' during interviews.",
+                        successMetric: "Understand standard distributed system patterns. Can discuss trade-offs in system design interviews.",
+                        keyTopics: [
+                            "Read 1 Chapter every weekend - No coding",
+                            "Load Balancing, Caching, CDNs",
+                            "Database Scaling, Sharding, Replication",
+                            "Message Queues, Microservices patterns"
+                        ],
+                        priority: "medium",
+                        estimatedTime: 24,
+                        plannedSessions: 16,
+                        resources: [
+                            { name: "System Design Interview – An Insider's Guide (Alex Xu)", url: "https://bytebytego.com/", hours: 24 }
+                        ],
+                        notes: "This runs in parallel with the main DSA track. Weekend reading only - don't let it distract from weekday problem solving."
+                    }
+                ]
+            }
+        ],
+        projects: [],
+        curatedResources: [],
+        advancedTopics: []
       };
 
       // ==========================================
@@ -2105,11 +2285,17 @@ Changelog (2025-11-27):
       function init() {
         loadProgressFromStorage();
         
-        // Try to restore version from storage if exists, otherwise default to V2
+        // Try to restore version from storage if exists, otherwise default to V3
         if (progressData.version) {
            switchVersion(progressData.version, false);
         } else {
-           switchVersion("v2", false);
+           switchVersion("v3", false);
+        }
+        
+        // Load problems solved count
+        const psInput = document.getElementById('problemsSolvedInput');
+        if (psInput && progressData.problemsSolved) {
+            psInput.value = progressData.problemsSolved;
         }
         
         reconcileProgressWithTasks();
@@ -2148,10 +2334,14 @@ Changelog (2025-11-27):
               currentRoadmap = roadmapDataV1;
               document.getElementById("heroTitle").innerText = "Backend-First Senior Roadmap";
               document.getElementById("heroSubtitle").innerText = "Core 12‑Week Track · Ship 2 backends by Weeks 8–10";
-          } else {
+          } else if (version === 'v2') {
               currentRoadmap = roadmapDataV2;
-              document.getElementById("heroTitle").innerText = "Sophisticated Engineer Roadmap";
-              document.getElementById("heroSubtitle").innerText = "Data Structures, Algorithms, and C++ Mastery";
+              document.getElementById("heroTitle").innerText = "Sophisticated Engineer Roadmap (Legacy)";
+              document.getElementById("heroSubtitle").innerText = "Data Structures, Algorithms, and C++ Mastery - 6 Month Plan";
+          } else {
+              currentRoadmap = roadmapDataV3;
+              document.getElementById("heroTitle").innerText = "DSA Mastery Roadmap";
+              document.getElementById("heroSubtitle").innerText = "Master DSA in 4 Months · 150-200 Problems · Abdul Bari + NeetCode";
           }
           
           if (save) {
@@ -2188,8 +2378,17 @@ Changelog (2025-11-27):
               }
           });
           
+          const v3Elements = document.querySelectorAll('.v3-only');
+          v3Elements.forEach(el => {
+              if (currentVersion === 'v3') {
+                  el.classList.remove('hidden');
+              } else {
+                  el.classList.add('hidden');
+              }
+          });
+          
           const advSection = document.getElementById('advanced-section');
-          if (currentVersion === 'v2') {
+          if (currentVersion === 'v2' || currentVersion === 'v3') {
               advSection.classList.add('hidden');
           } else {
               advSection.classList.remove('hidden');
@@ -2590,6 +2789,13 @@ Changelog (2025-11-27):
         saveProgressToStorage();
         updateStats();
         updateCharts();
+      }
+      
+      // Update problems solved count (V3 only)
+      function updateProblemsSolved(value) {
+        progressData.problemsSolved = parseInt(value, 10) || 0;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
       }
 
       // Update learning progress
@@ -3029,6 +3235,9 @@ Changelog (2025-11-27):
           if (!progressData.resourceProgress) {
             progressData.resourceProgress = {};
           }
+          if (typeof progressData.problemsSolved !== 'number') {
+            progressData.problemsSolved = 0;
+          }
         }
       }
 
@@ -3334,8 +3543,9 @@ Changelog (2025-11-27):
             progress: importData.progress || {},
             resourceCompleted: importData.resourceCompleted || {},
             resourceProgress: importData.resourceProgress || {},
+            problemsSolved: importData.problemsSolved || 0,
             lastUpdated: new Date().toISOString(),
-            version: importData.version || "v2"
+            version: importData.version || "v3"
           };
         } else if (action === "merge") {
           progressData.tasks = { ...progressData.tasks, ...importData.tasks };
@@ -3356,6 +3566,9 @@ Changelog (2025-11-27):
             ...(progressData.resourceProgress || {}),
             ...(importData.resourceProgress || {}),
           };
+          if (typeof importData.problemsSolved === 'number') {
+            progressData.problemsSolved = importData.problemsSolved;
+          }
           progressData.lastUpdated = new Date().toISOString();
         }
 
@@ -3377,8 +3590,9 @@ Changelog (2025-11-27):
             notes: {},
             timeSpent: {},
             progress: {},
+            problemsSolved: 0,
             lastUpdated: null,
-            version: "v2"
+            version: "v3"
           };
           saveProgressToStorage();
           showAchievement("🔄 Quest Reset - Ready for a Fresh Start!");
