@@ -15,6 +15,16 @@ let progressData = {
   gates: { project1: {}, project2: {} },
 };
 
+// Utility: Robust Base64 for IDs (Handles Unicode)
+function safeB64(str) {
+  if (!str) return "na";
+  try {
+    return btoa(str).replace(/=/g, "");
+  } catch (e) {
+    return btoa(unescape(encodeURIComponent(str))).replace(/=/g, "");
+  }
+}
+
 // Chart instances
 let phaseChart = null;
 let timeChart = null;
@@ -319,9 +329,8 @@ function createTopicElement(topic, objectiveId) {
                             <div class="resources-title">📚 Resources (per‑resource progress drives this topic)</div>
                             <div>
                                 ${topic.resources
-                                  .map((r) => {
-                                    const rid =
-                                      `${topic.id}-` + btoa(r.url).replace(/=/g, "");
+                                  .map((r, i) => {
+                                    const rid = `${topic.id}-r${i}`;
                                     const checked =
                                       progressData.resourceCompleted &&
                                       progressData.resourceCompleted[rid]
@@ -360,9 +369,8 @@ function createTopicElement(topic, objectiveId) {
                             <div class="resources-title">🧩 Optional</div>
                             <div>
                                 ${topic.optionalResources
-                                  .map((r) => {
-                                    const rid =
-                                      `${topic.id}-` + btoa(r.url).replace(/=/g, "");
+                                  .map((r, i) => {
+                                    const rid = `${topic.id}-o${i}`;
                                     const checked =
                                       progressData.resourceCompleted &&
                                       progressData.resourceCompleted[rid]
@@ -477,13 +485,9 @@ function updateTaskProgress(taskId) {
 
     // 3. Update All Resources (Data & UI) to 100%
     if (topic) {
-      const resources = [
-        ...(topic.resources || []),
-        ...(topic.optionalResources || []),
-      ];
-      resources.forEach((r) => {
-        const rid = `${taskId}-` + btoa(r.url).replace(/=/g, "");
-
+      const markRes = (r, i, isOpt) => {
+        const rid = isOpt ? `${taskId}-o${i}` : `${taskId}-r${i}`;
+        
         // Data Update
         if (!progressData.resourceCompleted) progressData.resourceCompleted = {};
         if (!progressData.resourceProgress) progressData.resourceProgress = {};
@@ -505,7 +509,10 @@ function updateTaskProgress(taskId) {
         // UI Update - Text Label
         const resLabel = document.getElementById(`resprog-${rid}`);
         if (resLabel) resLabel.textContent = "100%";
-      });
+      };
+
+      if (Array.isArray(topic.resources)) topic.resources.forEach((r, i) => markRes(r, i, false));
+      if (Array.isArray(topic.optionalResources)) topic.optionalResources.forEach((r, i) => markRes(r, i, true));
     }
 
     if (!wasCompleted) {
@@ -654,12 +661,14 @@ function updateStats() {
   if (tsEl) tsEl.textContent = stats.totalSessions;
   if (psEl) psEl.textContent = stats.totalPlannedSessions;
 
-  // Update progress ring
-  const circumference = 2 * Math.PI * 50;
+  // Update progress ring (r=34 matches SVG)
+  const circumference = 2 * Math.PI * 34;
   const progressCircle = document.getElementById("progressCircle");
-  const offset = circumference - (stats.overallProgress / 100) * circumference;
-  progressCircle.style.strokeDasharray = circumference;
-  progressCircle.style.strokeDashoffset = offset;
+  if (progressCircle) {
+    const offset = circumference - (stats.overallProgress / 100) * circumference;
+    progressCircle.style.strokeDasharray = circumference;
+    progressCircle.style.strokeDashoffset = offset;
+  }
 
   // Update learning objective progress
   currentRoadmap.learningObjectives.forEach((objective) => {
@@ -691,23 +700,18 @@ function computeResourceStats() {
   let completedResources = 0;
   (currentRoadmap.learningObjectives || []).forEach((objective) => {
     (objective.topics || []).forEach((topic) => {
-      const allR = [];
-      if (Array.isArray(topic.resources)) allR.push(...topic.resources);
-      if (Array.isArray(topic.optionalResources)) allR.push(...topic.optionalResources);
-      allR.forEach((r) => {
+      const check = (r, i, isOpt) => {
         totalResources += 1;
-        const rid = `${topic.id}-` + btoa(r.url).replace(/=/g, "");
-        const checked =
-          progressData.resourceCompleted && !!progressData.resourceCompleted[rid];
-        const val =
-          progressData.resourceProgress &&
-          typeof progressData.resourceProgress[rid] === "number"
-            ? progressData.resourceProgress[rid]
-            : checked
-            ? 100
-            : 0;
+        const rid = isOpt ? `${topic.id}-o${i}` : `${topic.id}-r${i}`;
+        const checked = progressData.resourceCompleted && !!progressData.resourceCompleted[rid];
+        const val = progressData.resourceProgress && typeof progressData.resourceProgress[rid] === "number"
+          ? progressData.resourceProgress[rid]
+          : checked ? 100 : 0;
         if (val >= 100 || checked) completedResources += 1;
-      });
+      };
+
+      if (Array.isArray(topic.resources)) topic.resources.forEach((r, i) => check(r, i, false));
+      if (Array.isArray(topic.optionalResources)) topic.optionalResources.forEach((r, i) => check(r, i, true));
     });
   });
   return { completedResources, totalResources };
@@ -813,6 +817,15 @@ function initCharts() {
   if (phaseChart) phaseChart.destroy();
   if (timeChart) timeChart.destroy();
 
+  const brandColors = {
+    crail: "#C15F3C",
+    blue: "#6A9BCC",
+    moss: "#788C5D",
+    charcoal: "#141413",
+    muted: "#6B6B6B",
+    border: "#D1D1CB",
+  };
+
   if (currentVersion === "v1") {
     const phaseCtx = document.getElementById("phaseChart").getContext("2d");
     phaseChart = new Chart(phaseCtx, {
@@ -822,12 +835,8 @@ function initCharts() {
         datasets: [
           {
             data: [0, 0],
-            backgroundColor: [
-              "rgba(100, 255, 218, 0.8)",
-              "rgba(187, 134, 252, 0.8)",
-            ],
-            borderWidth: 2,
-            borderColor: "rgba(255, 255, 255, 0.1)",
+            backgroundColor: [brandColors.crail, brandColors.blue],
+            borderWidth: 0,
           },
         ],
       },
@@ -838,8 +847,8 @@ function initCharts() {
           legend: {
             position: "bottom",
             labels: {
-              color: "rgba(255, 255, 255, 0.8)",
-              font: { size: 10, weight: "500" },
+              color: brandColors.charcoal,
+              font: { family: "Inter", size: 10, weight: "500" },
             },
           },
         },
@@ -861,15 +870,15 @@ function initCharts() {
         {
           label: "Planned",
           data: topics.map((t) => t.plannedSessions || 0),
-          backgroundColor: "rgba(255, 255, 255, 0.2)",
-          borderColor: "rgba(255, 255, 255, 0.3)",
+          backgroundColor: "rgba(177, 173, 161, 0.2)",
+          borderColor: brandColors.border,
           borderWidth: 1,
         },
         {
           label: "Completed",
           data: topics.map(() => 0),
-          backgroundColor: "rgba(100, 255, 218, 0.8)",
-          borderColor: "rgba(100, 255, 218, 1)",
+          backgroundColor: brandColors.crail,
+          borderColor: brandColors.crail,
           borderWidth: 1,
         },
       ],
@@ -883,21 +892,21 @@ function initCharts() {
           title: {
             display: true,
             text: "Sessions",
-            color: "rgba(255, 255, 255, 0.8)",
+            color: brandColors.muted,
           },
-          ticks: { color: "rgba(255, 255, 255, 0.8)" },
-          grid: { color: "rgba(255, 255, 255, 0.1)" },
+          ticks: { color: brandColors.muted },
+          grid: { color: "rgba(0, 0, 0, 0.05)" },
         },
         x: {
-          ticks: { color: "rgba(255, 255, 255, 0.8)", maxRotation: 45 },
-          grid: { color: "rgba(255, 255, 255, 0.1)" },
+          ticks: { color: brandColors.muted, maxRotation: 45 },
+          grid: { display: false },
         },
       },
       plugins: {
         legend: {
           labels: {
-            color: "rgba(255, 255, 255, 0.8)",
-            font: { size: 12, weight: "500" },
+            color: brandColors.charcoal,
+            font: { family: "Inter", size: 12, weight: "500" },
           },
         },
       },
@@ -1355,15 +1364,17 @@ function updateResourceCompletion(resourceId, topicId) {
       : wasChecked
       ? 100
       : 0;
-  if (nowChecked) {
-    progressData.resourceProgress[resourceId] = 100;
-  } else {
-    progressData.resourceProgress[resourceId] = prev === 100 ? 0 : prev;
-  }
+  const newVal = nowChecked ? 100 : (prev === 100 ? 0 : prev);
+  progressData.resourceProgress[resourceId] = newVal;
 
-  // Reflect UI label
+  // Reflect UI - slider and label
+  const row = checkbox ? checkbox.closest(".resource-row") : null;
+  if (row) {
+    const slider = row.querySelector(".resource-slider");
+    if (slider) slider.value = newVal;
+  }
   const label = document.getElementById(`resprog-${resourceId}`);
-  if (label) label.textContent = `${progressData.resourceProgress[resourceId]}%`;
+  if (label) label.textContent = `${newVal}%`;
 
   // Recompute topic progress if we know the topic
   if (topicId) {
@@ -1430,9 +1441,7 @@ function computeTopicProgressFromResources(topic) {
     const hrs = typeof r.hours === "number" ? r.hours : 1;
     return Math.max(0.5, hrs); // minimum weight to avoid zero
   });
-  const ids = topic.resources.map(
-    (r) => `${topic.id}-` + btoa(r.url).replace(/=/g, "")
-  );
+  const ids = topic.resources.map((r, i) => `${topic.id}-r${i}`);
   const progresses = ids.map((rid, i) => {
     const checked =
       progressData.resourceCompleted && progressData.resourceCompleted[rid];
@@ -1447,9 +1456,7 @@ function computeTopicProgressFromResources(topic) {
   });
   // Include optional resources at half-weight
   if (Array.isArray(topic.optionalResources) && topic.optionalResources.length) {
-    const optIds = topic.optionalResources.map(
-      (r) => `${topic.id}-` + btoa(r.url).replace(/=/g, "")
-    );
+    const optIds = topic.optionalResources.map((r, i) => `${topic.id}-o${i}`);
     const optWeights = topic.optionalResources.map((r) => {
       const hrs = typeof r.hours === "number" ? r.hours : 1;
       return Math.max(0.25, hrs * 0.5);

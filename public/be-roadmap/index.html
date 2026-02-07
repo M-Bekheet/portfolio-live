@@ -6,7 +6,7 @@
     <title>Senior Developer Roadmap</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
@@ -17,9 +17,9 @@
       <div class="hero-header">
         <div class="version-switcher-container">
             <select id="versionSelect" class="version-select" onchange="switchVersion(this.value)">
-                <option value="v3" selected>Version 3: DSA Mastery (4-Month)</option>
-                <option value="v2">Version 2: Sophisticated Engineer (Legacy)</option>
-                <option value="v1">Version 1: Backend Roadmap (Legacy)</option>
+                <option value="v3" selected>DSA Mastery (4-Month)</option>
+                <option value="v2">Sophisticated Engineer (Legacy)</option>
+                <option value="v1">Backend Roadmap (Legacy)</option>
             </select>
         </div>
         <h1 class="hero-title" id="heroTitle">Senior Developer Roadmap</h1>
@@ -32,72 +32,42 @@
       <div class="level-system">
         <div class="level-card">
           <div class="progress-ring">
-            <svg>
-              <defs>
-                <linearGradient
-                  id="gradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop
-                    offset="0%"
-                    style="stop-color: #64ffda; stop-opacity: 1"
-                  />
-                  <stop
-                    offset="100%"
-                    style="stop-color: #bb86fc; stop-opacity: 1"
-                  />
-                </linearGradient>
-              </defs>
-              <circle class="bg" cx="60" cy="60" r="50"></circle>
+            <svg viewBox="0 0 80 80">
+              <circle class="bg" cx="40" cy="40" r="34"></circle>
               <circle
                 class="progress"
-                cx="60"
-                cy="60"
-                r="50"
+                cx="40"
+                cy="40"
+                r="34"
                 id="progressCircle"
               ></circle>
             </svg>
-            <div
-              style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-              "
-            >
+            <div class="stat-value-container">
               <div class="stat-value" id="overallProgress">0%</div>
             </div>
           </div>
-          <div class="stat-label">Quest Progress</div>
+          <div class="stat-label">Total Completion</div>
         </div>
 
         <div class="level-card">
-          <span class="stat-icon">⚡</span>
           <div class="stat-value" id="completedTasks">0</div>
-          <div class="stat-label">Resources Completed</div>
+          <div class="stat-label">Resources Done</div>
         </div>
 
         <div class="level-card">
-          <span class="stat-icon">⏱️</span>
           <div class="stat-value" id="totalSessions">0</div>
-          <div class="stat-label">Sessions Completed</div>
+          <div class="stat-label">Active Sessions</div>
         </div>
 
         <div class="level-card">
-          <span class="stat-icon">🎯</span>
           <div class="stat-value" id="plannedSessions">0</div>
-          <div class="stat-label">Planned Sessions</div>
+          <div class="stat-label">Planned Capacity</div>
         </div>
         
         <!-- Problems Solved (V3 Only) -->
         <div class="level-card v3-only">
-          <span class="stat-icon">🧩</span>
-          <div style="display:flex;align-items:baseline;justify-content:center;gap:0.25rem;">
-            <input type="number" id="problemsSolvedInput" class="time-input" style="width:60px;font-size:1.5rem;font-weight:700;color:var(--accent-blue);" value="0" min="0" onchange="updateProblemsSolved(this.value)">
+          <div style="display:flex;align-items:baseline;justify-content:flex-start;gap:0.25rem;margin-bottom:0.25rem;">
+            <input type="number" id="problemsSolvedInput" class="time-input" style="width:70px;background:white;border:1px solid var(--border-color);font-size:1.5rem;font-weight:700;color:var(--brand-crail);font-family:'Lora',serif;" value="0" min="0" onchange="updateProblemsSolved(this.value)">
             <span class="stat-value" style="font-size:1rem;color:var(--text-muted);">/ 200</span>
           </div>
           <div class="stat-label">Problems Solved</div>
@@ -107,43 +77,16 @@
         <div class="level-card v1-only">
           <div class="progress-ring">
             <svg>
-              <defs>
-                <linearGradient
-                  id="gradientReadiness"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop
-                    offset="0%"
-                    style="stop-color: #ffd700; stop-opacity: 1"
-                  />
-                  <stop
-                    offset="100%"
-                    style="stop-color: #64ffda; stop-opacity: 1"
-                  />
-                </linearGradient>
-              </defs>
               <circle class="bg" cx="60" cy="60" r="50"></circle>
               <circle
-                class="progress"
+                class="progress readiness"
                 cx="60"
                 cy="60"
                 r="50"
                 id="readinessCircle"
-                style="stroke: url(#gradientReadiness)"
               ></circle>
             </svg>
-            <div
-              style="
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-              "
-            >
+            <div class="stat-value-container">
               <div class="stat-value" id="readinessValue">0%</div>
             </div>
           </div>
