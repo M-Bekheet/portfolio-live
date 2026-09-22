@@ -13,11 +13,11 @@ export const experience: ExperienceEntry[] = [
     role: "Senior Front-end Developer",
     period: "Sep 2022 – Present",
     meta: "4 years · Remote · Saudi health-tech platform",
-    note: "Led the web engineering team for approximately 6–8 months during a period of expansion, then continued as a senior individual contributor.",
+    note: "Led two to three developers for six to eight months, then continued as a senior front-end developer on the platform.",
     highlights: [
-      "Built and maintained the Next.js and TypeScript web platform, and the React and React Native cross-platform codebase serving web, iOS, and Android.",
-      "Designed reusable patterns for authentication, API integration, state management, and cross-platform code.",
-      "Co-developed integrations with MedGulf, Alrajhi Takaful, and BUPA, and built a real-time patient–doctor chat system.",
+      "Built the replacement doctor app in Flutter from the ground up, serving the same Next.js website used by the patient app.",
+      "Built roughly 80–90% of the doctor-facing features on the shared website that both apps use.",
+      "Co-developed MedGulf, Alrajhi Takaful, and BUPA insurance integrations, and built the real-time patient–doctor chat system.",
     ],
   },
   {

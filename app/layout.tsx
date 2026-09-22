@@ -84,7 +84,7 @@ const personJsonLd = {
     "React",
     "Next.js",
     "TypeScript",
-    "React Native",
+    "Flutter",
     "Node.js",
     "Front-end engineering",
     "Web performance",

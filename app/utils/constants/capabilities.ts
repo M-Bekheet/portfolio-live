@@ -30,8 +30,8 @@ export const capabilities: CapabilityGroup[] = [
   },
   {
     label: "Mobile",
-    note: "Cross-platform delivery",
-    items: ["React Native"],
+    note: "Native app delivery and web-in-app integration",
+    items: ["Flutter", "Ionic", "WebView integration"],
   },
   {
     label: "Tooling",

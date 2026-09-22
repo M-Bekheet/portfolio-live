@@ -3,7 +3,7 @@ import styles from "./impact.module.scss";
 const metrics = [
   {
     value: "~50%",
-    label: "less cross-platform development time",
+    label: "reduced development time from shared web features",
     source: "Cura Healthcare",
   },
   {

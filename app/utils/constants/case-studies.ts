@@ -41,75 +41,89 @@ export const caseStudies: CaseStudy[] = [
     slug: "cura-healthcare",
     order: "01",
     name: "Cura Healthcare",
-    subtitle: "Cross-platform telemedicine web and mobile platform",
+    subtitle: "Embedded telemedicine website and a Flutter doctor app",
     role: "Senior Front-end Developer",
     period: "Sep 2022 – Present · 4 years",
     context: "Remote · Saudi health-tech platform",
     summary:
-      "Unified the web and mobile codebase into one cross-platform React and React Native solution serving web, iOS, and Android, and improved the platform's measured web-performance and data-loading metrics.",
+      "I built the replacement Flutter doctor app end to end and the majority of the doctor-facing features on the shared Next.js website, on a Saudi telemedicine platform that serves one website inside both its patient and doctor apps through WebViews.",
     preview: {
       problem:
-        "Web and mobile were separate codebases, and the web platform's performance and data loading needed work.",
+        "The website is served inside both the patient app and the doctor app, and the doctor side needed a new native app built from the ground up.",
       approach:
-        "One React and React Native codebase for web, iOS, and Android, plus rendering, asset, loading, and caching work in Next.js.",
-      result: "Average data-loading time down roughly 35%.",
+        "Built the new doctor app in Flutter from the ground up, plus the shared website features both apps embed.",
+      result:
+        "Shared web features serve both apps, and web changes ship without an app-store release.",
     },
     contextLabel: "Context",
     constraints: [
-      "Web and mobile were separate codebases rather than one cross-platform solution.",
+      "The Next.js website is served inside both the patient app and the Flutter doctor app through WebViews.",
+      "A separate React and Ionic SDK web app is embedded in the website, and was originally the default embedded experience in the patient app.",
+      "The replacement doctor app was built from the ground up in Flutter.",
       "The platform serves 3,000+ monthly consultations.",
-      "Integrations with major Saudi health insurance providers (MedGulf, Alrajhi Takaful, BUPA) were part of the platform.",
-      "A real-time patient–doctor chat system supports online consultations.",
     ],
     built: [
       {
-        title: "Consolidated web and mobile into one codebase",
+        title: "New Flutter doctor app, built end to end",
         detail:
-          "Built the web and mobile codebase into a single cross-platform React and React Native solution serving web, iOS, and Android.",
+          "Built the replacement doctor app in Flutter from the ground up, covering authentication, site-and-app communication, push notifications, permissions, pull-to-refresh, embedded support and analytics tools, and WebView lifecycle and startup behavior. It serves the same Next.js website as the patient app, where I also built roughly 80–90% of the doctor-facing features.",
       },
       {
-        title: "Architected the Next.js and TypeScript platform",
+        title: "Patient journeys on the shared website",
         detail:
-          "Architected and maintained the platform on Next.js and TypeScript, and designed reusable front-end patterns for authentication, API integration, state management, and cross-platform functionality.",
-      },
-      {
-        title: "Performance and loading optimization",
-        detail:
-          "Worked on rendering, asset, and loading optimizations, plus caching, lazy loading, and request optimization in Next.js.",
+          "Built authentication end to end across the client and the Next.js server layer (mobile OTP and email/password, registration, password reset, and session refresh), plus search, patient profiles, and roughly 90% of the consultation and bundle checkout front end with its back end and payment-service integration. Also built the partner consultation-booking integration, the dynamic doctor-browser UI, and the free-consultation and upgrade surfaces on WordPress content.",
       },
       {
         title: "Insurance integrations and real-time chat",
         detail:
-          "Co-developed the MedGulf, Alrajhi Takaful, and BUPA integrations, and built the real-time patient–doctor chat system on React and REST APIs.",
+          "Co-developed integrations with major Saudi health insurance providers (MedGulf, Alrajhi Takaful, BUPA) and built the real-time patient–doctor chat system.",
       },
       {
-        title: "Payment, auth, SEO, and tracking delivery",
+        title: "Cross-app mobile integration",
         detail:
-          "Led delivery of payment gateways, authentication flows, SEO enhancements, and user-tracking integrations.",
+          "Connected the Flutter apps and the embedded website with auto-login between app and website, deep links and QR entry points with post-link navigation, and native website-and-app communication. The separate SDK is embedded in the host website through an iframe.",
       },
       {
-        title: "Code review and cross-team collaboration",
+        title: "SDK web app contributions",
         detail:
-          "Reviewed front-end implementations and worked with product, back end, mobile, and design teams on technical trade-offs and delivery decisions.",
+          "Contributed to the separate React and Ionic SDK web app used inside the website, including checkout, chat performance, and lab-test and e-prescription ordering. I also contributed to the voice and video calling integration.",
+      },
+      {
+        title: "Platform maintenance and performance",
+        detail:
+          "Kept the platform current and measurable: SEO sitemaps and discoverability, Google Analytics and Mixpanel campaign and journey tracking, roughly half of the localization work, and a contributed migration from Next.js 12 to 14. The measured web-performance improvement combined stack modernization with rendering, asset, and loading work, and data-loading time fell through caching, lazy loading, and request optimization in Next.js. Startup work focused on the embedded website's first paint — deferring noncritical notification and support initialization, splash timing, and WebView readiness on the critical path — measured before and after.",
+      },
+      {
+        title: "Team leadership",
+        detail:
+          "Led three developers for eight months — guidance, standups, code reviews, planning, and task assignment — while remaining a senior front-end developer on the platform.",
       },
     ],
     outcome: [
+      "Approximate internal figures cover different scopes and may overlap.",
+      "Sharing one website across the patient and doctor apps is the main reason for the reduced development time: features built once are served in both apps instead of being implemented twice.",
+      "Because the website is shared, web-content updates ship without a separate app-store release; changes to native app code still require one.",
       "The insurance integrations expanded service accessibility and revenue streams.",
     ],
     metrics: [
-      { value: "~50%", label: "less development time after consolidation" },
+      {
+        value: "~50%",
+        label: "reduced development time from shared web features",
+      },
       { value: "3,000+", label: "monthly consultations supported" },
       {
         value: "~30%",
         label: "improvement in measured web-performance metrics",
       },
-      { value: "~35%", label: "faster average data loading" },
+      { value: "~35%", label: "reduction in average data-loading time" },
+      { value: "~30–40%", label: "reduction in embedded website startup time" },
     ],
     stack: [
-      "React",
-      "React Native",
       "Next.js",
+      "React",
       "TypeScript",
+      "Flutter",
+      "Ionic",
       "Redux / RTK",
       "Material UI",
       "REST API",
