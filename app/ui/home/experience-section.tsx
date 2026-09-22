@@ -8,9 +8,8 @@ export function ExperienceSection() {
         <p className="section-label">Experience</p>
         <h2 className="section-title">Where I&apos;ve worked</h2>
         <p className="lede">
-          Four years as a senior front-end developer at Cura Healthcare,
-          including one period leading its web engineering team. Earlier roles
-          added the full-stack range.
+          A career spanning health-tech, marketplace software, data annotation,
+          and independent client work.
         </p>
       </header>
 
@@ -25,14 +24,7 @@ export function ExperienceSection() {
             <div className={styles.what}>
               <h3 className={styles.company}>{entry.company}</h3>
               <p className={styles.role}>{entry.role}</p>
-              {entry.note ? <p className={styles.note}>{entry.note}</p> : null}
-              <ul className={styles.highlights}>
-                {entry.highlights.map((highlight) => (
-                  <li key={highlight} className={styles.highlight}>
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
+              <p className={styles.note}>{entry.note}</p>
             </div>
           </li>
         ))}

@@ -13,7 +13,7 @@ export function SelectedWork() {
         <p className="section-label">Selected work</p>
         <h2 className="section-title">Projects, problems, and results</h2>
         <p className="lede">
-          Four engagements, each with a real constraint, the approach I took,
+          Four projects, each with a real constraint, the approach I took,
           and the result. The case studies carry the detail.
         </p>
       </header>
@@ -30,10 +30,10 @@ export function SelectedWork() {
                 <header>
                   <h3 className={styles.name}>
                     <Link href={`/work/${study.slug}`} className={styles.nameLink}>
-                      {study.name}
+                      {study.subtitle}
                     </Link>
                   </h3>
-                  <p className={styles.subtitle}>{study.subtitle}</p>
+                  <p className={styles.subtitle}>{study.name}</p>
                   <p className={styles.meta}>
                     <span>{study.role}</span>
                     <span aria-hidden="true">·</span>

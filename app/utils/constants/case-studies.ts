@@ -41,82 +41,57 @@ export const caseStudies: CaseStudy[] = [
     slug: "cura-healthcare",
     order: "01",
     name: "Cura Healthcare",
-    subtitle: "Embedded telemedicine website and a Flutter doctor app",
+    subtitle: "Doctor app and telemedicine workflows",
     role: "Senior Front-end Developer",
     period: "Sep 2022 – Present · 4 years",
     context: "Remote · Saudi health-tech platform",
     summary:
-      "I built the replacement Flutter doctor app end to end and the majority of the doctor-facing features on the shared Next.js website, on a Saudi telemedicine platform that serves one website inside both its patient and doctor apps through WebViews.",
+      "I built Cura’s replacement Flutter doctor app end to end and delivered major doctor-facing features in Next.js, spanning patient journeys, real-time communication, integrations, and performance across web and mobile.",
     preview: {
       problem:
-        "The website is served inside both the patient app and the doctor app, and the doctor side needed a new native app built from the ground up.",
+        "Cura needed a replacement doctor app and consistent telemedicine workflows across web and mobile.",
       approach:
-        "Built the new doctor app in Flutter from the ground up, plus the shared website features both apps embed.",
+        "Built the Flutter doctor app end to end and major doctor-facing features in Next.js, reusing web features across apps.",
       result:
-        "Shared web features serve both apps, and web changes ship without an app-store release.",
+        "Shared web features reduced development time by approximately 50%, based on internal estimates.",
     },
     contextLabel: "Context",
     constraints: [
-      "The Next.js website is served inside both the patient app and the Flutter doctor app through WebViews.",
-      "A separate React and Ionic SDK web app is embedded in the website, and was originally the default embedded experience in the patient app.",
-      "The replacement doctor app was built from the ground up in Flutter.",
-      "The platform serves 3,000+ monthly consultations.",
+      "Cura is a Saudi telemedicine platform reporting 3,000+ monthly consultations.",
+      "The work needed to support patient and doctor journeys across web and mobile, while allowing shared features to evolve efficiently.",
     ],
     built: [
       {
         title: "New Flutter doctor app, built end to end",
         detail:
-          "Built the replacement doctor app in Flutter from the ground up, covering authentication, site-and-app communication, push notifications, permissions, pull-to-refresh, embedded support and analytics tools, and WebView lifecycle and startup behavior. It serves the same Next.js website as the patient app, where I also built roughly 80–90% of the doctor-facing features.",
+          "Built the replacement doctor app in Flutter from the ground up, including mobile navigation, notifications, permissions, and integration with the web experience. I also delivered major doctor-facing features in Next.js, with shared web functionality supporting both patient and doctor apps.",
       },
       {
-        title: "Patient journeys on the shared website",
+        title: "Patient journeys, integrations, and real-time chat",
         detail:
-          "Built authentication end to end across the client and the Next.js server layer (mobile OTP and email/password, registration, password reset, and session refresh), plus search, patient profiles, and roughly 90% of the consultation and bundle checkout front end with its back end and payment-service integration. Also built the partner consultation-booking integration, the dynamic doctor-browser UI, and the free-consultation and upgrade surfaces on WordPress content.",
-      },
-      {
-        title: "Insurance integrations and real-time chat",
-        detail:
-          "Co-developed integrations with major Saudi health insurance providers (MedGulf, Alrajhi Takaful, BUPA) and built the real-time patient–doctor chat system.",
-      },
-      {
-        title: "Cross-app mobile integration",
-        detail:
-          "Connected the Flutter apps and the embedded website with auto-login between app and website, deep links and QR entry points with post-link navigation, and native website-and-app communication. The separate SDK is embedded in the host website through an iframe.",
-      },
-      {
-        title: "SDK web app contributions",
-        detail:
-          "Contributed to the separate React and Ionic SDK web app used inside the website, including checkout, chat performance, and lab-test and e-prescription ordering. I also contributed to the voice and video calling integration.",
+          "Built core patient journeys across authentication, search, profiles, consultation booking, and checkout, including payment-service integration. Co-developed insurance integrations and built real-time patient–doctor chat, with further contributions to lab-test ordering, e-prescriptions, and voice and video calling.",
       },
       {
         title: "Platform maintenance and performance",
         detail:
-          "Kept the platform current and measurable: SEO sitemaps and discoverability, Google Analytics and Mixpanel campaign and journey tracking, roughly half of the localization work, and a contributed migration from Next.js 12 to 14. The measured web-performance improvement combined stack modernization with rendering, asset, and loading work, and data-loading time fell through caching, lazy loading, and request optimization in Next.js. Startup work focused on the embedded website's first paint — deferring noncritical notification and support initialization, splash timing, and WebView readiness on the critical path — measured before and after.",
-      },
-      {
-        title: "Team leadership",
-        detail:
-          "Led three developers for eight months — guidance, standups, code reviews, planning, and task assignment — while remaining a senior front-end developer on the platform.",
+          "Contributed to the Next.js modernization and improved rendering, assets, and data loading through caching, lazy loading, and request optimization. Reduced startup time for the mobile web experience, with before-and-after measurements, and contributed localization, SEO, and journey analytics.",
       },
     ],
     outcome: [
-      "Approximate internal figures cover different scopes and may overlap.",
-      "Sharing one website across the patient and doctor apps is the main reason for the reduced development time: features built once are served in both apps instead of being implemented twice.",
-      "Because the website is shared, web-content updates ship without a separate app-store release; changes to native app code still require one.",
-      "The insurance integrations expanded service accessibility and revenue streams.",
+      "The development-time reduction is an approximate internal estimate; performance figures are approximate before-and-after measurements covering different scopes and may overlap.",
+      "Shared web features reduced duplicate implementation across the patient and doctor apps. Web-content updates could ship independently of native app releases.",
     ],
     metrics: [
       {
         value: "~50%",
         label: "reduced development time from shared web features",
       },
-      { value: "3,000+", label: "monthly consultations supported" },
       {
         value: "~30%",
         label: "improvement in measured web-performance metrics",
       },
       { value: "~35%", label: "reduction in average data-loading time" },
-      { value: "~30–40%", label: "reduction in embedded website startup time" },
+      { value: "~30–40%", label: "reduction in mobile web startup time" },
     ],
     stack: [
       "Next.js",
@@ -146,7 +121,7 @@ export const caseStudies: CaseStudy[] = [
       approach:
         "A React, Canvas, and Konva workspace with Redux state for concurrent operations and a redesigned drawing workflow.",
       result:
-        "9,000+ shapes in a single workspace, with a faster annotation workflow.",
+        "9,000+ shapes in a single workspace, with an approximately 80% improvement in annotator productivity.",
     },
     contextLabel: "Context",
     constraints: [
@@ -209,7 +184,7 @@ export const caseStudies: CaseStudy[] = [
         "Listing throughput sat at roughly 10 listings per day, and the MongoDB model needed rework.",
       approach:
         "An automated listing engine on React, TypeScript, and Node.js/Express, with a redesigned MongoDB data model.",
-      result: "Daily throughput up several-fold without adding headcount.",
+      result: "Daily listing throughput increased 8× without adding headcount.",
     },
     contextLabel: "The problem",
     constraints: [

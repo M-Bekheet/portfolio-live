@@ -51,32 +51,6 @@
   color: var(--ink-2);
 }
 
-.highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.highlight {
-  position: relative;
-  padding-inline-start: 1.1rem;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: var(--ink-2);
-  max-width: 62ch;
-}
-
-.highlight::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0.6em;
-  width: 0.55rem;
-  height: 1px;
-  background: var(--border-2);
-}
-
 .education {
   margin-top: var(--space-9);
   padding-top: var(--space-6);
