@@ -1,13 +1,21 @@
-import { About } from "./ui/about";
-import { Testimonials } from "./ui/testimonials";
-import { Work } from "./ui/work/work";
+import { CapabilitiesSection } from "./ui/home/capabilities-section";
+import { ExperienceSection } from "./ui/home/experience-section";
+import { FeedbackSection } from "./ui/home/feedback-section";
+import { Hero } from "./ui/home/hero";
+import { Impact } from "./ui/home/impact";
+import { SelectedWork } from "./ui/home/selected-work";
+import { WritingSection } from "./ui/home/writing-section";
 
 export default function Home() {
   return (
     <>
-      <About />
-      <Work />
-      <Testimonials />
+      <Hero />
+      <Impact />
+      <SelectedWork />
+      <ExperienceSection />
+      <CapabilitiesSection />
+      <FeedbackSection />
+      <WritingSection />
     </>
   );
 }

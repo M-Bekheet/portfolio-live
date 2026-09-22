@@ -1,77 +1,64 @@
 .contact {
-  overflow: hidden;
-
-  label {
-    display: block;
-    margin: 15px 0 15px;
-    font-size: 1.2rem;
-  }
-
-  input:not([type="submit"]),
-  textarea {
-    margin: 5px 0 10px;
-    background: rgba(30, 26, 52, 0.33);
-    border: 1px solid rgba(47, 43, 71, 0.83);
-    color: #fff;
-    padding: 10px;
-    outline: none;
-
-    &::placeholder {
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.45);
-    }
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-    display: block;
-    width: 100%;
-  }
-
-  .formGroup {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px 20px;
-    .formControl {
-      input {
-        width: 100%;
-      }
-    }
-  }
-
-  input[type="submit"] {
-    margin-top: 20px;
-  }
+  padding-block: 2.5rem var(--space-12);
 }
 
-.note {
-  color: #ddd;
-  font-size: 0.9rem;
-  a {
-    font-weight: 600;
-    text-decoration: underline;
-  }
+.head {
+  max-width: 52rem;
+  margin-bottom: var(--space-7);
 }
 
-.error,
+.direct {
+  margin-top: 1.25rem;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.form {
+  max-width: 44rem;
+  margin-top: var(--space-4);
+}
+
+.field {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 1.25rem;
+}
+
+.error {
+  margin-top: 0.35rem;
+  color: var(--error);
+  font-size: 0.88rem;
+}
+
 .success {
-  visibility: visible;
-  color: crimson;
+  max-width: 44rem;
+  margin-top: var(--space-6);
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  color: var(--ink-2);
   font-size: 0.95rem;
-  margin-bottom: 10px;
-}
-.success {
-  color: #fff;
 }
 
-@media (max-width: 768px) {
-  .contact {
-    input:not([type="submit"]) {
-      width: 100%;
-    }
-    .formGroup {
-      grid-template-columns: 1fr;
-    }
+.formError {
+  max-width: 44rem;
+  margin-top: var(--space-6);
+  padding: 0.9rem 1.1rem;
+  border: 1px solid #e3bcbc;
+  border-radius: var(--radius);
+  background: #f8ecec;
+  color: var(--error);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
   }
 }

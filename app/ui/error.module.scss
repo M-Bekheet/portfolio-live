@@ -1,4 +1,4 @@
-.notFound {
+.error {
   padding-block: 4rem var(--space-12);
   max-width: 40rem;
 }
@@ -13,4 +13,10 @@
   color: var(--ink-2);
   margin-bottom: 1.75rem;
   max-width: 48ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
 }

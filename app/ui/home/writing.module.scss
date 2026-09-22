@@ -1,0 +1,42 @@
+.section {
+  border-bottom: 1px solid var(--border);
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  align-items: end;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.text {
+  max-width: 44rem;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  align-self: start;
+  color: var(--accent);
+  font-weight: 500;
+  border-bottom: 1px solid var(--accent-line);
+  justify-self: start;
+}
+
+.cta:hover {
+  gap: 0.7rem;
+  border-color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .panel {
+    grid-template-columns: 1fr auto;
+    padding: 2.5rem;
+  }
+}

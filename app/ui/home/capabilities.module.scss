@@ -1,0 +1,81 @@
+.section {
+  border-bottom: 1px solid var(--border);
+}
+
+.head {
+  max-width: 52rem;
+  margin-bottom: var(--space-9);
+}
+
+.groups {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.groupLabel {
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.groupNote {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.languages {
+  margin-top: var(--space-7);
+}
+
+.languageList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  margin-top: 0.9rem;
+}
+
+.languageList li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.languageName {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.languageLevel {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .group {
+    grid-template-columns: 16rem 1fr;
+    gap: 2.5rem;
+    padding-block: 1.75rem;
+  }
+}
