@@ -1,0 +1,194 @@
+{
+  "basics": {
+    "name": "Mahmoud Bekheet",
+    "label": "Senior Front-end Developer",
+    "email": "Mahmoud.A.Bekheet@gmail.com",
+    "phone": "+20 10 932 69996",
+    "url": "https://bekheet.vercel.app/",
+    "summary": "Senior Front-end Developer with 6 years of professional experience delivering high-performance, accessible, and SEO-optimized web applications using React, Next.js, and TypeScript. Proven ability to architect scalable frontend systems, improve Core Web Vitals, and ship features that measurably increase user engagement and reduce operational overhead. Based in Cairo and open to international remote/contractor roles or relocation to Saudi Arabia, UAE, and Qatar.",
+    "location": {
+      "city": "Cairo",
+      "countryCode": "EG"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "Mahmoud-Bekheet",
+        "url": "https://linkedin.com/in/Mahmoud-Bekheet"
+      },
+      {
+        "network": "GitHub",
+        "username": "M-Bekheet",
+        "url": "https://github.com/M-Bekheet"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Cura Healthcare",
+      "location": "Remote",
+      "description": "Saudi Health-tech Platform",
+      "position": "Front-end Developer",
+      "startDate": "2022-09",
+      "summary": "Technologies: React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Redux, Redux Toolkit (RTK), Material UI (MUI), React Native, REST API.",
+      "highlights": [
+        "Reviewed frontend implementations and collaborated with product, backend, mobile, and design teams on technical tradeoffs and delivery decisions.",
+        "Unified the web and mobile codebase into a single cross-platform solution serving web, iOS, and Android using React and React Native, reducing technical development time by ~50%.",
+        "Co-developed integrations with major Saudi health insurance providers (MedGulf, Alrajhi Takaful, and BUPA), directly expanding service accessibility and revenue streams.",
+        "Architected and maintained a Next.js and TypeScript platform supporting 3,000+ monthly consultations, improving measured web-performance metrics by approximately 30% through rendering, asset, and loading optimizations.",
+        "Built a real-time patient-doctor chat system using React and REST API integrations, improving communication continuity during online consultations and reducing consultation drop-off.",
+        "Reduced average data-loading time by approximately 35% through caching, lazy loading, and request optimization in Next.js; also led delivery of payment gateways, authentication flows, SEO enhancements, and user-tracking integrations.",
+        "Designed reusable frontend patterns for authentication, API integration, state management, and cross-platform functionality."
+      ]
+    },
+    {
+      "name": "DataPure AI",
+      "position": "Front-end Developer (Contract)",
+      "startDate": "2022-08",
+      "endDate": "2022-11",
+      "summary": "Contract role, run concurrently with full-time position at Cura Healthcare. Technologies: React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Redux, Material UI (MUI), Canvas API, Konva.js, Node.js, MongoDB.",
+      "highlights": [
+        "Built a high-performance image annotation platform capable of rendering and manipulating 9,000+ shapes within a single annotation workspace using React, Canvas, and Konva.js.",
+        "Designed Redux state management for complex annotation workflows, ensuring consistent UI state across simultaneous operations.",
+        "Increased annotator productivity by 80% by redesigning the drawing workflow and introducing keyboard shortcut support in the React interface.",
+        "Contributed full-stack features using Next.js API routes, Node.js, and MongoDB for shape persistence and retrieval."
+      ]
+    },
+    {
+      "name": "Hammoq Inc",
+      "position": "Full-stack Developer",
+      "startDate": "2021-12",
+      "endDate": "2022-09",
+      "summary": "Technologies: React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Redux, Redux Toolkit (RTK), Material UI (MUI), REST API, Node.js, Express, MongoDB.",
+      "highlights": [
+        "Engineered an automated eBay listing engine using React, TypeScript, and Node.js/Express, increasing daily listing throughput 8×, from approximately 10 to 80+ listings per day, without adding headcount.",
+        "Built full-stack features end-to-end across a React and TypeScript frontend and a Node.js, Express, and MongoDB backend.",
+        "Redesigned the MongoDB database architecture to improve query performance and align data models with business requirements."
+      ]
+    },
+    {
+      "name": "Freelance (Outsource & Upwork)",
+      "position": "Front-end Developer",
+      "startDate": "2017-08",
+      "endDate": "2019-03",
+      "summary": "Technologies: HTML5, CSS3, JavaScript, jQuery, WordPress, Stripe.",
+      "highlights": [
+        "Delivered 10+ client websites with responsive layouts, cross-browser compatibility, and Stripe payment integrations.",
+        "Reduced page load times by 10-40% across client projects through asset optimization, minification, and caching improvements.",
+        "Maintained and extended WordPress e-commerce stores, improving SEO rankings and online visibility for small businesses."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Cairo University",
+      "studyType": "Bachelor's Degree",
+      "area": "Engineering",
+      "startDate": "2015",
+      "endDate": "2020"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Core",
+      "keywords": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "JavaScript (ES6+)",
+        "HTML5",
+        "CSS3"
+      ]
+    },
+    {
+      "name": "State & Data",
+      "keywords": [
+        "Redux",
+        "Redux Toolkit (RTK)",
+        "TanStack React Query",
+        "Zustand",
+        "Context API",
+        "REST API",
+        "GraphQL"
+      ]
+    },
+    {
+      "name": "Styling & UI",
+      "keywords": [
+        "Tailwind CSS",
+        "Material UI (MUI)",
+        "Styled Components",
+        "SASS/SCSS"
+      ]
+    },
+    {
+      "name": "Mobile",
+      "keywords": [
+        "React Native"
+      ]
+    },
+    {
+      "name": "Tooling",
+      "keywords": [
+        "Vite",
+        "Webpack",
+        "Git",
+        "GitHub",
+        "Docker",
+        "NPM"
+      ]
+    },
+    {
+      "name": "Supplementary",
+      "keywords": [
+        "Angular",
+        "Node.js",
+        "Express",
+        "Prisma",
+        "PostgreSQL",
+        "MongoDB"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Arabic",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Fluent (Professional)"
+    }
+  ],
+  "projects": [
+    {
+      "name": "SEO Content Analyzer – RankMint",
+      "highlights": [
+        "Architected a real-time AI-powered SEO analysis tool with a 6-dimensional scoring engine, reducing manual SEO audit time from hours to seconds.",
+        "Built a 3-tier keyword discovery system and a 5-category website health checker, surfacing actionable recommendations in a single pass.",
+        "Implemented a rich-text editor with RESTful API integration and multi-format export support."
+      ],
+      "keywords": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Tailwind CSS",
+        "LLM APIs",
+        "REST API"
+      ],
+      "url": "https://rankmint.vercel.app/"
+    },
+    {
+      "name": "Personal Portfolio",
+      "highlights": [
+        "Achieved a perfect 100% Google PageSpeed Insights score through image optimization, static generation, and lazy loading."
+      ],
+      "keywords": [
+        "Next.js",
+        "React",
+        "Contentful API"
+      ],
+      "url": "https://bekheet.vercel.app/"
+    }
+  ]
+}

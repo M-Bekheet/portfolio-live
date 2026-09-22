@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mastering 4 Critical SKILLS using C++ 17 - Learning Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+
+        --bg-primary: #0f0f23;
+        --bg-secondary: #1a1a35;
+        --bg-card: #242450;
+        --bg-surface: #2a2a5a;
+        --bg-glass: rgba(255, 255, 255, 0.1);
+
+        --text-primary: #ffffff;
+        --text-secondary: #b8b8ff;
+        --text-muted: #8a8ab8;
+
+        --accent-blue: #64ffda;
+        --accent-purple: #bb86fc;
+        --accent-pink: #ff6b9d;
+        --accent-green: #39ff9c;
+        --accent-gold: #ffd700;
+
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
+        --glow: 0 0 20px rgba(100, 255, 218, 0.3);
+
+        --border-radius: 16px;
+        --border-radius-lg: 24px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 50%,
+            rgba(120, 119, 198, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 80%,
+            rgba(120, 255, 198, 0.1) 0%,
+            transparent 50%
+          );
+        z-index: -1;
+        animation: bgShift 20s ease-in-out infinite;
+      }
+
+      @keyframes bgShift {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .hero-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 2rem;
+        background: var(--bg-glass);
+        backdrop-filter: blur(20px);
+        border-radius: var(--border-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(
+          135deg,
+          var(--accent-blue),
+          var(--accent-purple),
+          var(--accent-pink)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 10px rgba(100, 255, 218, 0.5));
+        }
+        to {
+          filter: drop-shadow(0 0 20px rgba(187, 134, 252, 0.8));
+        }
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+
+      .course-link {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .course-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+      }
+
+      .level-system {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .level-card {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .level-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--accent-blue);
+      }
+
+      .level-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--primary);
+      }
+
+      .stat-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--accent-blue);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      .progress-ring {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1rem;
+      }
+
+      .progress-ring svg {
+        transform: rotate(-90deg);
+        width: 100%;
+        height: 100%;
+      }
+
+      .progress-ring circle {
+        fill: none;
+        stroke-width: 8;
+      }
+
+      .progress-ring .bg {
+        stroke: var(--bg-surface);
+      }
+
+      .progress-ring .progress {
+        stroke: url(#gradient);
+        stroke-linecap: round;
+        transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+        stroke-dasharray: 0;
+        stroke-dashoffset: 0;
+      }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+        min-width: 160px;
+        justify-content: center;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+      }
+
+      .btn-secondary {
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-surface);
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+      }
+
+      .charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .chart-card {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chart-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--success);
+      }
+
+      .chart-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--accent-blue);
+      }
+
+      .chart-wrapper {
+        position: relative;
+        height: 300px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          var(--accent-blue),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .phase {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .phase:hover {
+        border-color: var(--accent-blue);
+        box-shadow: var(--glow);
+      }
+
+      .phase-header {
+        background: var(--primary);
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .phase-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .phase-header:hover::before {
+        opacity: 1;
+      }
+
+      .phase-header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+      }
+
+      .phase-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .phase-icon {
+        font-size: 2rem;
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .phase-progress {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .phase-content {
+        padding: 2rem;
+        transition: all 0.3s ease;
+      }
+
+      .phase.collapsed .phase-content {
+        display: none;
+      }
+
+      .topic {
+        background: var(--bg-surface);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topic::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--secondary);
+        transition: width 0.3s ease;
+      }
+
+      .topic:hover {
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .topic:hover::before {
+        width: 8px;
+      }
+
+      .topic.completed {
+        border-color: var(--accent-green);
+        background: linear-gradient(
+          135deg,
+          rgba(57, 255, 156, 0.1),
+          rgba(100, 255, 218, 0.1)
+        );
+      }
+
+      .topic.completed::before {
+        background: var(--warning);
+      }
+
+      .topic-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+      }
+
+      .checkbox {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--accent-blue);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .checkbox:checked {
+        filter: drop-shadow(0 0 5px var(--accent-blue));
+      }
+
+      .topic-title {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .topic-title:hover {
+        color: var(--accent-blue);
+      }
+
+      .priority-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      .priority-high {
+        background: var(--danger);
+        color: white;
+        box-shadow: 0 0 15px rgba(250, 112, 154, 0.4);
+      }
+
+      .priority-medium {
+        background: var(--warning);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px rgba(67, 233, 123, 0.4);
+      }
+
+      .priority-low {
+        background: var(--success);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+      }
+
+      .topic-description {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .time-tracker {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: var(--bg-glass);
+        border-radius: var(--border-radius);
+        backdrop-filter: blur(10px);
+      }
+
+      .time-item {
+        text-align: center;
+      }
+
+      .time-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .time-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+      }
+
+      .time-input {
+        width: 80px;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        text-align: center;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .time-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+      }
+
+      .notes-container {
+        margin-top: 1rem;
+      }
+
+      .notes-input {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--border-radius);
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        resize: vertical;
+        min-height: 80px;
+        font-family: inherit;
+        transition: all 0.3s ease;
+      }
+
+      .notes-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+      }
+
+      .notes-input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal-content {
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        animation: slideUp 0.3s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--accent-blue);
+      }
+
+      .modal-text {
+        margin-bottom: 1.5rem;
+        color: var(--text-secondary);
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .file-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: var(--border-radius);
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .file-input:hover {
+        border-color: var(--accent-blue);
+        background: var(--bg-glass);
+      }
+
+      .expand-icon {
+        transition: transform 0.3s ease;
+        font-size: 1.2rem;
+        color: var(--accent-blue);
+      }
+
+      .collapsed .expand-icon {
+        transform: rotate(-90deg);
+      }
+
+      .achievement {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--success);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        z-index: 1001;
+        transform: translateX(400px);
+        transition: transform 0.5s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .achievement.show {
+        transform: translateX(0);
+      }
+
+      .achievement::before {
+        content: "🎉";
+        margin-right: 0.5rem;
+      }
+
+      @media (max-width: 1024px) {
+        .charts-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .hero-title {
+          font-size: 2rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+
+        .time-tracker {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .chart-wrapper {
+          height: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero-header">
+        <h1 class="hero-title">Mastering 4 Critical SKILLS using C++ 17</h1>
+        <p class="hero-subtitle">
+          44 Sections · 33.5 hours of video · 400 hours of mastery · 170 problems · 6 projects
+        </p>
+        <a
+          href="https://www.udemy.com/course/cpp-4skills/?referralCode=0F9F53716150D3FC56FD"
+          target="_blank"
+          class="course-link"
+          >🔗 View Course on Udemy</a
+        >
+      </div>
+
+      <div class="level-system">
+        <div class="level-card">
+          <div class="progress-ring">
+            <svg>
+              <defs>
+                <linearGradient
+                  id="gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #64ffda; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #bb86fc; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <circle class="bg" cx="60" cy="60" r="50"></circle>
+              <circle
+                class="progress"
+                cx="60"
+                cy="60"
+                r="50"
+                id="progressCircle"
+              ></circle>
+            </svg>
+            <div
+              style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+              "
+            >
+              <div class="stat-value" id="overallProgress">0%</div>
+            </div>
+          </div>
+          <div class="stat-label">Overall Progress</div>
+        </div>
+
+        <div class="level-card">
+          <span class="stat-icon">📚</span>
+          <div class="stat-value" id="completedSections">0/12</div>
+          <div class="stat-label">Sections Completed</div>
+        </div>
+
+        <div class="level-card">
+          <span class="stat-icon">⏱️</span>
+          <div class="stat-value" id="totalHours">0h</div>
+          <div class="stat-label">Hours Invested</div>
+        </div>
+
+        <div class="level-card">
+          <span class="stat-icon">🎯</span>
+          <div class="stat-value" id="completedProblems">0/170</div>
+          <div class="stat-label">Problems Solved</div>
+        </div>
+
+        <div class="level-card">
+          <span class="stat-icon">🚀</span>
+          <div class="stat-value" id="completedProjects">0/6</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-primary" onclick="exportProgress()">
+          💾 Export Progress
+        </button>
+        <button class="btn btn-secondary" onclick="importProgress()">
+          📥 Import Progress
+        </button>
+        <button class="btn btn-secondary" onclick="resetProgress()">
+          🔄 Reset Progress
+        </button>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">📊 Section Progress</div>
+          <div class="chart-wrapper">
+            <canvas id="sectionChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">⏰ Time Investment</div>
+          <div class="chart-wrapper">
+            <canvas id="timeChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">🗺️ Learning Roadmap</h2>
+      <div id="roadmapContent"></div>
+    </div>
+
+    <div id="importModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-title">📥 Import Progress</h3>
+        <p class="modal-text">
+          You already have existing progress. How would you like to handle the
+          import?
+        </p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="handleImport('merge')">
+            🔄 Merge
+          </button>
+          <button class="btn btn-primary" onclick="handleImport('overwrite')">
+            ♻️ Overwrite
+          </button>
+          <button class="btn btn-secondary" onclick="closeModal()">
+            ❌ Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="fileModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-title">📂 Import Progress File</h3>
+        <input
+          type="file"
+          id="fileInput"
+          class="file-input"
+          accept=".json"
+          placeholder="Choose your progress file..."
+        />
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="processFileImport()">
+            📥 Import
+          </button>
+          <button class="btn btn-secondary" onclick="closeModal()">
+            ❌ Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const courseData = {
+        sections: [
+          {
+            id: "getting-started",
+            title: "Getting Started",
+            icon: "🚀",
+            description:
+              "Understand the course structure, teaching style, and what makes this course unique. Learn about the 4 critical skills and how to approach practice and homework.",
+            priority: "high",
+            videoHours: 0.48,
+            effortHours: 2,
+            topics: [
+              "Why Programming? Why C++?",
+              "Who should take this course?",
+              "Teaching style",
+              "Unique approach beyond others",
+              "Tackling practice & homework",
+              "Curriculum overview"
+            ]
+          },
+          {
+            id: "installation",
+            title: "Installation",
+            icon: "⚙️",
+            description:
+              "Set up your C++ development environment with IDE and compiler installation.",
+            priority: "high",
+            videoHours: 0.57,
+            effortHours: 5,
+            topics: [
+              "IDE installation (Code::Blocks / Visual Studio / CLion)",
+              "Compiler setup",
+              "Environment configuration",
+              "First program setup"
+            ]
+          },
+          {
+            id: "printing",
+            title: "Printing",
+            icon: "📄",
+            description:
+              "Master output operations in C++ using cout and basic formatting.",
+            priority: "high",
+            videoHours: 0.32,
+            effortHours: 3,
+            topics: [
+              "cout basics",
+              "Output formatting",
+              "Escape sequences",
+              "Multiple outputs"
+            ]
+          },
+          {
+            id: "data-types",
+            title: "Data Types and Variables",
+            icon: "🔢",
+            description:
+              "Master variables, data types, constants, and type conversions in C++.",
+            priority: "high",
+            videoHours: 0.65,
+            effortHours: 8,
+            topics: [
+              "Integer types (int, short, long)",
+              "Floating-point types (float, double)",
+              "Character type (char)",
+              "Boolean type",
+              "Constants and literals",
+              "Type conversion and casting"
+            ]
+          },
+          {
+            id: "operators",
+            title: "Operators",
+            icon: "➕",
+            description:
+              "Learn all C++ operators: arithmetic, relational, logical, bitwise, and more.",
+            priority: "high",
+            videoHours: 1.55,
+            effortHours: 15,
+            topics: [
+              "Arithmetic operators",
+              "Relational operators",
+              "Logical operators",
+              "Bitwise operators",
+              "Assignment operators",
+              "Increment/decrement operators",
+              "Conditional operator",
+              "Operator precedence"
+            ]
+          },
+          {
+            id: "selection",
+            title: "Selection",
+            icon: "🔀",
+            description:
+              "Master control flow with if-else statements and switch-case.",
+            priority: "high",
+            videoHours: 0.68,
+            effortHours: 9,
+            topics: [
+              "if statement",
+              "if-else statement",
+              "Nested if-else",
+              "else-if ladder",
+              "switch-case statement",
+              "Conditional expressions"
+            ]
+          },
+          {
+            id: "loops",
+            title: "Loops",
+            icon: "🔄",
+            description:
+              "Master iteration with for, while, and do-while loops, including nested loops.",
+            priority: "high",
+            videoHours: 1.13,
+            effortHours: 12,
+            topics: [
+              "for loop",
+              "while loop",
+              "do-while loop",
+              "Nested loops",
+              "break and continue",
+              "Loop patterns"
+            ]
+          },
+          {
+            id: "arrays-1d",
+            title: "1D Arrays",
+            icon: "📊",
+            description:
+              "Deep dive into one-dimensional arrays, operations, and common algorithms.",
+            priority: "high",
+            videoHours: 1.6,
+            effortHours: 18,
+            topics: [
+              "Array declaration and initialization",
+              "Array access and modification",
+              "Array traversal",
+              "Searching algorithms",
+              "Sorting algorithms",
+              "Array manipulation"
+            ]
+          },
+          {
+            id: "char-arrays",
+            title: "Char Arrays",
+            icon: "🔤",
+            description:
+              "Master character arrays and C-style strings.",
+            priority: "high",
+            videoHours: 0.7,
+            effortHours: 10,
+            topics: [
+              "Character arrays",
+              "String input/output",
+              "String functions",
+              "String manipulation",
+              "Character operations"
+            ]
+          },
+          {
+            id: "arrays-multi",
+            title: "Multidimensional Arrays",
+            icon: "📈",
+            description:
+              "Learn 2D and multi-dimensional arrays for matrix operations.",
+            priority: "high",
+            videoHours: 0.98,
+            effortHours: 12,
+            topics: [
+              "2D array declaration",
+              "Matrix operations",
+              "Row and column operations",
+              "3D arrays",
+              "Multidimensional array applications"
+            ]
+          },
+          {
+            id: "functions",
+            title: "Functions",
+            icon: "⚙️",
+            description:
+              "Master function definition, parameters, return values, and function overloading.",
+            priority: "high",
+            videoHours: 1.0,
+            effortHours: 13,
+            topics: [
+              "Function declaration and definition",
+              "Parameters and arguments",
+              "Return values",
+              "Function overloading",
+              "Default parameters",
+              "Pass by value vs reference"
+            ]
+          },
+          {
+            id: "recursion",
+            title: "Recursive Functions",
+            icon: "♻️",
+            description:
+              "Master recursion: base cases, recursive cases, and common patterns.",
+            priority: "high",
+            videoHours: 1.55,
+            effortHours: 20,
+            topics: [
+              "Recursion basics",
+              "Base case and recursive case",
+              "Call stack",
+              "Tail recursion",
+              "Recursion vs iteration",
+              "Common recursive algorithms"
+            ]
+          },
+          {
+            id: "project-1",
+            title: "Project #1 - Hospital System",
+            icon: "🏥",
+            description:
+              "Build a console-based hospital management system.",
+            priority: "high",
+            videoHours: 0.2,
+            effortHours: 15,
+            topics: [
+              "System design",
+              "Patient management",
+              "Queue implementation",
+              "Menu-driven interface"
+            ]
+          },
+          {
+            id: "structures",
+            title: "Structures",
+            icon: "🏗️",
+            description:
+              "Learn user-defined types with structures and nested structures.",
+            priority: "medium",
+            videoHours: 0.65,
+            effortHours: 8,
+            topics: [
+              "Structure declaration",
+              "Structure initialization",
+              "Accessing members",
+              "Nested structures",
+              "Arrays of structures"
+            ]
+          },
+          {
+            id: "project-2",
+            title: "Project #2 - Library System",
+            icon: "📚",
+            description:
+              "Build a library management system using structures.",
+            priority: "high",
+            videoHours: 0.38,
+            effortHours: 18,
+            topics: [
+              "Book management",
+              "User management",
+              "Borrowing system",
+              "Data persistence"
+            ]
+          },
+          {
+            id: "templates",
+            title: "Templates",
+            icon: "📋",
+            description:
+              "Introduction to function and class templates for generic programming.",
+            priority: "medium",
+            videoHours: 0.3,
+            effortHours: 5,
+            topics: [
+              "Function templates",
+              "Template parameters",
+              "Template instantiation",
+              "Class templates basics"
+            ]
+          },
+          {
+            id: "stl",
+            title: "STL",
+            icon: "📦",
+            description:
+              "Master the Standard Template Library: containers, iterators, and algorithms.",
+            priority: "high",
+            videoHours: 2.33,
+            effortHours: 28,
+            topics: [
+              "Vector",
+              "List",
+              "Stack and Queue",
+              "Set and Map",
+              "Iterators",
+              "Algorithms (sort, find, etc.)",
+              "Pairs and tuples"
+            ]
+          },
+          {
+            id: "files-streams",
+            title: "Files and Streams",
+            icon: "💾",
+            description:
+              "Learn file I/O operations and stream handling.",
+            priority: "medium",
+            videoHours: 0.22,
+            effortHours: 4,
+            topics: [
+              "File input/output",
+              "ifstream and ofstream",
+              "Reading and writing",
+              "Binary files",
+              "File operations"
+            ]
+          },
+          {
+            id: "project-3",
+            title: "Project #3 - Ask.fm: Q & A",
+            icon: "❓",
+            description:
+              "Build a Q&A system similar to Ask.fm.",
+            priority: "high",
+            videoHours: 0.62,
+            effortHours: 20,
+            topics: [
+              "User system",
+              "Question management",
+              "Answer management",
+              "File-based storage"
+            ]
+          },
+          {
+            id: "pointers",
+            title: "Pointers",
+            icon: "👉",
+            description:
+              "Deep dive into pointers, pointer arithmetic, and dynamic memory.",
+            priority: "high",
+            videoHours: 1.2,
+            effortHours: 15,
+            topics: [
+              "Pointer basics",
+              "Pointer arithmetic",
+              "Pointers and arrays",
+              "Dynamic memory (new/delete)",
+              "Pointer to pointer",
+              "Memory management"
+            ]
+          },
+          {
+            id: "headers-includes",
+            title: "Headers and Includes",
+            icon: "📑",
+            description:
+              "Learn to organize code with header files and includes.",
+            priority: "medium",
+            videoHours: 0.92,
+            effortHours: 10,
+            topics: [
+              "Header files (.h)",
+              "Include guards",
+              "Separating interface and implementation",
+              "Multiple file projects",
+              "Namespace usage"
+            ]
+          },
+          {
+            id: "exception-handling",
+            title: "Exception Handling",
+            icon: "🚨",
+            description:
+              "Master error handling with try-catch-throw mechanism.",
+            priority: "medium",
+            videoHours: 0.63,
+            effortHours: 7,
+            topics: [
+              "try-catch blocks",
+              "throw statements",
+              "Exception types",
+              "Custom exceptions",
+              "Exception safety"
+            ]
+          },
+          {
+            id: "more-fundamentals",
+            title: "More on Fundamentals",
+            icon: "📘",
+            description:
+              "Advanced fundamental concepts and best practices.",
+            priority: "medium",
+            videoHours: 1.42,
+            effortHours: 12,
+            topics: [
+              "Type modifiers",
+              "Storage classes",
+              "Inline functions",
+              "Macros",
+              "Const correctness",
+              "References"
+            ]
+          },
+          {
+            id: "compilation",
+            title: "Compilation Process",
+            icon: "🔧",
+            description:
+              "Understand the compilation process from source to executable.",
+            priority: "low",
+            videoHours: 0.47,
+            effortHours: 4,
+            topics: [
+              "Preprocessing",
+              "Compilation",
+              "Assembly",
+              "Linking",
+              "Makefile basics"
+            ]
+          },
+          {
+            id: "debugger",
+            title: "Debugger",
+            icon: "🐛",
+            description:
+              "Learn debugging techniques and tools.",
+            priority: "medium",
+            videoHours: 0.65,
+            effortHours: 6,
+            topics: [
+              "Debugger basics",
+              "Breakpoints",
+              "Step execution",
+              "Watch variables",
+              "Call stack inspection"
+            ]
+          },
+          {
+            id: "oop-intro",
+            title: "Object Oriented Programming",
+            icon: "🎯",
+            description:
+              "Introduction to OOP concepts and principles.",
+            priority: "high",
+            videoHours: 0.87,
+            effortHours: 10,
+            topics: [
+              "OOP principles",
+              "Encapsulation",
+              "Abstraction",
+              "Classes vs objects",
+              "OOP benefits"
+            ]
+          },
+          {
+            id: "oop-classes",
+            title: "OOP: Classes",
+            icon: "🏛️",
+            description:
+              "Master class definition, constructors, destructors, and member functions.",
+            priority: "high",
+            videoHours: 1.1,
+            effortHours: 14,
+            topics: [
+              "Class definition",
+              "Constructors",
+              "Destructors",
+              "Member functions",
+              "Access specifiers",
+              "this pointer"
+            ]
+          },
+          {
+            id: "uml-diagram",
+            title: "UML Class Diagram",
+            icon: "📐",
+            description:
+              "Learn to design and read UML class diagrams.",
+            priority: "low",
+            videoHours: 0.43,
+            effortHours: 4,
+            topics: [
+              "UML notation",
+              "Class relationships",
+              "Associations",
+              "Aggregation and composition",
+              "Multiplicity"
+            ]
+          },
+          {
+            id: "oop-summary-1",
+            title: "OOP Part 1: Summary",
+            icon: "📝",
+            description:
+              "Review and consolidate OOP Part 1 concepts.",
+            priority: "low",
+            videoHours: 0.32,
+            effortHours: 3,
+            topics: [
+              "OOP Part 1 review",
+              "Key concepts recap",
+              "Practice problems"
+            ]
+          },
+          {
+            id: "project-4",
+            title: "Project #4 - Ask.fm: Q & A (OOP)",
+            icon: "❔",
+            description:
+              "Refactor the Ask.fm project using OOP principles.",
+            priority: "high",
+            videoHours: 0.02,
+            effortHours: 15,
+            topics: [
+              "OOP design",
+              "Class hierarchy",
+              "Refactoring procedural code"
+            ]
+          },
+          {
+            id: "project-5",
+            title: "Project #5: Online Book Reader",
+            icon: "📖",
+            description:
+              "Build an online book reader system with OOP.",
+            priority: "high",
+            videoHours: 0.22,
+            effortHours: 18,
+            topics: [
+              "Book management",
+              "User sessions",
+              "Reading interface",
+              "OOP design patterns"
+            ]
+          },
+          {
+            id: "inheritance",
+            title: "OOP: Inheritance",
+            icon: "👨‍👩‍👦",
+            description:
+              "Master inheritance: base and derived classes, access control.",
+            priority: "high",
+            videoHours: 0.67,
+            effortHours: 10,
+            topics: [
+              "Base and derived classes",
+              "Types of inheritance",
+              "Access specifiers in inheritance",
+              "Constructor/destructor chain",
+              "Protected members"
+            ]
+          },
+          {
+            id: "polymorphism",
+            title: "OOP: Polymorphism",
+            icon: "🎭",
+            description:
+              "Master polymorphism: virtual functions, abstract classes, interfaces.",
+            priority: "high",
+            videoHours: 1.38,
+            effortHours: 16,
+            topics: [
+              "Virtual functions",
+              "Pure virtual functions",
+              "Abstract classes",
+              "Interfaces",
+              "Virtual destructors",
+              "Runtime polymorphism"
+            ]
+          },
+          {
+            id: "operator-overloading",
+            title: "OOP: Operator Overloading",
+            icon: "⚡",
+            description:
+              "Learn to overload operators for custom classes.",
+            priority: "medium",
+            videoHours: 0.7,
+            effortHours: 9,
+            topics: [
+              "Operator overloading basics",
+              "Overloading binary operators",
+              "Overloading unary operators",
+              "Friend functions",
+              "Stream operators"
+            ]
+          },
+          {
+            id: "oop-summary-2",
+            title: "OOP Part 2: Summary",
+            icon: "📋",
+            description:
+              "Review and consolidate OOP Part 2 concepts.",
+            priority: "low",
+            videoHours: 0.43,
+            effortHours: 4,
+            topics: [
+              "OOP Part 2 review",
+              "Inheritance recap",
+              "Polymorphism recap"
+            ]
+          },
+          {
+            id: "project-6",
+            title: "Project #6: Expedia.com",
+            icon: "✈️",
+            description:
+              "Build a hotel and flight booking system like Expedia.",
+            priority: "high",
+            videoHours: 0.17,
+            effortHours: 25,
+            topics: [
+              "Complex class hierarchy",
+              "Booking system",
+              "Payment processing",
+              "User management",
+              "Advanced OOP design"
+            ]
+          },
+          {
+            id: "more-templates",
+            title: "More on Templates",
+            icon: "📄",
+            description:
+              "Advanced template concepts and techniques.",
+            priority: "medium",
+            videoHours: 0.45,
+            effortHours: 6,
+            topics: [
+              "Template specialization",
+              "Partial specialization",
+              "Variadic templates",
+              "Template metaprogramming basics"
+            ]
+          },
+          {
+            id: "move-semantics",
+            title: "Move Semantics and Perfect Forwarding",
+            icon: "🚀",
+            description:
+              "Master move semantics, rvalue references, and perfect forwarding.",
+            priority: "high",
+            videoHours: 1.92,
+            effortHours: 18,
+            topics: [
+              "Lvalue and rvalue",
+              "Move constructor",
+              "Move assignment",
+              "std::move",
+              "Perfect forwarding",
+              "Universal references"
+            ]
+          },
+          {
+            id: "lambda",
+            title: "Lambda Expressions",
+            icon: "λ",
+            description:
+              "Learn lambda expressions and functional programming in C++.",
+            priority: "medium",
+            videoHours: 0.5,
+            effortHours: 6,
+            topics: [
+              "Lambda syntax",
+              "Capture clauses",
+              "Return type deduction",
+              "Generic lambdas",
+              "Lambda with STL"
+            ]
+          },
+          {
+            id: "smart-pointers",
+            title: "Smart Pointers",
+            icon: "🧠",
+            description:
+              "Master modern memory management with smart pointers.",
+            priority: "high",
+            videoHours: 1.05,
+            effortHours: 12,
+            topics: [
+              "unique_ptr",
+              "shared_ptr",
+              "weak_ptr",
+              "make_unique and make_shared",
+              "Custom deleters",
+              "RAII principle"
+            ]
+          },
+          {
+            id: "more-stl",
+            title: "More on STL",
+            icon: "📦",
+            description:
+              "Advanced STL concepts and modern containers.",
+            priority: "medium",
+            videoHours: 1.03,
+            effortHours: 10,
+            topics: [
+              "Unordered containers",
+              "Forward list",
+              "Initializer list",
+              "Array container",
+              "Advanced algorithms",
+              "Function objects"
+            ]
+          },
+          {
+            id: "wrapper-types",
+            title: "Modern Wrapper Types",
+            icon: "📦",
+            description:
+              "Learn modern C++17 wrapper types: optional, variant, any.",
+            priority: "medium",
+            videoHours: 0.72,
+            effortHours: 7,
+            topics: [
+              "std::optional",
+              "std::variant",
+              "std::any",
+              "std::string_view",
+              "Use cases and best practices"
+            ]
+          },
+          {
+            id: "more-pointers",
+            title: "More on Pointers",
+            icon: "👈",
+            description:
+              "Advanced pointer concepts and techniques.",
+            priority: "low",
+            videoHours: 0.32,
+            effortHours: 4,
+            topics: [
+              "Function pointers",
+              "Pointers to members",
+              "Smart pointer internals",
+              "Advanced memory management"
+            ]
+          },
+          {
+            id: "thank-you",
+            title: "Thank You",
+            icon: "🎉",
+            description:
+              "Course conclusion and next steps.",
+            priority: "low",
+            videoHours: 0.02,
+            effortHours: 0.5,
+            topics: [
+              "Course recap",
+              "Next learning steps",
+              "Continuing your journey"
+            ]
+          }
+        ]
+      };
+
+      let progressData = {
+        sections: {},
+        notes: {},
+        hours: {},
+        problemsSolved: 0,
+        projectsCompleted: 0,
+        lastUpdated: null
+      };
+
+      let sectionChart = null;
+      let timeChart = null;
+      let importData = null;
+
+      function init() {
+        loadProgressFromStorage();
+        renderRoadmap();
+        updateStats();
+        initCharts();
+      }
+
+      function renderRoadmap() {
+        const container = document.getElementById("roadmapContent");
+        container.innerHTML = "";
+
+        courseData.sections.forEach((section) => {
+          const sectionElement = createSectionElement(section);
+          container.appendChild(sectionElement);
+        });
+      }
+
+      function createSectionElement(section) {
+        const isCompleted = progressData.sections[section.id] || false;
+        const hours = progressData.hours[section.id] || 0;
+        const notes = progressData.notes[section.id] || "";
+        const completedClass = isCompleted ? "completed" : "";
+
+        const sectionDiv = document.createElement("div");
+        sectionDiv.className = "phase";
+        sectionDiv.id = `section-${section.id}`;
+        
+        const topicsList = section.topics.map(topic => `<li>${topic}</li>`).join("");
+
+        sectionDiv.innerHTML = `
+          <div class="phase-header" onclick="toggleSection('${section.id}')">
+            <div class="phase-header-content">
+              <div class="phase-title">
+                <span class="phase-icon">${section.icon}</span>
+                <span class="expand-icon">▼</span>
+                ${section.title}
+              </div>
+              <div class="phase-progress">
+                Video: ${section.videoHours}h · Effort: ${section.effortHours}h
+              </div>
+            </div>
+          </div>
+          <div class="phase-content" id="content-${section.id}">
+            <div class="topic ${completedClass}">
+              <div class="topic-header">
+                <div class="checkbox-container">
+                  <input type="checkbox" class="checkbox" id="check-${section.id}" 
+                    ${isCompleted ? "checked" : ""} 
+                    onchange="updateSectionProgress('${section.id}')">
+                  <label for="check-${section.id}" class="topic-title">Mark as Complete</label>
+                </div>
+                <span class="priority-badge priority-${section.priority}">${section.priority}</span>
+              </div>
+              <div class="topic-description">${section.description}</div>
+              
+              <div style="margin: 1rem 0; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                <strong style="color: var(--accent-purple);">📋 Topics Covered:</strong>
+                <ul style="margin-top: 0.5rem; padding-left: 1.5rem; color: var(--text-secondary);">
+                  ${topicsList}
+                </ul>
+              </div>
+
+              <div class="time-tracker">
+                <div class="time-item">
+                  <div class="time-label">Video Hours</div>
+                  <div class="time-value">${section.videoHours}h</div>
+                </div>
+                <div class="time-item">
+                  <div class="time-label">Effort Hours</div>
+                  <div class="time-value">${section.effortHours}h</div>
+                </div>
+                <div class="time-item">
+                  <div class="time-label">Your Hours</div>
+                  <input type="number" id="hours-${section.id}" class="time-input" 
+                    value="${hours}" min="0" step="0.5" 
+                    onchange="updateHours('${section.id}', this.value)">
+                </div>
+              </div>
+
+              <div class="notes-container">
+                <textarea class="notes-input" id="notes-${section.id}" 
+                  placeholder="📝 Add your notes, key learnings, or challenges here..." 
+                  onchange="updateNotes('${section.id}', this.value)">${notes}</textarea>
+              </div>
+            </div>
+          </div>
+        `;
+        return sectionDiv;
+      }
+
+      function toggleSection(sectionId) {
+        const sectionElement = document.getElementById(`section-${sectionId}`);
+        sectionElement.classList.toggle("collapsed");
+      }
+
+      function updateSectionProgress(sectionId) {
+        const checkbox = document.getElementById(`check-${sectionId}`);
+        const wasCompleted = progressData.sections[sectionId];
+
+        progressData.sections[sectionId] = checkbox.checked;
+        progressData.lastUpdated = new Date().toISOString();
+
+        const topicElement = checkbox.closest(".topic");
+        if (checkbox.checked) {
+          topicElement.classList.add("completed");
+          if (!wasCompleted) {
+            showAchievement("🎉 Section Completed!");
+          }
+        } else {
+          topicElement.classList.remove("completed");
+        }
+
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      function updateHours(sectionId, value) {
+        progressData.hours[sectionId] = parseFloat(value) || 0;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+        updateStats();
+        updateCharts();
+      }
+
+      function updateNotes(sectionId, notes) {
+        progressData.notes[sectionId] = notes;
+        progressData.lastUpdated = new Date().toISOString();
+        saveProgressToStorage();
+      }
+
+      function calculateStats() {
+        const totalSections = courseData.sections.length;
+        let completedSections = 0;
+        let totalHours = 0;
+
+        courseData.sections.forEach((section) => {
+          if (progressData.sections[section.id]) {
+            completedSections++;
+          }
+          totalHours += progressData.hours[section.id] || 0;
+        });
+
+        const overallProgress = totalSections > 0 
+          ? Math.round((completedSections / totalSections) * 100) 
+          : 0;
+
+        return {
+          overallProgress,
+          completedSections,
+          totalSections,
+          totalHours,
+          problemsSolved: progressData.problemsSolved || 0,
+          projectsCompleted: progressData.projectsCompleted || 0
+        };
+      }
+
+      function updateStats() {
+        const stats = calculateStats();
+
+        document.getElementById("overallProgress").textContent = 
+          stats.overallProgress + "%";
+        document.getElementById("completedSections").textContent = 
+          `${stats.completedSections}/${stats.totalSections}`;
+        document.getElementById("totalHours").textContent = 
+          `${stats.totalHours.toFixed(1)}h`;
+        document.getElementById("completedProblems").textContent = 
+          `${stats.problemsSolved}/170`;
+        document.getElementById("completedProjects").textContent = 
+          `${stats.projectsCompleted}/6`;
+
+        const circumference = 2 * Math.PI * 50;
+        const progressCircle = document.getElementById("progressCircle");
+        const offset = circumference - (stats.overallProgress / 100) * circumference;
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = offset;
+      }
+
+      function initCharts() {
+        const sectionCtx = document.getElementById("sectionChart").getContext("2d");
+        const timeCtx = document.getElementById("timeChart").getContext("2d");
+
+        const labels = courseData.sections.map(s => {
+          const words = s.title.split(" ");
+          return words.slice(0, 3).join(" ");
+        });
+        const completed = courseData.sections.map(s => 
+          progressData.sections[s.id] ? 1 : 0
+        );
+
+        sectionChart = new Chart(sectionCtx, {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Completed",
+              data: completed,
+              backgroundColor: "rgba(100, 255, 218, 0.8)",
+              borderColor: "rgba(100, 255, 218, 1)",
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 1,
+                ticks: { 
+                  color: "rgba(255, 255, 255, 0.8)",
+                  callback: function(value) {
+                    return value === 1 ? "✓" : "";
+                  }
+                },
+                grid: { color: "rgba(255, 255, 255, 0.1)" }
+              },
+              x: {
+                ticks: { 
+                  color: "rgba(255, 255, 255, 0.8)",
+                  maxRotation: 45,
+                  minRotation: 45
+                },
+                grid: { color: "rgba(255, 255, 255, 0.1)" }
+              }
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: "rgba(255, 255, 255, 0.8)",
+                  font: { size: 12, weight: "500" }
+                }
+              }
+            }
+          }
+        });
+
+        const effortHours = courseData.sections.map(s => s.effortHours);
+        const actualHours = courseData.sections.map(s => 
+          progressData.hours[s.id] || 0
+        );
+
+        timeChart = new Chart(timeCtx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Expected Effort",
+                data: effortHours,
+                borderColor: "rgba(255, 255, 255, 0.3)",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                borderWidth: 2,
+                fill: true
+              },
+              {
+                label: "Actual Hours",
+                data: actualHours,
+                borderColor: "rgba(100, 255, 218, 1)",
+                backgroundColor: "rgba(100, 255, 218, 0.2)",
+                borderWidth: 2,
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Hours",
+                  color: "rgba(255, 255, 255, 0.8)"
+                },
+                ticks: { color: "rgba(255, 255, 255, 0.8)" },
+                grid: { color: "rgba(255, 255, 255, 0.1)" }
+              },
+              x: {
+                ticks: { 
+                  color: "rgba(255, 255, 255, 0.8)",
+                  maxRotation: 45,
+                  minRotation: 45
+                },
+                grid: { color: "rgba(255, 255, 255, 0.1)" }
+              }
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: "rgba(255, 255, 255, 0.8)",
+                  font: { size: 12, weight: "500" }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updateCharts() {
+        if (!sectionChart || !timeChart) return;
+
+        const completed = courseData.sections.map(s => 
+          progressData.sections[s.id] ? 1 : 0
+        );
+        sectionChart.data.datasets[0].data = completed;
+        sectionChart.update();
+
+        const actualHours = courseData.sections.map(s => 
+          progressData.hours[s.id] || 0
+        );
+        timeChart.data.datasets[1].data = actualHours;
+        timeChart.update();
+      }
+
+      function showAchievement(message) {
+        const achievement = document.createElement("div");
+        achievement.className = "achievement";
+        achievement.textContent = message;
+        document.body.appendChild(achievement);
+
+        setTimeout(() => achievement.classList.add("show"), 100);
+        setTimeout(() => {
+          achievement.classList.remove("show");
+          setTimeout(() => document.body.removeChild(achievement), 500);
+        }, 3000);
+      }
+
+      function saveProgressToStorage() {
+        localStorage.setItem("cppCourseProgress", JSON.stringify(progressData));
+      }
+
+      function loadProgressFromStorage() {
+        const saved = localStorage.getItem("cppCourseProgress");
+        if (saved) {
+          progressData = JSON.parse(saved);
+          if (!progressData.sections) progressData.sections = {};
+          if (!progressData.notes) progressData.notes = {};
+          if (!progressData.hours) progressData.hours = {};
+          if (typeof progressData.problemsSolved !== "number") 
+            progressData.problemsSolved = 0;
+          if (typeof progressData.projectsCompleted !== "number") 
+            progressData.projectsCompleted = 0;
+        }
+      }
+
+      function exportProgress() {
+        const exportData = {
+          ...progressData,
+          exportDate: new Date().toISOString(),
+          version: "1.0",
+          courseName: "Mastering 4 Critical SKILLS using C++ 17"
+        };
+
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+          type: "application/json"
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `cpp-course-progress-${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showAchievement("💾 Progress Exported Successfully!");
+      }
+
+      function importProgress() {
+        document.getElementById("fileModal").classList.add("show");
+      }
+
+      function processFileImport() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select a file to import.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const data = JSON.parse(e.target.result);
+
+            if (!validateImportData(data)) {
+              return;
+            }
+
+            importData = data;
+            document.getElementById("fileModal").classList.remove("show");
+            document.getElementById("fileInput").value = "";
+
+            const hasExistingProgress =
+              Object.keys(progressData.sections).length > 0 ||
+              Object.keys(progressData.notes).length > 0 ||
+              Object.keys(progressData.hours).length > 0;
+
+            if (hasExistingProgress) {
+              document.getElementById("importModal").classList.add("show");
+            } else {
+              handleImport("overwrite");
+            }
+          } catch (error) {
+            alert(
+              "Error reading file. Please ensure it's a valid JSON file.\n\nError: " +
+                error.message
+            );
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function validateImportData(data) {
+        if (!data || typeof data !== "object") {
+          return false;
+        }
+
+        const requiredFields = ["sections", "notes", "hours"];
+        const missingFields = requiredFields.filter(
+          (field) => !data.hasOwnProperty(field)
+        );
+
+        if (missingFields.length > 0) {
+          alert(`Missing required fields: ${missingFields.join(", ")}`);
+          return false;
+        }
+
+        if (
+          typeof data.sections !== "object" ||
+          typeof data.notes !== "object" ||
+          typeof data.hours !== "object"
+        ) {
+          alert("Invalid field types - all progress fields must be objects");
+          return false;
+        }
+
+        return true;
+      }
+
+      function handleImport(action) {
+        if (!importData) {
+          alert("Import failed: No data available. Please try importing again.");
+          return;
+        }
+
+        if (action === "overwrite") {
+          progressData = {
+            sections: importData.sections || {},
+            notes: importData.notes || {},
+            hours: importData.hours || {},
+            problemsSolved: importData.problemsSolved || 0,
+            projectsCompleted: importData.projectsCompleted || 0,
+            lastUpdated: new Date().toISOString()
+          };
+        } else if (action === "merge") {
+          progressData.sections = { 
+            ...progressData.sections, 
+            ...importData.sections 
+          };
+          progressData.notes = { 
+            ...progressData.notes, 
+            ...importData.notes 
+          };
+          progressData.hours = { 
+            ...progressData.hours, 
+            ...importData.hours 
+          };
+          progressData.problemsSolved = Math.max(
+            progressData.problemsSolved || 0,
+            importData.problemsSolved || 0
+          );
+          progressData.projectsCompleted = Math.max(
+            progressData.projectsCompleted || 0,
+            importData.projectsCompleted || 0
+          );
+          progressData.lastUpdated = new Date().toISOString();
+        }
+
+        saveProgressToStorage();
+        closeModal();
+        showAchievement("📥 Progress Imported Successfully!");
+        location.reload();
+      }
+
+      function resetProgress() {
+        if (
+          confirm(
+            "🔄 Are you sure you want to reset all progress? This cannot be undone!"
+          )
+        ) {
+          progressData = {
+            sections: {},
+            notes: {},
+            hours: {},
+            problemsSolved: 0,
+            projectsCompleted: 0,
+            lastUpdated: null
+          };
+          saveProgressToStorage();
+          showAchievement("🔄 Progress Reset - Fresh Start!");
+          location.reload();
+        }
+      }
+
+      function closeModal() {
+        document.querySelectorAll(".modal").forEach((modal) => {
+          modal.classList.remove("show");
+        });
+        document.getElementById("fileInput").value = "";
+        importData = null;
+      }
+
+      document.addEventListener("DOMContentLoaded", init);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey || e.metaKey) {
+          switch (e.key) {
+            case "e":
+              e.preventDefault();
+              exportProgress();
+              break;
+            case "i":
+              e.preventDefault();
+              importProgress();
+              break;
+          }
+        }
+      });
+
+      // Add problem and project counters
+      window.addEventListener("click", function(e) {
+        if (e.target.matches("#completedProblems")) {
+          const current = progressData.problemsSolved || 0;
+          const newVal = prompt(`How many problems have you solved? (0-170)`, current);
+          if (newVal !== null) {
+            const num = Math.max(0, Math.min(170, parseInt(newVal) || 0));
+            progressData.problemsSolved = num;
+            saveProgressToStorage();
+            updateStats();
+          }
+        }
+        if (e.target.matches("#completedProjects")) {
+          const current = progressData.projectsCompleted || 0;
+          const newVal = prompt(`How many projects have you completed? (0-6)`, current);
+          if (newVal !== null) {
+            const num = Math.max(0, Math.min(6, parseInt(newVal) || 0));
+            progressData.projectsCompleted = num;
+            saveProgressToStorage();
+            updateStats();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+

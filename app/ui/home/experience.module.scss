@@ -1,0 +1,101 @@
+.section {
+  border-bottom: 1px solid var(--border);
+}
+
+.head {
+  max-width: 52rem;
+  margin-bottom: var(--space-9);
+}
+
+.timeline {
+  border-top: 1px solid var(--border);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+  max-width: 26ch;
+}
+
+.company {
+  font-size: 1.3rem;
+}
+
+.role {
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+
+.note {
+  margin-top: 0.75rem;
+  padding-inline-start: 0.9rem;
+  border-inline-start: 2px solid var(--accent-line);
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+
+.highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.highlight {
+  position: relative;
+  padding-inline-start: 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+
+.highlight::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.6em;
+  width: 0.55rem;
+  height: 1px;
+  background: var(--border-2);
+}
+
+.education {
+  margin-top: var(--space-9);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.eduLine {
+  margin-top: 0.75rem;
+  color: var(--ink-2);
+}
+
+.eduStrong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .entry {
+    grid-template-columns: 15rem 1fr;
+    gap: 2.5rem;
+  }
+}

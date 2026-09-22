@@ -86,6 +86,25 @@ export async function fetchPostTitleBySlug(
   return extractPostEntries(entries);
 }
 
+export async function fetchPostMetaBySlug(
+  slug: string
+): Promise<{ title: string; description: string }[]> {
+  if (!/^[a-zA-Z0-9-_]+$/.test(slug)) return [];
+
+  const entries = await fetchGraphQL(
+    `query {
+      blogPostCollection(where: { slug: "${slug}" }, limit: 1) {
+        items {
+          title
+          description
+        }
+      }
+    }`,
+    false
+  );
+  return extractPostEntries(entries);
+}
+
 function extractPostEntries(fetchResponse: any): any[] {
   return fetchResponse?.data?.blogPostCollection?.items;
 }

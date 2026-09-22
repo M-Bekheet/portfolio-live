@@ -1,0 +1,154 @@
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.label {
+  align-self: flex-start;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.caption p {
+  font-size: 0.92rem;
+  color: var(--ink-2);
+  max-width: 72ch;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  padding-block: 0.25rem;
+}
+
+.control {
+  display: flex;
+  flex: 1 1 16rem;
+  min-width: 12rem;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.controlLabel {
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+
+.count {
+  font-family: var(--font-mono);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.control input[type="range"] {
+  width: 100%;
+  min-height: 24px;
+  accent-color: var(--accent);
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.checkbox input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--accent);
+}
+
+.canvasWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.readout {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink);
+}
+
+.notes {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  .canvasWrap {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex: 1 1 20rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.controlHint {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.inspect {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.groupTitle {
+  margin-inline-end: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

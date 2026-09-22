@@ -1,119 +1,162 @@
 "use client";
-import { useActionState, useRef } from "react";
+
+import { useActionState } from "react";
 
 import SubmitButton from "@/app/ui/contact/SubmitButton";
 import styles from "@/app/ui/contact/contact.module.scss";
 import { sendEmailAction } from "@/app/utils/actions";
+import { SITE, SOCIAL } from "@/app/utils/constants/site";
 import { initialState } from "./utils";
 
 const successMsg =
-  "Thank you. Quote has been sent successfully. I will get in touch soon.";
-
+  "Thanks. Your message is on its way, and I will reply as soon as I can.";
 
 const Contact = () => {
-  const [state, dispatch, isPending] = useActionState(sendEmailAction, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
+  const [state, dispatch] = useActionState(sendEmailAction, initialState);
 
+  const errors = state?.errors as
+    | Record<string, string[] | undefined>
+    | undefined;
 
   return (
-    <section className={styles.contact}>
-      <h1 className="section-title">Contact</h1>
-      <address className={styles.note}>
-        *Send me a direct email:{" "}
-        <a href={`mailto:${process.env.NEXT_PUBLIC_MY_PUBLIC_EMAIL}`} rel="noopener">
-          {process.env.NEXT_PUBLIC_MY_PUBLIC_EMAIL}
-        </a>{" "}
-        or fill the form.
-      </address>
-      <form name="contact" action={dispatch} ref={formRef}>
-        {/* Description */}
-        <label htmlFor="project-desc">Project brief description</label>
-        <textarea
-          name="description"
-          id="project-desc"
-          className={styles.description}
-          rows={6}
-          placeholder="Project Type, Target customer, timeline, estimate etc"
-          required
-          defaultValue={state?.data?.description}
-        />
-        <p
-          className={`${styles.error} ${state?.errors?.description ? "" : " hidden"
-            } `}
-        >
-          {state?.errors?.description || null}
+    <section className={`container ${styles.contact}`}>
+      <header className={styles.head}>
+        <p className="section-label">Contact</p>
+        <h1 className="section-title">Start a conversation</h1>
+        <p className="lede">
+          I am {SITE.name.split(" ")[0]}, a senior front-end developer based in{" "}
+          {SITE.location}. {SITE.relocation} Send a note about the role or the
+          team and I will reply.
         </p>
-        <label htmlFor="about_you">About You</label>
-        {/* Name */}
-        <div className={styles.formGroup}>
-          <div className={styles.formControl}>
+        <p className={styles.direct}>
+          Prefer email? Write to{" "}
+          <a className="link" href={`mailto:${SITE.email}`}>
+            {SITE.email}
+          </a>{" "}
+          or find me on{" "}
+          <a
+            className="link"
+            href={SOCIAL.linkedin.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>{" "}
+          and{" "}
+          <a
+            className="link"
+            href={SOCIAL.github.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          .
+        </p>
+      </header>
+
+      <form action={dispatch} className={styles.form}>
+        <div className={styles.field}>
+          <label htmlFor="message">Message</label>
+          <p className="hint">
+            The role, the team, and anything that helps me reply usefully.
+          </p>
+          <textarea
+            id="message"
+            name="description"
+            className="textarea"
+            rows={6}
+            placeholder="Senior front-end role on the platform team, remote, starting Q4..."
+            required
+            defaultValue={state?.data?.description}
+            aria-invalid={errors?.description ? true : undefined}
+            aria-describedby={errors?.description ? "message-error" : undefined}
+          />
+          {errors?.description ? (
+            <p id="message-error" className={styles.error} role="alert">
+              {errors.description[0]}
+            </p>
+          ) : null}
+        </div>
+
+        <div className={styles.grid}>
+          <div className={styles.field}>
+            <label htmlFor="name">Your name</label>
             <input
+              id="name"
               name="name"
               type="text"
-              id="about_you"
-              placeholder="Full Name"
+              className="input"
+              autoComplete="name"
               required
               defaultValue={state?.data?.name}
+              aria-invalid={errors?.name ? true : undefined}
+              aria-describedby={errors?.name ? "name-error" : undefined}
             />
-            <p
-              className={`${styles.error} ${state?.errors?.name ? "" : " hidden"
-                } `}
-            >
-              {state?.errors?.name || null}
-            </p>
+            {errors?.name ? (
+              <p id="name-error" className={styles.error} role="alert">
+                {errors.name[0]}
+              </p>
+            ) : null}
           </div>
-          <div className={styles.formControl}>
-            {/* Email */}
+
+          <div className={styles.field}>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               name="email"
               type="email"
-              placeholder="Email Address"
+              className="input"
+              autoComplete="email"
               required
               defaultValue={state?.data?.email}
+              aria-invalid={errors?.email ? true : undefined}
+              aria-describedby={errors?.email ? "email-error" : undefined}
             />
-            <p
-              className={`${styles.error} ${state?.errors?.email ? "" : " hidden"
-                } `}
-            >
-              {state?.errors?.email || null}
-            </p>
+            {errors?.email ? (
+              <p id="email-error" className={styles.error} role="alert">
+                {errors.email[0]}
+              </p>
+            ) : null}
           </div>
-          <div className={styles.formControl}>
-            {/* Company */}
+
+          <div className={styles.field}>
+            <label htmlFor="company">Company (optional)</label>
             <input
-              type="text"
+              id="company"
               name="company"
-              placeholder="Company Name (optional)"
+              type="text"
+              className="input"
+              autoComplete="organization"
               defaultValue={state?.data?.company}
             />
           </div>
-          <div className={styles.formControl}>
-            {/* Position */}
+
+          <div className={styles.field}>
+            <label htmlFor="position">Your role or title (optional)</label>
             <input
-              type="text"
+              id="position"
               name="position"
-              placeholder="Position (optional)"
+              type="text"
+              className="input"
+              autoComplete="organization-title"
               defaultValue={state?.data?.position}
             />
-            <p
-              className={`${styles.error} ${state?.errors?.position ? "" : " hidden"
-                } `}
-            >
-              {state?.errors?.position || null}
-            </p>
           </div>
         </div>
+
         <SubmitButton />
       </form>
-      {/* Fallback */}
+
       {state?.success ? (
-        <p className={`${styles.success}`}>{successMsg}</p>
-      ) : state?.errorMessage ? (
-        <p
-          className={`${styles.error} ${state?.errorMessage && !state?.success ? "" : " hidden"
-            } `}
-        >
-          {state?.errorMessage || null}
+        <p className={styles.success} role="status">
+          {successMsg}
+        </p>
+      ) : null}
+
+      {!state?.success && state?.errorMessage ? (
+        <p className={styles.formError} role="alert">
+          {state.errorMessage}
         </p>
       ) : null}
     </section>

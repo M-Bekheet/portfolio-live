@@ -1,30 +1,95 @@
 import type { Metadata } from "next";
-import { Raleway } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
+
 import "@/app/ui/globals.css";
 import styles from "@/app/ui/layout/layout.module.scss";
 import Header from "@/app/ui/layout/header/header";
 import Footer from "@/app/ui/layout/footer/footer";
-import { profile } from "./utils/constants/profile";
-import { DOMAIN } from "./utils/constants/paths";
-const raleway = Raleway({ subsets: ["latin"] });
-import { GoogleTagManager } from "@next/third-parties/google";
+import { DOMAIN, SITE } from "./utils/constants/site";
+
+const display = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const sans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const title = `${SITE.name} — ${SITE.role} (React, Next.js, TypeScript)`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(DOMAIN),
   title: {
-    default: "Mahmoud Bekheet Portfolio",
-    template: "%s | Mahmoud Bekheet",
+    default: title,
+    template: `%s | ${SITE.name}`,
   },
-  description:
-    "Mahmoud's Portfolio - Senior Front-end Developer with expertise in React.js, Next.js, TypeScript, and Node.js. Connect for collaborations and discussions.",
-  authors: {
-    url: profile.linkedin,
-    name: profile.title,
-  },
-  keywords: profile.keywords,
-  metadataBase: new URL(`${DOMAIN}`),
+  description: SITE.summary,
+  keywords: [...SITE.keywords],
+  authors: [{ name: SITE.name, url: SITE.linkedin }],
+  creator: SITE.name,
+  category: "technology",
   alternates: {
-    canonical: DOMAIN,
+    canonical: "/",
   },
+  openGraph: {
+    type: "profile",
+    title,
+    description: SITE.summary,
+    url: DOMAIN,
+    siteName: SITE.name,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: SITE.summary,
+    creator: SITE.twitter,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  jobTitle: SITE.role,
+  description: SITE.summary,
+  url: DOMAIN,
+  email: `mailto:${SITE.email}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Cairo",
+    addressCountry: "EG",
+  },
+  sameAs: [SITE.linkedin, SITE.github],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "React Native",
+    "Node.js",
+    "Front-end engineering",
+    "Web performance",
+    "Accessibility",
+  ],
 };
 
 export default function RootLayout({
@@ -33,18 +98,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={styles.html}>
-      <head>
-        <link rel="preload" href="/images/glassy.jpg" as="image" />
-      </head>
-      <body className={styles.layout + " " + raleway.className}>
-        <Header className={styles.header} />
-        <main className={styles.content}>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+    >
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <Header />
+        <main id="main" className={styles.main}>
           {children}
-          <Footer className={styles.footer} title={profile.title} />
         </main>
+        <Footer />
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM || ""} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </body>
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM || ""} />
     </html>
   );
 }

@@ -1,15 +1,13 @@
 import { useFormStatus } from "react-dom";
-import styles from "./contact.module.scss";
+
 const SubmitButton = () => {
   const { pending } = useFormStatus();
+
   return (
-    <button
-      type="submit"
-      className={styles.submit + " button colored"}
-      disabled={pending}
-    >
-      Request a quote
+    <button type="submit" className="btn btn--primary" disabled={pending}>
+      {pending ? "Sending..." : "Send message"}
     </button>
   );
 };
+
 export default SubmitButton;

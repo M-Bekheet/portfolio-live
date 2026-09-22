@@ -1,11 +1,16 @@
 .notFound {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 80vh;
+  padding-block: 4rem var(--space-12);
+  max-width: 40rem;
+}
 
-  a {
-    text-decoration: underline;
-  }
+.title {
+  font-size: clamp(2rem, 1.6rem + 2vw, 2.8rem);
+  letter-spacing: -0.01em;
+  margin-block: 0.75rem 1rem;
+}
+
+.text {
+  color: var(--ink-2);
+  margin-bottom: 1.75rem;
+  max-width: 48ch;
 }

@@ -1,37 +1,33 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+import styles from "@/app/ui/error.module.scss";
 
 const Error = ({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: VoidFunction;
 }) => {
-  const router = useRouter();
   return (
-    <>
-      <style jsx>
-        {`
-          .error-page__content {
-            padding-top: 30vh;
-          }
-        `}
-      </style>
-      <div className="error-page__content">
-        <h2>Something went wrong!</h2>
-        <button
-          className="button colored"
-          onClick={
-            // Attempt to recover by trying to re-render the invoices route
-            () => router.push("/")
-          }
-        >
-          Go Home
+    <section className={`container ${styles.error}`}>
+      <p className="eyebrow">Something broke</p>
+      <h1 className={styles.title}>That did not load</h1>
+      <p className={styles.text}>
+        The page failed while rendering. You can try again, or head back to the
+        homepage.
+      </p>
+      <div className={styles.actions}>
+        <button type="button" className="btn btn--primary" onClick={() => reset()}>
+          Try again
         </button>
+        <Link href="/" className="btn btn--secondary">
+          Back to homepage
+        </Link>
       </div>
-    </>
+    </section>
   );
 };
+
 export default Error;

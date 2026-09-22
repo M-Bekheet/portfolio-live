@@ -1,0 +1,133 @@
+.hero {
+  position: relative;
+  padding-block: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* Subtle technical grid, background plane only. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      to right,
+      rgba(42, 75, 155, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(42, 75, 155, 0.06) 1px, transparent 1px);
+  background-size: 84px 84px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000, transparent 78%);
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.intro {
+  max-width: 42rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 1.9rem + 3.6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-block: 1rem 0.75rem;
+}
+
+.noBreak {
+  white-space: nowrap;
+}
+
+.focus {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem);
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 1.35rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.9rem;
+}
+
+.profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+}
+
+.profile:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.spec {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: 1.35rem 1.4rem;
+}
+
+.specLabel {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+.specList {
+  display: flex;
+  flex-direction: column;
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.5rem 1rem;
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--border);
+}
+
+.specTerm {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.15rem;
+}
+
+.specDetail {
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.9fr) minmax(18rem, 1fr);
+    gap: 4rem;
+  }
+}
