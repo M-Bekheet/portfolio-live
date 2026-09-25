@@ -28,16 +28,17 @@
       "name": "Cura Healthcare",
       "location": "Remote",
       "description": "Saudi Health-tech Platform",
-      "position": "Front-end Developer",
+      "position": "Senior Front-end Developer",
       "startDate": "2022-09",
-      "summary": "Technologies: React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Redux, Redux Toolkit (RTK), Material UI (MUI), React Native, REST API.",
+      "summary": "Technologies: React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Redux, Redux Toolkit (RTK), Material UI (MUI), Flutter, Ionic, REST API.",
       "highlights": [
-        "Reviewed frontend implementations and collaborated with product, backend, mobile, and design teams on technical tradeoffs and delivery decisions.",
-        "Unified the web and mobile codebase into a single cross-platform solution serving web, iOS, and Android using React and React Native, reducing technical development time by ~50%.",
+        "Led the web engineering team for a period; reviewed frontend implementations and collaborated with product, backend, mobile, and design teams on technical tradeoffs and delivery decisions.",
+        "Built the replacement Flutter doctor app end to end, including mobile navigation, notifications, permissions, and integration with the web experience.",
+        "Shared web features across the patient and doctor apps, reducing development time by approximately 50% (internal estimate) and letting web-content updates ship independently of native app releases.",
         "Co-developed integrations with major Saudi health insurance providers (MedGulf, Alrajhi Takaful, and BUPA), directly expanding service accessibility and revenue streams.",
         "Architected and maintained a Next.js and TypeScript platform supporting 3,000+ monthly consultations, improving measured web-performance metrics by approximately 30% through rendering, asset, and loading optimizations.",
-        "Built a real-time patient-doctor chat system using React and REST API integrations, improving communication continuity during online consultations and reducing consultation drop-off.",
-        "Reduced average data-loading time by approximately 35% through caching, lazy loading, and request optimization in Next.js; also led delivery of payment gateways, authentication flows, SEO enhancements, and user-tracking integrations.",
+        "Built core patient journeys across authentication, search, profiles, consultation booking, and checkout with payment-service integration, plus a real-time patient-doctor chat system using React and REST API integrations that improved communication continuity during online consultations.",
+        "Reduced average data-loading time by approximately 35% through caching, lazy loading, and request optimization in Next.js, and reduced mobile web startup time by approximately 30–40% (before-and-after measurements; scopes may overlap); also contributed localization, SEO, and user-tracking integrations.",
         "Designed reusable frontend patterns for authentication, API integration, state management, and cross-platform functionality."
       ]
     },
@@ -124,7 +125,9 @@
     {
       "name": "Mobile",
       "keywords": [
-        "React Native"
+        "Flutter",
+        "Ionic",
+        "WebView integration"
       ]
     },
     {
