@@ -30,13 +30,18 @@ export const capabilities: CapabilityGroup[] = [
   },
   {
     label: "Mobile",
-    note: "Native app delivery and web-in-app integration",
-    items: ["Flutter", "Ionic", "WebView integration"],
+    note: "Web-in-app integration",
+    items: ["Ionic", "WebView integration"],
   },
   {
     label: "Tooling",
     note: "Build, versioning, and delivery",
-    items: ["Vite", "Webpack", "Git", "GitHub", "Docker", "NPM"],
+    items: ["Vite", "Webpack", "Git", "GitHub", "Docker", "Vercel", "NPM"],
+  },
+  {
+    label: "AI-assisted Development",
+    note: "Tools I use daily to plan, build, and review code",
+    items: ["Claude Code", "Codex", "Command Code"],
   },
   {
     label: "Full-stack breadth",

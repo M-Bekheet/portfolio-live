@@ -46,12 +46,12 @@ export const caseStudies: CaseStudy[] = [
     period: "Sep 2022 – Present · 4 years",
     context: "Remote · Saudi health-tech platform",
     summary:
-      "I built Cura’s replacement Flutter doctor app end to end and delivered major doctor-facing features in Next.js, spanning patient journeys, real-time communication, integrations, and performance across web and mobile.",
+      "I built Cura’s replacement Flutter doctor app end to end using AI-assisted development and delivered major doctor-facing features in Next.js, spanning patient journeys, real-time communication, integrations, and performance across web and mobile.",
     preview: {
       problem:
         "Cura needed a replacement doctor app and consistent telemedicine workflows across web and mobile.",
       approach:
-        "Built the Flutter doctor app end to end and major doctor-facing features in Next.js, reusing web features across apps.",
+        "Built the Flutter doctor app end to end using AI-assisted development (Claude Code, Codex), and major doctor-facing features in Next.js, reusing web features across apps.",
       result:
         "Shared web features reduced development time by approximately 50%, based on internal estimates.",
     },
@@ -62,14 +62,19 @@ export const caseStudies: CaseStudy[] = [
     ],
     built: [
       {
-        title: "New Flutter doctor app, built end to end",
+        title: "New Flutter doctor app, built end to end with AI-assisted development",
         detail:
-          "Built the replacement doctor app in Flutter from the ground up, including mobile navigation, notifications, permissions, and integration with the web experience. I also delivered major doctor-facing features in Next.js, with shared web functionality supporting both patient and doctor apps.",
+          "Built the replacement doctor app in Flutter from the ground up using AI-assisted development, including mobile navigation, notifications, permissions, and integration with the web experience. I also delivered major doctor-facing features in Next.js, with shared web functionality supporting both patient and doctor apps.",
+      },
+      {
+        title: "AI-assisted Flutter delivery",
+        detail:
+          "Flutter is outside my core stack, so I built the doctor app with AI-assisted development using Claude Code and Codex. I owned the architecture, requirements, and integration with our existing Next.js platform, while the AI tools generated much of the Flutter code. I reviewed, tested, and debugged everything before release. This let a web-focused team ship a production mobile app without hiring a dedicated Flutter developer.",
       },
       {
         title: "Patient journeys, integrations, and real-time chat",
         detail:
-          "Built core patient journeys across authentication, search, profiles, consultation booking, and checkout, including payment-service integration. Co-developed insurance integrations and built real-time patient–doctor chat, with further contributions to lab-test ordering, e-prescriptions, and voice and video calling.",
+          "Built core patient journeys across JWT-based authentication, search, profiles, consultation booking, and checkout, including payment-service integration. Co-developed insurance integrations and built real-time patient–doctor chat, with further contributions to lab-test ordering, e-prescriptions, and voice and video calling.",
       },
       {
         title: "Platform maintenance and performance",

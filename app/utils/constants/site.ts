@@ -37,7 +37,7 @@ export const SITE = {
     "Next.js developer",
     "TypeScript",
     "front-end engineer",
-    "Flutter",
+    "AI-assisted development",
     "Node.js",
     "Cairo",
     "remote",
