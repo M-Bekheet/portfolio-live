@@ -15,6 +15,11 @@
   border-bottom: 1px solid var(--border);
 }
 
+// The section's own bottom border closes the list.
+.item:last-child {
+  border-bottom: 0;
+}
+
 .article {
   display: grid;
   grid-template-columns: 1fr;

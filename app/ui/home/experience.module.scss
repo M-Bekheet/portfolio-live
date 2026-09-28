@@ -19,6 +19,11 @@
   border-bottom: 1px solid var(--border);
 }
 
+// The education block's top border closes the timeline.
+.entry:last-child {
+  border-bottom: 0;
+}
+
 .period {
   font-family: var(--font-mono);
   font-size: 0.8rem;
