@@ -193,6 +193,26 @@ section {
   padding-block: var(--space-9);
 }
 
+/* Bottom separator drawn at content width (inside the container's inline
+   padding) so it lines up with section labels and other rules. */
+.section-rule {
+  position: relative;
+}
+
+.section-rule::after {
+  content: "";
+  position: absolute;
+  inset-inline: 1.5rem;
+  bottom: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 768px) {
+  .section-rule::after {
+    inset-inline: 2.5rem;
+  }
+}
+
 .rule {
   border: 0;
   border-top: 1px solid var(--border);

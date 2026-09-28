@@ -8,7 +8,7 @@ export function SelectedWork() {
   const work = caseStudies.filter((study) => study.featured);
 
   return (
-    <section id="work" className={`section container ${styles.section}`}>
+    <section id="work" className={`section container section-rule`}>
       <header className={styles.head}>
         <p className="section-label">Selected work</p>
         <h2 className="section-title">Projects, problems, and results</h2>

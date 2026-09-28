@@ -16,7 +16,7 @@ const spec = [
 export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
-      <div className={`container ${styles.grid}`}>
+      <div className={`container section-rule ${styles.grid}`}>
         <div className={styles.intro}>
           <p className="eyebrow">
             {SITE.name} · {SITE.location} · {SITE.availabilitySummary}

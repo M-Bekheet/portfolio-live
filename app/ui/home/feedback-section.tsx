@@ -4,7 +4,7 @@ import styles from "./feedback.module.scss";
 export function FeedbackSection() {
   return (
     <section
-      className={`section container ${styles.section}`}
+      className={`section container section-rule`}
       aria-labelledby="feedback-title"
     >
       <header className={styles.head}>

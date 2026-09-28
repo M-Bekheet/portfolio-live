@@ -1,7 +1,3 @@
-.section {
-  border-bottom: 1px solid var(--border);
-}
-
 .head {
   max-width: 52rem;
   margin-bottom: var(--space-9);
@@ -15,9 +11,14 @@
   border-bottom: 1px solid var(--border);
 }
 
-// The section's own bottom border closes the list.
+// The section's own bottom border closes the list, and its padding alone
+// spaces that border, so the last row adds neither a line nor extra space.
 .item:last-child {
   border-bottom: 0;
+}
+
+.item:last-child .article {
+  padding-bottom: 0;
 }
 
 .article {

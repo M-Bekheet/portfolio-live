@@ -5,7 +5,7 @@ import styles from "./writing.module.scss";
 
 export function WritingSection() {
   return (
-    <section className="section container">
+    <section className={`section container ${styles.section}`}>
       <div className={styles.panel}>
         <div className={styles.text}>
           <p className="section-label">Writing</p>

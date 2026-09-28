@@ -1,3 +1,8 @@
+/* The footer's margin-top supplies the 5rem above its separator. */
+section.section {
+  padding-bottom: 0;
+}
+
 .panel {
   display: grid;
   grid-template-columns: 1fr;

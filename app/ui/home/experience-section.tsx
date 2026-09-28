@@ -3,7 +3,7 @@ import styles from "./experience.module.scss";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className={`section container ${styles.section}`}>
+    <section id="experience" className={`section container section-rule`}>
       <header className={styles.head}>
         <p className="section-label">Experience</p>
         <h2 className="section-title">Where I&apos;ve worked</h2>

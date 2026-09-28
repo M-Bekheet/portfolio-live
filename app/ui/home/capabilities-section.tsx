@@ -5,7 +5,7 @@ export function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className={`section container ${styles.section}`}
+      className={`section container section-rule`}
       aria-labelledby="capabilities-title"
     >
       <header className={styles.head}>
